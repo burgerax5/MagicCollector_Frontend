@@ -1,33 +1,47 @@
-import React from 'react'
+import { useState } from 'react'
 import LogoDark from '../../assets/logo_dark.png'
 import { Link } from "react-router-dom"
 import '../../styles/header.css'
 
+import { IoMenu, IoClose } from "react-icons/io5";
+
 const Header = () => {
+    const [isOpen, setIsOpen] = useState(false);
+
+    const toggleMenu = () => {
+        setIsOpen(!isOpen);
+    }
+
     return (
-        <nav className="navbar">
+        <header className="header">
             <Link to="/" className="logo">
-                <img src={LogoDark} />
+                <img src={LogoDark} alt="Logo" />
             </Link>
 
-            <ul>
-                <li>
-                    <Link to="/cards">All Cards</Link>
-                </li>
-                <li>
-                    <Link to="/sets">All Sets</Link>
-                </li>
-                <li>
-                    <Link to="/mycards">My Cards</Link>
-                </li>
-                <li>
-                    <Link to="/login">Login</Link>
-                </li>
-                <li>
-                    <Link to="/register">Register</Link>
-                </li>
-            </ul>
-        </nav>
+            <nav className="navbar">
+                <div className="menu-icon" onClick={toggleMenu}>
+                    {isOpen ? <IoClose /> : <IoMenu />}
+                </div>
+
+                <ul className={isOpen ? "nav-links open" : "nav-links"}>
+                    <li>
+                        <Link to="/cards" onClick={toggleMenu}>All Cards</Link>
+                    </li>
+                    <li>
+                        <Link to="/sets" onClick={toggleMenu}>All Sets</Link>
+                    </li>
+                    <li>
+                        <Link to="/mycards" onClick={toggleMenu}>My Cards</Link>
+                    </li>
+                    <li>
+                        <Link to="/login" className="login" onClick={toggleMenu}>Login</Link>
+                    </li>
+                    <li>
+                        <Link to="/register" className="register" onClick={toggleMenu}>Register</Link>
+                    </li>
+                </ul>
+            </nav>
+        </header>
     )
 }
 

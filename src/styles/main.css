@@ -18,4 +18,5 @@ body {
     box-sizing: border-box;
     font-family: "Inter", sans-serif;
     background-color: var(--background);
+    position: relative;
 }

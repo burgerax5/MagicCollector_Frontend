@@ -1,34 +1,114 @@
-.navbar {
-    background-color: var(--secondary);
+.header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    background-color: var(--secondary);
+    border-bottom: 2px solid #6B6B6B;
     font-weight: bold;
-    padding-inline: 3rem;
+    justify-content: space-between;
 }
 
-.navbar .logo {
-    max-width: 150px;
+.navbar {
+    display: flex;
+    padding: 1rem 3rem;
+    display: flex;
+    align-items: center;
 }
 
-.navbar .logo img {
+.header .logo {
+    width: 200px;
+}
+
+.header .logo img {
     width: 100%;
 }
 
-.navbar ul {
-    display: flex;
-    gap: 1.5rem;
+.menu-icon {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
 }
 
-.navbar li {
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
     list-style: none;
 }
 
-.navbar a {
+.nav-links li {
+    list-style: none;
+}
+
+.nav-links a {
     text-decoration: none;
     color: var(--secondary-font-colour);
 }
 
-.navbar a:hover {
+.nav-links a:hover {
     color: var(--font-colour);
+}
+
+.nav-links .login {
+    background-color: var(--tertiary);
+}
+
+.nav-links .login,
+.nav-links .register {
+    color: var(--secondary);
+    padding: 0.75rem 2rem;
+    border-radius: 1.5rem;
+}
+
+.nav-links .register {
+    background-color: var(--primary);
+}
+
+.menu-close {
+    display: none;
+}
+
+@media screen and (max-width: 888px) {
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        position: fixed;
+        top: 60px;
+        right: 0;
+        width: clamp(200px, 80%, 400px);
+        height: 100%;
+        gap: 0;
+        background-color: var(--secondary);
+        padding: 0;
+        text-align: center;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .menu-close {
+        display: flex;
+    }
+
+    .nav-links>li {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem 0;
+        border-bottom: 1px solid var(--tertiary);
+    }
+
+    .menu-icon {
+        display: block;
+        color: var(--font-colour);
+    }
+
+    .navbar li,
+    .navbar li a {
+        width: 100%;
+    }
+
+    .navbar li a {
+        display: block;
+    }
 }
