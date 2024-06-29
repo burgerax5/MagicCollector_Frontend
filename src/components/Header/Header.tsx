@@ -4,6 +4,7 @@ import { Link } from "react-router-dom"
 import '../../styles/header.css'
 
 import { IoMenu, IoClose } from "react-icons/io5";
+import ThemeToggle from './ThemeToggle';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -24,6 +25,9 @@ const Header = () => {
                 </div>
 
                 <ul className={isOpen ? "nav-links open" : "nav-links"}>
+                    <li>
+                        <ThemeToggle />
+                    </li>
                     <li>
                         <Link to="/cards" onClick={toggleMenu}>All Cards</Link>
                     </li>
