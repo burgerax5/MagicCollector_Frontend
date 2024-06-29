@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import Header from './components/Header/Header'
+import { Outlet } from "react-router-dom"
 
 function App() {
   return (
     <>
-      <h1>HI</h1>
+      <Header />
+      <div>
+        <Outlet />
+      </div>
     </>
   )
 }
