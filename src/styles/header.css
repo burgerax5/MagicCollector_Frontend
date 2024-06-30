@@ -95,6 +95,7 @@
         background-color: var(--secondary);
         padding: 0;
         text-align: center;
+        z-index: 999;
     }
 
     .nav-links.open {
