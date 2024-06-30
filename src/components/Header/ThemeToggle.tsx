@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { MdOutlineLightMode, MdOutlineDarkMode } from "react-icons/md";
 import { RootState } from '../../redux/reducers/rootReducer';
@@ -7,19 +8,21 @@ const ThemeToggle: React.FC = () => {
     const isDarkTheme = useSelector((state: RootState) => state.theme.isDarkMode);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        const rootElement = document.getElementById("root");
+        if (isDarkTheme && rootElement)
+            rootElement.classList.add('dark-theme');
+        else if (rootElement)
+            rootElement.classList.remove('dark-theme');
+    }, [isDarkTheme])
+
     const handleToggleTheme = () => {
         dispatch(toggleTheme());
     };
 
     return (
-        <div className="toggle-theme">
-            <MdOutlineLightMode />
-            <div
-                className={isDarkTheme ? "toggle-slider toggled" : "toggle-slider"}
-                onClick={handleToggleTheme}>
-                <span className={isDarkTheme ? "toggle-slider-circle toggled" : "toggle-slider-circle"}></span>
-            </div>
-            <MdOutlineDarkMode />
+        <div className="toggle-theme" onClick={handleToggleTheme}>
+            {isDarkTheme ? <MdOutlineDarkMode /> : <MdOutlineLightMode />}
         </div>
     );
 };

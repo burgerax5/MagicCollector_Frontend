@@ -44,8 +44,14 @@
     color: var(--secondary-font-colour);
 }
 
-.nav-links a:hover {
+.nav-links a:hover,
+.toggle-theme svg:hover {
     color: var(--font-colour);
+}
+
+.nav-links .login:hover,
+.nav-links .register:hover {
+    color: var(--secondary);
 }
 
 .nav-links .login {
@@ -68,40 +74,7 @@
 }
 
 .toggle-theme {
-    display: flex;
-    align-content: center;
-    justify-content: center;
-}
-
-.toggle-slider {
-    margin: auto 0.25rem;
-    width: 50px;
-    height: 20px;
-    background-color: var(--tertiary);
-    border-radius: 3rem;
-    position: relative;
     cursor: pointer;
-}
-
-.toggle-slider.toggled {
-    background-color: var(--primary);
-}
-
-.toggle-slider-circle {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 16px;
-    height: 16px;
-    background-color: var(--font-colour);
-    border-radius: 50%;
-    transition: all 0.2s ease;
-}
-
-.toggle-slider-circle.toggled {
-    left: unset;
-    transform: translateX(200%);
-    background-color: var(--background);
 }
 
 .toggle-theme svg {
@@ -143,12 +116,6 @@
     .menu-icon {
         display: block;
         color: var(--font-colour);
-    }
-
-    .toggle-slider-circle.toggled {
-        left: unset;
-        transform: translateX(45%);
-        background-color: var(--background);
     }
 
     .navbar li,
