@@ -7,12 +7,20 @@ import {
 } from "react-router-dom";
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import ErrorPage from './pages/ErrorPage';
+import HomePage from './pages/HomePage';
+import Layout from './Layout';
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <Layout><App /></Layout>,
+    errorElement: <Layout><ErrorPage /></Layout>,
     children: [
+      {
+        path: "/",
+        element: <HomePage />
+      },
       {
         path: "login",
         element: <h1>LOGIN</h1>

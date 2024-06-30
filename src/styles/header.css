@@ -105,12 +105,19 @@
         display: flex;
     }
 
-    .nav-links>li {
+    .nav-links>li a,
+    .toggle-theme {
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 1.5rem 0;
         border-bottom: 1px solid var(--tertiary);
+    }
+
+    .nav-links .login,
+    .nav-links .register {
+        border-radius: 0;
+        padding: 1.5rem 0;
     }
 
     .menu-icon {
@@ -119,7 +126,8 @@
     }
 
     .navbar li,
-    .navbar li a {
+    .navbar li a,
+    .toggle-theme {
         width: 100%;
     }
 

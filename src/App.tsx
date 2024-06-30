@@ -4,12 +4,9 @@ import './styles/main.css'
 
 function App() {
   return (
-    <>
-      <Header />
-      <div>
-        <Outlet />
-      </div>
-    </>
+    <div>
+      <Outlet />
+    </div>
   )
 }
 
