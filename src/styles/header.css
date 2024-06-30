@@ -95,11 +95,12 @@
     height: 16px;
     background-color: var(--font-colour);
     border-radius: 50%;
+    transition: all 0.2s ease;
 }
 
 .toggle-slider-circle.toggled {
     left: unset;
-    right: 2px;
+    transform: translateX(200%);
     background-color: var(--background);
 }
 
@@ -142,6 +143,12 @@
     .menu-icon {
         display: block;
         color: var(--font-colour);
+    }
+
+    .toggle-slider-circle.toggled {
+        left: unset;
+        transform: translateX(45%);
+        background-color: var(--background);
     }
 
     .navbar li,
