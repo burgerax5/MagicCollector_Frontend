@@ -79,11 +79,18 @@
     right: 2rem;
 }
 
-.clear-field:hover {
+.clear-field:hover,
+.toggle-password:hover {
     color: var(--font-colour);
 }
 
 .auth-input span {
     font-size: 0.85rem;
     color: var(--red);
+}
+
+.toggle-password {
+    position: absolute;
+    top: 0.75rem;
+    right: 2rem;
 }
