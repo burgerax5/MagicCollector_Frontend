@@ -6,6 +6,7 @@ import LogoLight from '../assets/logo_light.png';
 import '../styles/auth.css'
 import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';
+import { Link } from 'react-router-dom';
 
 const initialFormState = {
     username: "",
@@ -24,11 +25,17 @@ const LoginPage = () => {
         <div className="container">
             <div className="auth-form-container">
                 <img src={isDarkMode ? LogoDark : LogoLight} />
-                <h1>Account Login</h1>
+                <h1>Log In</h1>
                 <form className="auth-form">
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
                     <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
-                    <button>Log In</button>
+
+                    <button
+                        className={form.username && form.password ? "submit-btn" : "submit-btn disabled"}
+                        disabled={!(form.username && form.password)}>
+                        Log In
+                    </button>
+                    <Link className="link" to="/register">Register Now</Link>
                 </form>
             </div>
         </div>

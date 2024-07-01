@@ -3,7 +3,7 @@ import { IoCloseCircle } from "react-icons/io5";
 
 type Props = {
     username: string,
-    resetField: (field: "username" | "password") => void,
+    resetField: (field: "username" | "password" | "confirmPassword") => void,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 

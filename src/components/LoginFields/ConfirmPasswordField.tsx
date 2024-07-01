@@ -4,11 +4,12 @@ import { PiEyeClosed, PiEye } from "react-icons/pi";
 
 type Props = {
     password: string,
+    confirmPassword: string,
     resetField: (field: "username" | "password" | "confirmPassword") => void,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
-const PasswordField = (props: Props) => {
+const ConfirmPasswordField = (props: Props) => {
     const [error, setError] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [isMinimised, setIsMinimised] = useState(false);
@@ -16,40 +17,49 @@ const PasswordField = (props: Props) => {
     const handleFocus = () => setIsMinimised(true);
 
     const handleBlur = () => {
-        const passwordLength = props.password.length;
+        const passwordLength = props.confirmPassword.length;
         setIsMinimised(passwordLength > 0);
         if (passwordLength === 0)
-            setError("Password cannot be empty");
+            setError("Confirm Password cannot be empty");
     }
 
     const handleClearField = () => {
-        props.resetField("password")
+        props.resetField("confirmPassword")
         setIsMinimised(false);
-        setError("Password cannot be empty");
+        setError("Confirm Password cannot be empty");
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         props.onChange(e);
-        if (e.target.value.length > 0) setError("");
+        const samePassword = props.password === e.target.value;
+        if (e.target.value.length > 0 && samePassword) setError("");
+        else if (e.target.value.length > 0 && !samePassword) setError("Passwords do not match");
     }
 
     const toggleShowPassword = () => setShowPassword(!showPassword)
 
     return (
         <div className={error.length > 0 ? "auth-input error" : "auth-input"}>
-            <label className={isMinimised ? "minimised" : ""}>Password</label>
+            <label className={isMinimised ? "minimised" : ""}>Confirm Password</label>
 
             {/* Clear field */}
-            {props.password.length > 0 && <IoCloseCircle style={{ right: "3.5rem" }} onClick={handleClearField} className="clear-field" />}
+            {props.confirmPassword.length > 0 && <IoCloseCircle style={{ right: "3.5rem" }} onClick={handleClearField} className="clear-field" />}
 
             {/* Toggle password */}
             {showPassword ? <PiEye onClick={toggleShowPassword} className="toggle-password" />
                 : <PiEyeClosed onClick={toggleShowPassword} className="toggle-password" />}
 
-            <input type={showPassword ? "text" : "password"} onBlur={handleBlur} onFocus={handleFocus} value={props.password} onChange={handleChange} required />
-            {error && <span>Password cannot be empty</span>}
+            <input
+                type={showPassword ? "text" : "password"}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                value={props.confirmPassword}
+                onChange={handleChange}
+                required />
+
+            {error && <span>{error}</span>}
         </div>
     )
 }
 
-export default PasswordField
+export default ConfirmPasswordField
