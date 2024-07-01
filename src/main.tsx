@@ -10,6 +10,8 @@ import store from './redux/store';
 import ErrorPage from './pages/ErrorPage';
 import HomePage from './pages/HomePage';
 import Layout from './Layout';
+import LoginPage from './pages/LoginPage';
+import RegisterPage from './pages/RegisterPage';
 
 const router = createBrowserRouter([
   {
@@ -23,7 +25,11 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <h1>LOGIN</h1>
+        element: <LoginPage />
+      },
+      {
+        path: "register",
+        element: <RegisterPage />
       }
     ]
   },

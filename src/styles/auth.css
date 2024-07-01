@@ -1,0 +1,89 @@
+.auth-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.auth-form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 400px;
+    width: 100%;
+    background-color: var(--secondary);
+    border-radius: 1rem;
+    padding: 3rem;
+    border: 1px solid var(--tertiary);
+}
+
+.auth-form-container h1 {
+    color: var(--font-colour);
+    text-align: center;
+}
+
+.container {
+    margin-top: 6rem;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-input {
+    width: 100%;
+    position: relative;
+    color: var(--secondary-font-colour);
+}
+
+.auth-input label {
+    position: absolute;
+    transition: 0.2s all;
+    left: 1rem;
+    top: 0.65rem;
+    pointer-events: none;
+}
+
+.auth-input label.minimised {
+    top: 0.35rem;
+    font-size: x-small;
+}
+
+.auth-input.error label.minimised {
+    color: var(--red);
+}
+
+.auth-input input {
+    width: 91.5%;
+    z-index: 999;
+    padding: 1rem 1rem 0.5rem 1rem;
+    border: 1px solid var(--tertiary);
+    background-color: var(--background);
+    border-radius: 0.75rem;
+}
+
+.auth-input input:focus {
+    outline: none;
+}
+
+.auth-input.error input {
+    border-color: var(--red);
+}
+
+.clear-field {
+    position: absolute;
+    top: 0.75rem;
+    right: 2rem;
+}
+
+.clear-field:hover {
+    color: var(--font-colour);
+}
+
+.auth-input span {
+    font-size: 0.85rem;
+    color: var(--red);
+}
