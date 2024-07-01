@@ -17,16 +17,31 @@ const LoginPage = () => {
     const [form, setForm] = useState(initialFormState);
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
-    const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value })
-    const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value })
-    const resetField = (field: "username" | "password") => setForm({ ...form, [field]: "" })
+    const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value });
+    const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value });
+    const resetField = (field: "username" | "password" | "confirmPassword") => setForm({ ...form, [field]: "" });
+
+    const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const url = 'https://localhost:7136/api/user/login';
+        const res = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify(form),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+
+        console.log(res)
+    }
 
     return (
         <div className="container">
             <div className="auth-form-container">
                 <img src={isDarkMode ? LogoDark : LogoLight} />
                 <h1>Log In</h1>
-                <form className="auth-form">
+                <form className="auth-form" onSubmit={async (e) => await submitLogin(e)}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
                     <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
 

@@ -23,12 +23,30 @@ const RegisterPage = () => {
     const updateConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, confirmPassword: e.target.value })
     const resetField = (field: "username" | "password" | "confirmPassword") => setForm({ ...form, [field]: "" })
 
+    const submitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const url = 'https://localhost:7136/api/user/register';
+        const res = await fetch(url, {
+            method: "POST",
+            body: JSON.stringify({
+                username: form.username,
+                password: form.password
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+
+        console.log(res)
+    }
+
     return (
         <div className="container">
             <div className="auth-form-container">
                 <img src={isDarkMode ? LogoDark : LogoLight} />
                 <h1>Sign Up</h1>
-                <form className="auth-form">
+                <form className="auth-form" onSubmit={async (e) => await submitRegister(e)}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
                     <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
                     <ConfirmPasswordField
@@ -39,7 +57,7 @@ const RegisterPage = () => {
 
                     <button
                         className={form.username && form.password ? "submit-btn" : "submit-btn disabled"}
-                        disabled={!(form.username && form.password)}>
+                        disabled={!(form.username && form.password) || form.password !== form.confirmPassword}>
                         Log In
                     </button>
                     <span className="link-msg">Already a member? <Link className="link" to="/login">Sign In</Link></span>
