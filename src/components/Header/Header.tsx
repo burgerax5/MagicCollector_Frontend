@@ -4,9 +4,13 @@ import '../../styles/header.css';
 import { IoMenu, IoClose } from "react-icons/io5";
 import ThemeToggle from './ThemeToggle';
 import Logo from '../Logo';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/reducers/rootReducer';
+import { FiLogOut } from "react-icons/fi";
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -36,12 +40,21 @@ const Header = () => {
                     <li>
                         <Link to="/mycards" onClick={toggleMenu}>My Cards</Link>
                     </li>
-                    <li>
-                        <Link to="/login" className="login" onClick={toggleMenu}>Login</Link>
-                    </li>
-                    <li>
-                        <Link to="/register" className="register" onClick={toggleMenu}>Register</Link>
-                    </li>
+                    {!isAuthenticated ?
+                        <>
+                            <li>
+                                <Link to="/login" className="login" onClick={toggleMenu}>Login</Link>
+                            </li>
+                            <li>
+                                <Link to="/register" className="register" onClick={toggleMenu}>Register</Link>
+                            </li>
+                        </> :
+                        <li>
+                            <Link to="/" className="logout">
+                                Logout
+                                <FiLogOut />
+                            </Link>
+                        </li>}
                 </ul>
             </nav>
         </header>

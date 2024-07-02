@@ -1,15 +1,19 @@
 import { LoginActionType } from "../actions/actions"
 import { LOGIN, LOGOUT } from "../actions/actionTypes"
 import User from '../../models/User'
+import Cookies from "js-cookie"
 
 type AuthState = {
     isAuthenticated: boolean,
     user: User | null
 }
 
+const authCookie = Cookies.get("auth");
+const hasAuthCookie = authCookie !== null;
+
 const initialState: AuthState = {
-    isAuthenticated: false,
-    user: null
+    isAuthenticated: hasAuthCookie,
+    user: hasAuthCookie ? { username: authCookie as string } : null
 }
 
 const authReducer = (state: AuthState = initialState, action: LoginActionType) => {

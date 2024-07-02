@@ -4,7 +4,7 @@ import { RootState } from '../redux/reducers/rootReducer'
 import '../styles/auth.css'
 import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';
-import { Link, redirect } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import requestLogin from '../api/user/login';
 import { LoginField } from '../models/UserLogin';
 import { useDispatch } from 'react-redux';
@@ -20,7 +20,7 @@ const initialFormState = {
 const LoginPage = () => {
     const [form, setForm] = useState(initialFormState);
     const dispatch = useDispatch();
-    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const navigate = useNavigate();
 
     const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value });
     const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value });
@@ -34,7 +34,7 @@ const LoginPage = () => {
             const data = await res.json();
             Cookies.set("auth", data.token);
             dispatch(LoginAction(form.username));
-            return redirect("/");
+            navigate("/");
         }
     }
 

@@ -82,6 +82,16 @@
     font-size: 1.5rem;
 }
 
+.nav-links .logout {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.nav-links .logout:hover {
+    color: var(--red);
+}
+
 @media screen and (max-width: 888px) {
     .nav-links {
         display: none;
@@ -134,5 +144,9 @@
 
     .navbar li a {
         display: block;
+    }
+
+    .nav-links .logout {
+        margin-top: auto;
     }
 }
