@@ -7,13 +7,22 @@ import Logo from '../Logo';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/reducers/rootReducer';
 import { FiLogOut } from "react-icons/fi";
+import Cookies from 'js-cookie';
+import { useDispatch } from 'react-redux';
+import { LogoutAction } from '../../redux/actions/actions';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+    const dispatch = useDispatch();
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
+    }
+
+    const logout = () => {
+        Cookies.remove('auth');
+        dispatch(LogoutAction());
     }
 
     return (
@@ -50,7 +59,7 @@ const Header = () => {
                             </li>
                         </> :
                         <li>
-                            <Link to="/" className="logout">
+                            <Link to="/" onClick={logout} className="logout">
                                 Logout
                                 <FiLogOut />
                             </Link>
