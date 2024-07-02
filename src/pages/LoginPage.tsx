@@ -6,9 +6,11 @@ import LogoLight from '../assets/logo_light.png';
 import '../styles/auth.css'
 import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';
-import { Link } from 'react-router-dom';
+import { Link, redirect } from 'react-router-dom';
 import requestLogin from '../api/user/login';
 import { LoginField } from '../models/UserLogin';
+import { useDispatch } from 'react-redux';
+import { LoginAction } from '../redux/actions/actions';
 
 const initialFormState = {
     username: "",
@@ -18,6 +20,10 @@ const initialFormState = {
 const LoginPage = () => {
     const [form, setForm] = useState(initialFormState);
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
+    const dispatch = useDispatch();
+    const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
+
+    console.log(isAuthenticated)
 
     const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value });
     const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value });
@@ -26,13 +32,17 @@ const LoginPage = () => {
     const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const res = await requestLogin(form);
-        console.log(res);
+
+        if (res.ok) {
+            dispatch(LoginAction(form.username));
+            return redirect("/");
+        }
     }
 
     return (
         <div className="container">
             <div className="auth-form-container">
-                <img src={isDarkMode ? LogoDark : LogoLight} />
+                <img src={isDarkMode ? LogoDark : LogoLight} alt="MagicGatherer Logo" />
                 <h1>Log In</h1>
                 <form className="auth-form" onSubmit={submitLogin}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />

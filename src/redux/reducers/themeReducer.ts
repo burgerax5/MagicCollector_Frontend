@@ -1,6 +1,6 @@
 // themeReducer.ts
 import { TOGGLE_THEME } from "../actions/actionTypes";
-import { ThemeAction } from "../actions/actions";
+import { ThemeActionType } from "../actions/actions";
 import Cookies from "js-cookie";
 
 export type ThemeState = {
@@ -14,7 +14,7 @@ const initialState: ThemeState = {
     isDarkMode: themeCookie ? themeCookie === 'true' : matchMedia
 };
 
-const themeReducer = (state: ThemeState = initialState, action: ThemeAction): ThemeState => {
+const themeReducer = (state: ThemeState = initialState, action: ThemeActionType): ThemeState => {
     switch (action.type) {
         case TOGGLE_THEME:
             const newTheme = !state.isDarkMode;

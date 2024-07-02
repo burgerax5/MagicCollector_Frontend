@@ -1,8 +1,10 @@
 import { combineReducers } from "@reduxjs/toolkit";
 import themeReducer from "./themeReducer";
+import authReducer from "./authReducer";
 
 const rootReducer = combineReducers({
-    theme: themeReducer
+    theme: themeReducer,
+    auth: authReducer
 });
 
 export default rootReducer;
