@@ -34,9 +34,16 @@ const UsernameField = (props: Props) => {
 
     return (
         <div className={error.length > 0 ? "auth-input error" : "auth-input"}>
-            <label className={isMinimised ? "minimised" : ""}>Username</label>
+            <label htmlFor="username" className={isMinimised ? "minimised" : ""}>Username</label>
             {props.username.length > 0 && <IoCloseCircle onClick={handleClearField} className="clear-field" />}
-            <input onBlur={handleBlur} onFocus={handleFocus} value={props.username} onChange={handleChange} autoComplete="username" required />
+            <input
+                id="username"
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                value={props.username}
+                onChange={handleChange}
+                autoComplete="username"
+                required />
             {(props.username.length === 0 && error) && <span>Username cannot be empty</span>}
         </div>
     )

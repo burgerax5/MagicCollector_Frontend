@@ -34,7 +34,7 @@ const RegisterPage = () => {
     return (
         <div className="container">
             <div className="auth-form-container">
-                <img src={isDarkMode ? LogoDark : LogoLight} />
+                <img src={isDarkMode ? LogoDark : LogoLight} alt="MagicGatherer Logo" />
                 <h1>Sign Up</h1>
                 <form className="auth-form" onSubmit={submitRegister}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />

@@ -38,7 +38,7 @@ const PasswordField = (props: Props) => {
 
     return (
         <div className={error.length > 0 ? "auth-input error" : "auth-input"}>
-            <label className={isMinimised ? "minimised" : ""}>Password</label>
+            <label htmlFor="password" className={isMinimised ? "minimised" : ""}>Password</label>
 
             {/* Clear field */}
             {props.password.length > 0 && <IoCloseCircle style={{ right: "3.5rem" }} onClick={handleClearField} className="clear-field" />}
@@ -48,6 +48,7 @@ const PasswordField = (props: Props) => {
                 : <PiEyeClosed onClick={toggleShowPassword} className="toggle-password" />}
 
             <input
+                id="password"
                 type={showPassword ? "text" : "password"}
                 onBlur={handleBlur}
                 onFocus={handleFocus}
