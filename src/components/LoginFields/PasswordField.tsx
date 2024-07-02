@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 import { PiEyeClosed, PiEye } from "react-icons/pi";
+import { LoginField } from '../../models/UserLogin';
 
 type Props = {
     password: string,
-    resetField: (field: "username" | "password" | "confirmPassword") => void,
+    resetField: (field: LoginField) => void,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -46,7 +47,14 @@ const PasswordField = (props: Props) => {
             {showPassword ? <PiEye onClick={toggleShowPassword} className="toggle-password" />
                 : <PiEyeClosed onClick={toggleShowPassword} className="toggle-password" />}
 
-            <input type={showPassword ? "text" : "password"} onBlur={handleBlur} onFocus={handleFocus} value={props.password} onChange={handleChange} required />
+            <input
+                type={showPassword ? "text" : "password"}
+                onBlur={handleBlur}
+                onFocus={handleFocus}
+                value={props.password}
+                onChange={handleChange}
+                autoComplete="current-password"
+                required />
             {error && <span>Password cannot be empty</span>}
         </div>
     )

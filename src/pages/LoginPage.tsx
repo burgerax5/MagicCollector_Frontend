@@ -7,6 +7,8 @@ import '../styles/auth.css'
 import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';
 import { Link } from 'react-router-dom';
+import requestLogin from '../api/user/login';
+import { LoginField } from '../models/UserLogin';
 
 const initialFormState = {
     username: "",
@@ -19,21 +21,12 @@ const LoginPage = () => {
 
     const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value });
     const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value });
-    const resetField = (field: "username" | "password" | "confirmPassword") => setForm({ ...form, [field]: "" });
+    const resetField = (field: LoginField) => setForm({ ...form, [field]: "" });
 
     const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const url = 'https://localhost:7136/api/user/login';
-        const res = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify(form),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-
-        console.log(res)
+        const res = await requestLogin(form);
+        console.log(res);
     }
 
     return (
@@ -41,7 +34,7 @@ const LoginPage = () => {
             <div className="auth-form-container">
                 <img src={isDarkMode ? LogoDark : LogoLight} />
                 <h1>Log In</h1>
-                <form className="auth-form" onSubmit={async (e) => await submitLogin(e)}>
+                <form className="auth-form" onSubmit={submitLogin}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
                     <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
 

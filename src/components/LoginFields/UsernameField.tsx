@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
+import { LoginField } from '../../models/UserLogin';
 
 type Props = {
     username: string,
-    resetField: (field: "username" | "password" | "confirmPassword") => void,
+    resetField: (field: LoginField) => void,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -35,7 +36,7 @@ const UsernameField = (props: Props) => {
         <div className={error.length > 0 ? "auth-input error" : "auth-input"}>
             <label className={isMinimised ? "minimised" : ""}>Username</label>
             {props.username.length > 0 && <IoCloseCircle onClick={handleClearField} className="clear-field" />}
-            <input onBlur={handleBlur} onFocus={handleFocus} value={props.username} onChange={handleChange} required />
+            <input onBlur={handleBlur} onFocus={handleFocus} value={props.username} onChange={handleChange} autoComplete="username" required />
             {(props.username.length === 0 && error) && <span>Username cannot be empty</span>}
         </div>
     )

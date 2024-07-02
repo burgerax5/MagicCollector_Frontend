@@ -1,11 +1,12 @@
 import React, { useState } from 'react'
 import { IoCloseCircle } from "react-icons/io5";
 import { PiEyeClosed, PiEye } from "react-icons/pi";
+import { LoginField } from '../../models/UserLogin';
 
 type Props = {
     password: string,
     confirmPassword: string,
-    resetField: (field: "username" | "password" | "confirmPassword") => void,
+    resetField: (field: LoginField) => void,
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
 }
 
@@ -55,6 +56,7 @@ const ConfirmPasswordField = (props: Props) => {
                 onFocus={handleFocus}
                 value={props.confirmPassword}
                 onChange={handleChange}
+                autoComplete="new-password"
                 required />
 
             {error && <span>{error}</span>}

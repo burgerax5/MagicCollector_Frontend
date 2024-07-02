@@ -8,6 +8,8 @@ import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';
 import { Link } from 'react-router-dom';
 import ConfirmPasswordField from '../components/LoginFields/ConfirmPasswordField';
+import requestRegister from '../api/user/register';
+import { LoginField } from '../models/UserLogin';
 
 const initialFormState = {
     username: "",
@@ -21,23 +23,11 @@ const RegisterPage = () => {
     const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value })
     const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value })
     const updateConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, confirmPassword: e.target.value })
-    const resetField = (field: "username" | "password" | "confirmPassword") => setForm({ ...form, [field]: "" })
+    const resetField = (field: LoginField) => setForm({ ...form, [field]: "" })
 
     const submitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-
-        const url = 'https://localhost:7136/api/user/register';
-        const res = await fetch(url, {
-            method: "POST",
-            body: JSON.stringify({
-                username: form.username,
-                password: form.password
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8"
-            }
-        })
-
+        const res = await requestRegister({ username: form.username, password: form.password });
         console.log(res)
     }
 
@@ -46,7 +36,7 @@ const RegisterPage = () => {
             <div className="auth-form-container">
                 <img src={isDarkMode ? LogoDark : LogoLight} />
                 <h1>Sign Up</h1>
-                <form className="auth-form" onSubmit={async (e) => await submitRegister(e)}>
+                <form className="auth-form" onSubmit={submitRegister}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
                     <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
                     <ConfirmPasswordField
