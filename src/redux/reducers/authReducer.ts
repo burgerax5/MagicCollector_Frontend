@@ -1,4 +1,4 @@
-import { AuthActionTypes } from "../actions/actions"
+import { LoginActionType } from "../actions/actions"
 import { LOGIN, LOGOUT } from "../actions/actionTypes"
 import User from '../../models/User'
 
@@ -12,10 +12,10 @@ const initialState: AuthState = {
     user: null
 }
 
-const authReducer = (state = initialState, action: AuthActionTypes) => {
+const authReducer = (state: AuthState = initialState, action: LoginActionType) => {
     switch (action.type) {
         case LOGIN:
-            return { isAuthenticated: true, user: state.user }
+            return { isAuthenticated: true, user: action.payload.username }
         case LOGOUT:
             return { isAuthenticated: false, user: null }
         default:

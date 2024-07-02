@@ -16,4 +16,4 @@ export const LogoutAction = () => ({
 });
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
-export type AuthActionTypes = ReturnType<typeof LoginAction | typeof LogoutAction>;
+export type LoginActionType = ReturnType<typeof LoginAction>;

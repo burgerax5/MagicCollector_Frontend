@@ -10,6 +10,7 @@ import { LoginField } from '../models/UserLogin';
 import { useDispatch } from 'react-redux';
 import { LoginAction } from '../redux/actions/actions';
 import Logo from '../components/Logo';
+import Cookies from 'js-cookie';
 
 const initialFormState = {
     username: "",
@@ -21,8 +22,6 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
-    console.log(isAuthenticated)
-
     const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value });
     const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value });
     const resetField = (field: LoginField) => setForm({ ...form, [field]: "" });
@@ -32,6 +31,8 @@ const LoginPage = () => {
         const res = await requestLogin(form);
 
         if (res.ok) {
+            const data = await res.json();
+            Cookies.set("auth", data.token);
             dispatch(LoginAction(form.username));
             return redirect("/");
         }
