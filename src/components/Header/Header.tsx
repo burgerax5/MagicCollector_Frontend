@@ -1,17 +1,12 @@
 import { useState } from 'react';
-import LogoDark from '../../assets/logo_dark.png';
-import LogoLight from '../../assets/logo_light.png';
-import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import '../../styles/header.css';
-import { RootState } from '../../redux/reducers/rootReducer';
-
 import { IoMenu, IoClose } from "react-icons/io5";
 import ThemeToggle from './ThemeToggle';
+import Logo from '../Logo';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
     const toggleMenu = () => {
         setIsOpen(!isOpen);
@@ -20,7 +15,7 @@ const Header = () => {
     return (
         <header className="header">
             <Link to="/" className="logo">
-                <img src={isDarkMode ? LogoDark : LogoLight} alt="Logo" />
+                <Logo />
             </Link>
 
             <nav className="navbar">

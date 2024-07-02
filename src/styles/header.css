@@ -3,7 +3,6 @@
     align-items: center;
     background-color: var(--secondary);
     border-bottom: 2px solid #6B6B6B;
-    font-weight: bold;
     justify-content: space-between;
 }
 
@@ -40,6 +39,7 @@
 }
 
 .nav-links a {
+    font-weight: bolder;
     text-decoration: none;
     color: var(--secondary-font-colour);
 }

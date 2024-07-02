@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/reducers/rootReducer'
-import LogoDark from '../assets/logo_dark.png';
-import LogoLight from '../assets/logo_light.png';
 import '../styles/auth.css'
 import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';
@@ -11,6 +9,7 @@ import requestLogin from '../api/user/login';
 import { LoginField } from '../models/UserLogin';
 import { useDispatch } from 'react-redux';
 import { LoginAction } from '../redux/actions/actions';
+import Logo from '../components/Logo';
 
 const initialFormState = {
     username: "",
@@ -19,7 +18,6 @@ const initialFormState = {
 
 const LoginPage = () => {
     const [form, setForm] = useState(initialFormState);
-    const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
     const dispatch = useDispatch();
     const isAuthenticated = useSelector((state: RootState) => state.auth.isAuthenticated);
 
@@ -42,7 +40,7 @@ const LoginPage = () => {
     return (
         <div className="container">
             <div className="auth-form-container">
-                <img src={isDarkMode ? LogoDark : LogoLight} alt="MagicGatherer Logo" />
+                <Logo />
                 <h1>Log In</h1>
                 <form className="auth-form" onSubmit={submitLogin}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
