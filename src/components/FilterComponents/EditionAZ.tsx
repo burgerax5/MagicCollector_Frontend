@@ -7,7 +7,7 @@ const EditionAZ = () => {
 
     return (
         <div className="a-z-wrapper">
-            {tabs.map(index => <HashLink to={`#${index}`}>{index}</HashLink>)}
+            {tabs.map(index => <HashLink key={index} to={`#${index}`}>{index}</HashLink>)}
         </div>
     )
 }

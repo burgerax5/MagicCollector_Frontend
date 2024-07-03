@@ -12,8 +12,8 @@ const EditionGroupComponent = ({ group }: Props) => {
         <ul className="editions-group">
             <h2 id={group.header}>{group.header}</h2>
             {group.editions.map(edition => (
-                <li>
-                    <Link to="/">
+                <li key={edition.code + "-li"}>
+                    <Link key={edition.code} to="/">
                         {edition.name}
                     </Link>
                 </li>

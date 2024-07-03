@@ -20,7 +20,7 @@ const EditionsPage = () => {
             <h1>All Editions</h1>
             <EditionAZ />
             {editionGroups.map(editionGroup => (
-                <EditionGroupComponent group={editionGroup} />
+                <EditionGroupComponent key={editionGroup.header + "-group"} group={editionGroup} />
             ))}
         </div>
     )
