@@ -1,3 +1,23 @@
+.a-z-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--secondary);
+    border: 1px solid var(--tertiary);
+    flex-wrap: wrap;
+}
+
+.a-z-wrapper a {
+    text-decoration: none;
+    color: var(--font-colour);
+    padding: 0.5rem;
+}
+
+.a-z-wrapper a:hover {
+    color: var(--background);
+    background-color: var(--primary);
+}
+
 .search-bar {
     display: flex;
     align-items: center;
