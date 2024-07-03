@@ -1,0 +1,20 @@
+.editions-group {
+    color: var(--font-colour);
+}
+
+.editions-group h2 {
+    border-bottom: 1px solid var(--tertiary);
+}
+
+.editions-group li {
+    list-style: none;
+}
+
+.editions-group a {
+    text-decoration: none;
+    color: var(--font-colour);
+}
+
+.editions-group a:hover {
+    color: var(--primary);
+}

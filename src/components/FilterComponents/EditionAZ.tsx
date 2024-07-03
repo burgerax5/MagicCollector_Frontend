@@ -1,4 +1,5 @@
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
+import '../../styles/filters.css'
 
 const EditionAZ = () => {
     const indices = "#ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -6,7 +7,7 @@ const EditionAZ = () => {
 
     return (
         <div className="a-z-wrapper">
-            {tabs.map(index => <Link to={`#${index}`}>{index}</Link>)}
+            {tabs.map(index => <HashLink to={`#${index}`}>{index}</HashLink>)}
         </div>
     )
 }

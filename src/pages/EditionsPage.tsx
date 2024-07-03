@@ -1,16 +1,17 @@
-import Search from '../components/FilterComponents/Search';
 import { useState, useEffect } from 'react';
-import getEditions from '../api/editions/editions';
-import { Edition } from '../models/Edition';
+import getEditionsGrouped from '../api/editions/editionsGrouped';
+import EditionGroupComponent from '../components/EditionGroupComponent';
 import EditionAZ from '../components/FilterComponents/EditionAZ';
+import { EditionGroup } from '../models/EditionGroup';
+import '../styles/editions.css'
 
 const EditionsPage = () => {
-    const [editions, setEditions] = useState<Edition[]>([])
+    const [editionGroups, setEditionGroups] = useState<EditionGroup[]>([])
 
     useEffect(() => {
         (async () => {
-            const fetchedEditions = await getEditions();
-            setEditions(fetchedEditions);
+            const fetchedEditions = await getEditionsGrouped();
+            setEditionGroups(fetchedEditions);
         })();
     }, []);
 
@@ -18,7 +19,9 @@ const EditionsPage = () => {
         <div>
             <h1>All Editions</h1>
             <EditionAZ />
-            {editions.map(edition => <li>{edition.name}</li>)}
+            {editionGroups.map(editionGroup => (
+                <EditionGroupComponent group={editionGroup} />
+            ))}
         </div>
     )
 }
