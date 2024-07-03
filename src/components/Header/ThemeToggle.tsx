@@ -9,11 +9,11 @@ const ThemeToggle: React.FC = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        const rootElement = document.getElementById("root");
-        if (isDarkTheme && rootElement)
-            rootElement.classList.add('dark-theme');
-        else if (rootElement)
-            rootElement.classList.remove('dark-theme');
+        const bodyElement = document.querySelector("body");
+        if (isDarkTheme && bodyElement)
+            bodyElement.classList.add('dark-theme');
+        else if (bodyElement)
+            bodyElement.classList.remove('dark-theme');
     }, [isDarkTheme])
 
     const handleToggleTheme = () => {

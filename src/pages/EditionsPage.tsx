@@ -1,18 +1,23 @@
 import Search from '../components/FilterComponents/Search';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import getEditions from '../api/editions/editions';
+import { Edition } from '../models/Edition';
 
 const EditionsPage = () => {
-    useEffect(() => {
+    const [editions, setEditions] = useState<Edition[]>([])
 
+    useEffect(() => {
+        (async () => {
+            const fetchedEditions = await getEditions();
+            setEditions(fetchedEditions);
+        })();
     }, []);
 
     return (
         <div>
             <h1>All Editions</h1>
-            <Search />
-            <div className="editions-column">
-
-            </div>
+            <Search placeholderText='n edition' />
+            {editions.map(edition => <li>{edition.name}</li>)}
         </div>
     )
 }

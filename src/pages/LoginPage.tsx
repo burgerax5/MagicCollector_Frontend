@@ -1,6 +1,4 @@
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
-import { RootState } from '../redux/reducers/rootReducer'
 import '../styles/auth.css'
 import UsernameField from '../components/LoginFields/UsernameField';
 import PasswordField from '../components/LoginFields/PasswordField';

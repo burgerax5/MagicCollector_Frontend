@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import '../../styles/filters.css'
 
-const Search = () => {
+type Props = {
+    placeholderText: string
+}
+
+const Search = (props: Props) => {
     const [search, setSearch] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +24,7 @@ const Search = () => {
             <button>
                 <IoIosSearch />
             </button>
-            <input value={search} onChange={handleChange} placeholder="Search for a set..." />
+            <input value={search} onChange={handleChange} placeholder={`Search for a${props.placeholderText}...`} />
         </form>
     )
 }
