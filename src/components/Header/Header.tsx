@@ -44,7 +44,7 @@ const Header = () => {
                         <Link to="/cards" onClick={toggleMenu}>All Cards</Link>
                     </li>
                     <li>
-                        <Link to="/sets" onClick={toggleMenu}>All Sets</Link>
+                        <Link to="/editions" onClick={toggleMenu}>All Editions</Link>
                     </li>
                     <li>
                         <Link to="/mycards" onClick={toggleMenu}>My Cards</Link>

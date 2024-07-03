@@ -2,7 +2,9 @@ import React from 'react'
 
 const MyCardsPage = () => {
     return (
-        <div>MyCardsPage</div>
+        <div>
+            <h1>My Cards</h1>
+        </div>
     )
 }
 

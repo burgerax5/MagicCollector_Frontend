@@ -43,6 +43,7 @@ body {
 
 #root {
     background-color: var(--background);
+    color: var(--font-colour);
 }
 
 .not-found {
