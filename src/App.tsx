@@ -9,7 +9,9 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import UsersOnly from './components/UsersOnly'
+import ProtectRoute from './components/ProtectRoute'
+import { GUESTS_ONLY, USERS_ONLY } from "./models/ProtectMode";
+import MyCardsPage from "./pages/MyCardsPage";
 
 const router = createBrowserRouter([
   {
@@ -23,15 +25,21 @@ const router = createBrowserRouter([
       },
       {
         path: "login",
-        element: <LoginPage />
+        element: <ProtectRoute mode={GUESTS_ONLY}>
+          <LoginPage />
+        </ProtectRoute>
       },
       {
         path: "register",
-        element: <RegisterPage />
+        element: <ProtectRoute mode={GUESTS_ONLY}>
+          <RegisterPage />
+        </ProtectRoute>
       },
       {
         path: "mycards",
-        element: <UsersOnly><h1>HI</h1></UsersOnly>
+        element: <ProtectRoute mode={USERS_ONLY}>
+          <MyCardsPage />
+        </ProtectRoute>
       }
     ]
   },
