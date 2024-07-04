@@ -1,5 +1,14 @@
+.editions-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .editions-group {
     color: var(--font-colour);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }
 
 .editions-group h2 {
@@ -11,10 +20,20 @@
 }
 
 .editions-group a {
-    text-decoration: none;
     color: var(--font-colour);
+    text-decoration-color: var(--secondary-font-colour);
 }
 
 .editions-group a:hover {
     color: var(--primary);
+}
+
+.edition-columns {
+    display: flex;
+}
+
+@media screen and (max-width: 768px) {
+    .edition-columns {
+        flex-direction: column;
+    }
 }

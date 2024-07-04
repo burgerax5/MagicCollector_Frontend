@@ -6,22 +6,34 @@ import { EditionGroup } from '../models/EditionGroup';
 import '../styles/editions.css'
 
 const EditionsPage = () => {
-    const [editionGroups, setEditionGroups] = useState<EditionGroup[]>([])
+    const [editionGroups, setEditionGroups] = useState<EditionGroup[][]>([])
 
     useEffect(() => {
         (async () => {
-            const fetchedEditions = await getEditionsGrouped();
-            setEditionGroups(fetchedEditions);
+            const groupedEditions = await getEditionsGrouped();
+            const numGroups = groupedEditions.length;
+            const midpoint = Math.floor(numGroups / 2);
+
+            const left = groupedEditions.slice(0, midpoint);
+            const right = groupedEditions.slice(midpoint);
+
+            setEditionGroups([left, right]);
         })();
     }, []);
 
     return (
-        <div>
+        <div className="editions-container">
             <h1>All Editions</h1>
             <EditionAZ />
-            {editionGroups.map(editionGroup => (
-                <EditionGroupComponent key={editionGroup.header + "-group"} group={editionGroup} />
-            ))}
+            <div className="edition-columns">
+                {editionGroups.map(column => (
+                    <div>
+                        {column.map(editionGroup => (
+                            <EditionGroupComponent key={editionGroup.header + "-group"} group={editionGroup} />
+                        ))}
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

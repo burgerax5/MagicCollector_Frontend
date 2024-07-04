@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/reducers/rootReducer'
 import { Link } from 'react-router-dom';
@@ -6,7 +5,7 @@ import '../styles/home.css'
 
 import TempImg from '../assets/tmp_img.webp';
 import TempImg2 from '../assets/tmp_img2.webp'
-const Logo = React.lazy(() => import('../components/Logo'));
+import Logo from '../components/Logo';
 
 const HomePage = () => {
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
