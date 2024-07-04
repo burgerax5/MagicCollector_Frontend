@@ -28,4 +28,20 @@
 .text-skeleton {
     background-color: var(--secondary);
     border-radius: 10px;
+    animation: skeleton-loading 2s linear infinite;
+}
+
+@keyframes skeleton-loading {
+    0% {
+        background-color: var(--secondary);
+    }
+
+    50% {
+        background-color: var(--background);
+        filter: brightness(0.7);
+    }
+
+    100% {
+        background-color: var(--secondary);
+    }
 }
