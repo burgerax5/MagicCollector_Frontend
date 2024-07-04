@@ -29,7 +29,7 @@
     opacity: 0.2;
     background:
         linear-gradient(transparent, var(--background)),
-        url('../assets/blacklotus.png') center;
+        url('../assets/blacklotus.webp') center;
 }
 
 .call-to-action {

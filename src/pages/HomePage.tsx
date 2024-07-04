@@ -1,11 +1,12 @@
+import React from 'react';
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/reducers/rootReducer'
 import { Link } from 'react-router-dom';
 import '../styles/home.css'
 
-import TempImg from '../assets/tmp_img.png'
-import TempImg2 from '../assets/tmp_img2.png'
-import Logo from '../components/Logo';
+import TempImg from '../assets/tmp_img.webp';
+import TempImg2 from '../assets/tmp_img2.webp'
+const Logo = React.lazy(() => import('../components/Logo'));
 
 const HomePage = () => {
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
@@ -18,8 +19,7 @@ const HomePage = () => {
                     <p>Track the prices of your Magic: The Gathering card collection</p>
                     <Link to="/register" className="call-to-action">Sign Up Today!</Link>
                 </div>
-                <div className="hero-gradient"></div>
-                <div className="hero-bg"></div>
+                <div className="hero-bg" />
             </section>
             <section className="home-content">
                 <article>

@@ -1,5 +1,5 @@
-import LogoDark from '../assets/logo_dark.png';
-import LogoLight from '../assets/logo_light.png';
+import LogoDark from '../assets/logo_dark.webp';
+import LogoLight from '../assets/logo_light.webp';
 import { useSelector } from 'react-redux'
 import { RootState } from '../redux/reducers/rootReducer'
 
