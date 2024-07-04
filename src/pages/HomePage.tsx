@@ -33,7 +33,7 @@ const HomePage = () => {
                         <li>Filters to make it easier to search for a particular card</li>
                     </ul>
                 </article>
-                <img src={isDarkMode ? TempImg : TempImg2} alt="Snippet of card collection" />
+                <img src={isDarkMode ? TempImg : TempImg2} alt="Snippet of card collection" loading='lazy' />
             </section>
         </div>
     )

@@ -13,14 +13,6 @@
     align-items: center;
 }
 
-.header .logo {
-    width: 200px;
-}
-
-.header .logo img {
-    width: 100%;
-}
-
 .menu-icon {
     display: none;
     font-size: 2rem;

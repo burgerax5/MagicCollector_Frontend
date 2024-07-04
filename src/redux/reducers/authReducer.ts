@@ -9,7 +9,7 @@ type AuthState = {
 }
 
 const authCookie = Cookies.get("auth");
-const hasAuthCookie = authCookie !== null;
+const hasAuthCookie = authCookie !== undefined;
 
 const initialState: AuthState = {
     isAuthenticated: hasAuthCookie,

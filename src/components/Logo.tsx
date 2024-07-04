@@ -7,7 +7,7 @@ const Logo = () => {
     const isDarkMode = useSelector((state: RootState) => state.theme.isDarkMode);
 
     return (
-        <img src={isDarkMode ? LogoDark : LogoLight} alt="MagicGatherer Logo" />
+        <img src={isDarkMode ? LogoDark : LogoLight} alt="MagicGatherer Logo" width="200" height="40" />
     )
 }
 
