@@ -1,0 +1,31 @@
+.card-skeleton-wrapper {
+    width: 200px;
+    height: 350px;
+    gap: 1rem;
+}
+
+.card-skeleton-wrapper,
+.card-skeleton-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-skeleton-text {
+    gap: 0.25rem;
+}
+
+.card-skeleton {
+    width: 200px;
+    height: 350px;
+}
+
+.text-skeleton {
+    width: 200px;
+    height: 20px;
+}
+
+.card-skeleton,
+.text-skeleton {
+    background-color: var(--secondary);
+    border-radius: 10px;
+}

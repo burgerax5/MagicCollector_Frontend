@@ -13,6 +13,7 @@ import ProtectRoute from './components/ProtectRoute'
 import { GUESTS_ONLY, USERS_ONLY } from "./models/ProtectMode";
 import MyCardsPage from "./pages/MyCardsPage";
 import EditionsPage from "./pages/EditionsPage";
+import AllCardsPage from "./pages/AllCardsPage";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,10 @@ const router = createBrowserRouter([
         element: <ProtectRoute mode={GUESTS_ONLY}>
           <HomePage />
         </ProtectRoute>
+      },
+      {
+        path: "cards",
+        element: <AllCardsPage />
       },
       {
         path: "editions",
