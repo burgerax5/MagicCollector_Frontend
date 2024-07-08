@@ -1,17 +1,15 @@
-import React, { useState } from 'react'
 import { IoIosSearch } from "react-icons/io";
 import '../../styles/filters.css'
 import { Filters } from '../../models/Filters/IFilter';
 
 interface Props {
+    filters: Filters,
     setFilters: React.Dispatch<React.SetStateAction<Filters>>
 }
 
-const Search = ({ setFilters }: Props) => {
-    const [search, setSearch] = useState("");
+const Search = ({ filters, setFilters }: Props) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setSearch(e.target.value);
         setFilters(prevFilters => ({ ...prevFilters, search: e.target.value }));
     }
 
@@ -19,7 +17,7 @@ const Search = ({ setFilters }: Props) => {
         <div>
             <label htmlFor="search">Card Name</label>
             <div className="search-bar">
-                <input id="search" value={search} onChange={handleChange} placeholder={`Search for a card...`} />
+                <input id="search" value={filters.search} onChange={handleChange} placeholder={`Search for a card...`} />
                 <button>
                     <IoIosSearch />
                 </button>

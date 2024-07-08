@@ -23,7 +23,7 @@ const FilterBar = () => {
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
-            <Search setFilters={setFilters} />
+            <Search filters={filters} setFilters={setFilters} />
             <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} />
             <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} />
         </form>

@@ -7,11 +7,11 @@ const CardSkeletons = () => {
 
     return (
         <>
-            {skeletons.map(index => <div className="card-skeleton-wrapper">
-                <CardSkeleton key={index} />
-                <div className="card-skeleton-text">
-                    <TextSkeleton width={100} />
-                    <TextSkeleton width={60} />
+            {skeletons.map((_, i) => <div className="card-skeleton-wrapper" key={`skeleton-wrapper-${i}`}>
+                <CardSkeleton key={i} />
+                <div key={`text-${i}`} className="card-skeleton-text">
+                    <TextSkeleton key={`text-skeleton-1-${i}`} width={100} />
+                    <TextSkeleton key={`text-skeleton-2-${i}`} width={60} />
                 </div>
             </div>)}
         </>
