@@ -1,0 +1,50 @@
+import { useEffect, useRef, useState } from "react"
+import { FiChevronDown, FiChevronUp } from "react-icons/fi"
+
+interface Props<T> {
+    name: string,
+    options: T[]
+}
+
+const Dropdown = ({ name, options }: Props<{
+    name: string,
+    value: number | string
+}>) => {
+
+    const [selectedValue, setSelectedValue] = useState<number | string>(options[0]?.value || 0);
+    const [isOpen, setIsOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement>(null);
+
+    const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setSelectedValue(parseInt(e.target.value));
+    }
+
+    const toggleDropdown = () => {
+        setIsOpen(!isOpen);
+    }
+
+    const handleClickOutside = (e: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node))
+            setIsOpen(false);
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    return (
+        <div className="dropdown-container" ref={dropdownRef} onClick={toggleDropdown}>
+            <span>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</span>
+            <select name={name} value={selectedValue} className="custom-dropdown" onChange={handleChange}>
+                {options.map((option, index) => (
+                    <option key={index} value={option.value} className="custom-option">
+                        {option.name}
+                    </option>
+                ))}
+            </select>
+        </div>
+    )
+}
+
+export default Dropdown

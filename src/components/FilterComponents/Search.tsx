@@ -10,19 +10,17 @@ const Search = () => {
         setSearch(e.target.value);
     }
 
-    const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    const submitSearch = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault();
-
-        console.log(search);
     }
 
     return (
-        <form className="search-bar" onSubmit={submitSearch}>
-            <button>
+        <div className="search-bar">
+            <button onClick={submitSearch}>
                 <IoIosSearch />
             </button>
             <input value={search} onChange={handleChange} placeholder={`Search for a card...`} />
-        </form>
+        </div>
     )
 }
 
