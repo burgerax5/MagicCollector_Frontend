@@ -14,7 +14,7 @@ const Search = ({ filters, setFilters }: Props) => {
     }
 
     return (
-        <div>
+        <div className="search-wrapper">
             <label htmlFor="search">Card Name</label>
             <div className="search-bar">
                 <input id="search" value={filters.search} onChange={handleChange} placeholder={`Search for a card...`} />

@@ -2,6 +2,7 @@ import Dropdown from "./Dropdown"
 import Search from "./Search"
 import { useState, useRef } from "react"
 import { Filters } from "../../models/Filters/IFilter"
+import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
 
 const initialState: Filters = {
     search: "",
@@ -26,6 +27,7 @@ const foilOptions = [
 
 const FilterBar = () => {
     const [filters, setFilters] = useState<Filters>(initialState);
+    const [mobileShow, setMobileShow] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,10 +37,15 @@ const FilterBar = () => {
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
-            <Search filters={filters} setFilters={setFilters} />
-            <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} />
-            <Dropdown label="Sort By" name="sortBy" options={sortOptions} setFilters={setFilters} />
-            <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} />
+            <div className="filter-bar-main">
+                <Search filters={filters} setFilters={setFilters} />
+                <ToggleShowFiltersButton mobileShow={mobileShow} setMobileShow={setMobileShow} />
+            </div>
+            <div className={mobileShow ? "filter-bar-secondary show" : "filter-bar-secondary"}>
+                <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} />
+                <Dropdown label="Sort By" name="sortBy" options={sortOptions} setFilters={setFilters} />
+                <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} />
+            </div>
         </form>
     )
 }

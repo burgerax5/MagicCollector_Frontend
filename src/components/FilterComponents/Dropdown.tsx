@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { Filters } from "../../models/Filters/IFilter"
 import { FoilFilter } from "../../models/Filters/IFoilFilter"
+import { SortBy } from "../../models/Filters/ISortBy"
 
 interface Props<T> {
     label: string,
@@ -23,6 +24,10 @@ const Dropdown = ({ label, name, options, setFilters }: Props<{
         if (name === "editionId") {
             let editionId = parseInt(e.target.value); // If "All Editions" is selected, editionId is undefined
             setFilters(prevFilters => ({ ...prevFilters, editionId: isNaN(editionId) ? undefined : editionId }));
+        }
+        else if (name === "sortBy") {
+            let sortBy = e.target.value as SortBy;
+            setFilters(prevFilters => ({ ...prevFilters, sortBy }))
         }
         // Otherwise, it is a dropdown for foil filter
         else if (name === "foilFilter") {
@@ -46,7 +51,7 @@ const Dropdown = ({ label, name, options, setFilters }: Props<{
     }, []);
 
     return (
-        <div>
+        <div className="dropdown-wrapper">
             <label htmlFor={`${name}-dropdown`}>{label}</label>
             <div className="dropdown-container" ref={dropdownRef} onClick={toggleDropdown}>
                 <span>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</span>
