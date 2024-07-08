@@ -3,7 +3,7 @@ import '../../styles/skeleton.css';
 import TextSkeleton from "./TextSkeleton";
 
 const CardSkeletons = () => {
-    const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const skeletons = "a".repeat(20).split("");
 
     return (
         <>

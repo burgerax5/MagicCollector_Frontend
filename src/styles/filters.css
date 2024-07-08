@@ -18,6 +18,12 @@
     background-color: var(--primary);
 }
 
+.filter-bar {
+    display: flex;
+    width: 100%;
+    padding: 1rem;
+}
+
 .search-bar {
     display: flex;
     align-items: center;
