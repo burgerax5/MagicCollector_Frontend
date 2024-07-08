@@ -1,12 +1,14 @@
 import { useEffect, useRef, useState } from "react"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
+import { Filters } from "../../models/Filters/IFilter"
 
 interface Props<T> {
     name: string,
-    options: T[]
+    options: T[],
+    setFilters: React.Dispatch<React.SetStateAction<Filters>>
 }
 
-const Dropdown = ({ name, options }: Props<{
+const Dropdown = ({ name, options, setFilters }: Props<{
     name: string,
     value: number | string
 }>) => {
@@ -16,7 +18,9 @@ const Dropdown = ({ name, options }: Props<{
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setSelectedValue(parseInt(e.target.value));
+        let editionId = parseInt(e.target.value);
+        setSelectedValue(editionId);
+        setFilters(prevFilters => ({ ...prevFilters, editionId }));
     }
 
     const toggleDropdown = () => {

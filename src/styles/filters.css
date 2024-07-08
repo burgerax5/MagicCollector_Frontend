@@ -36,15 +36,16 @@
 }
 
 .search-bar button {
-    position: absolute;
-    top: 0;
-    right: 0.5rem;
     font-size: 1.5rem;
     color: var(--tertiary);
-    padding: 0.75rem;
-    background: transparent;
+    height: 100%;
+    padding-right: 1rem;
+    border-radius: 50%;
     border: none;
     cursor: pointer;
+    display: grid;
+    place-content: center;
+    background-color: transparent;
 }
 
 .search-bar button:hover {
@@ -54,7 +55,7 @@
 .search-bar input {
     background-color: transparent;
     border: none;
-    padding: 1rem;
+    padding: 1rem 0 1rem 1rem;
     color: var(--font-colour);
     width: 100%;
     font-size: 1rem;
