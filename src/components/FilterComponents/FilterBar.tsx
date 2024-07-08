@@ -9,9 +9,11 @@ const initialState: Filters = {
     foilFilter: "any"
 }
 
+const editionOptions = [{ name: "All Editions", value: "all" }, { name: "3rd Edition", value: 1 }, { name: "4th Edition", value: 2 }, { name: "5th Edition", value: 3 }]
+const foilOptions = [{ name: "Any", value: "any" }, { name: "Foils Only", value: "foils_only" }, { name: "Hide Foils", value: "hide_foils" }];
+
 const FilterBar = () => {
     const [filters, setFilters] = useState<Filters>(initialState);
-    const editionOptions = [{ name: "All Editions", value: "all" }, { name: "3rd Edition", value: 1 }, { name: "4th Edition", value: 2 }, { name: "5th Edition", value: 3 }]
     const formRef = useRef<HTMLFormElement>(null);
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -22,7 +24,8 @@ const FilterBar = () => {
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
             <Search setFilters={setFilters} />
-            <Dropdown name="editionId" options={editionOptions} setFilters={setFilters} />
+            <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} />
+            <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} />
         </form>
     )
 }

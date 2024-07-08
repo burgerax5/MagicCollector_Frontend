@@ -25,6 +25,13 @@
     gap: 1rem;
 }
 
+.filter-bar>div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    color: var(--secondary-font-colour);
+}
+
 .search-bar {
     display: flex;
     align-items: center;

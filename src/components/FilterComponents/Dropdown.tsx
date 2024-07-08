@@ -4,12 +4,13 @@ import { Filters } from "../../models/Filters/IFilter"
 import { FoilFilter } from "../../models/Filters/IFoilFilter"
 
 interface Props<T> {
+    label: string,
     name: string,
     options: T[],
     setFilters: React.Dispatch<React.SetStateAction<Filters>>
 }
 
-const Dropdown = ({ name, options, setFilters }: Props<{
+const Dropdown = ({ label, name, options, setFilters }: Props<{
     name: string,
     value: number | string
 }>) => {
@@ -45,15 +46,18 @@ const Dropdown = ({ name, options, setFilters }: Props<{
     }, []);
 
     return (
-        <div className="dropdown-container" ref={dropdownRef} onClick={toggleDropdown}>
-            <span>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</span>
-            <select name={name} className="custom-dropdown" onChange={handleChange}>
-                {options.map((option, index) => (
-                    <option key={index} value={option.value} className="custom-option">
-                        {option.name}
-                    </option>
-                ))}
-            </select>
+        <div>
+            <label htmlFor={`${name}-dropdown`}>{label}</label>
+            <div className="dropdown-container" ref={dropdownRef} onClick={toggleDropdown}>
+                <span>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</span>
+                <select id={`${name}-dropdown`} name={name} className="custom-dropdown" onChange={handleChange}>
+                    {options.map((option, index) => (
+                        <option key={index} value={option.value} className="custom-option">
+                            {option.name}
+                        </option>
+                    ))}
+                </select>
+            </div>
         </div>
     )
 }

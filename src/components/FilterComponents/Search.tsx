@@ -16,11 +16,14 @@ const Search = ({ setFilters }: Props) => {
     }
 
     return (
-        <div className="search-bar">
-            <input value={search} onChange={handleChange} placeholder={`Search for a card...`} />
-            <button>
-                <IoIosSearch />
-            </button>
+        <div>
+            <label htmlFor="search">Card Name</label>
+            <div className="search-bar">
+                <input id="search" value={search} onChange={handleChange} placeholder={`Search for a card...`} />
+                <button>
+                    <IoIosSearch />
+                </button>
+            </div>
         </div>
     )
 }
