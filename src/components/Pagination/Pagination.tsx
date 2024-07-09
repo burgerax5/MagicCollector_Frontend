@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/reducers/rootReducer'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import { SetCurrentPageAction } from '../../redux/actions/actions'
+import '../../styles/pagination.css'
 
 const Pagination = () => {
     const { currentPage, totalPages } = useSelector((state: RootState) => state.queries.pagination);
@@ -32,33 +33,49 @@ const Pagination = () => {
     }
 
     return (
-        <div>
-            <button
-                type="button"
-                disabled={!isValidPage(currentPage - 1)}
-                onClick={() => handleChangePage(currentPage - 1)}>
-                <FaChevronLeft />
-            </button>
+        <ul className="pagination">
+            <li>
+                <button
+                    className="page-btn"
+                    type="button"
+                    disabled={!isValidPage(currentPage - 1)}
+                    onClick={() => handleChangePage(currentPage - 1)}>
+                    <FaChevronLeft />
+                </button>
+            </li>
 
             {generatePageNumbers().map((page, index) => (
-                <button
-                    key={index}
-                    type="button"
-                    className={page === currentPage ? "page-btn active" : "page-btn"}
-                    onClick={() => {
-                        typeof page === 'number' ? handleChangePage(page) : console.log("WIP")
-                    }}>
-                    {page}
-                </button>
+                <li>
+                    {page === "..." ?
+                        <button
+                            key={index}
+                            type="button"
+                            disabled
+                            className="page-ellipsis">
+                            {page}
+                        </button> :
+                        <button
+                            key={index}
+                            type="button"
+                            className={page === currentPage ? "page-btn active" : "page-btn"}
+                            onClick={() => {
+                                typeof page === 'number' && handleChangePage(page)
+                            }}>
+                            {page}
+                        </button>}
+                </li>
             ))}
 
-            <button
-                type="button"
-                disabled={!isValidPage(currentPage + 1)}
-                onClick={() => handleChangePage(currentPage + 1)}>
-                <FaChevronRight />
-            </button>
-        </div>
+            <li>
+                <button
+                    className="page-btn"
+                    type="button"
+                    disabled={!isValidPage(currentPage + 1)}
+                    onClick={() => handleChangePage(currentPage + 1)}>
+                    <FaChevronRight />
+                </button>
+            </li>
+        </ul>
     )
 }
 

@@ -1,0 +1,43 @@
+.pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+}
+
+.pagination>li {
+    list-style: none;
+}
+
+.pagination .page-ellipsis {
+    padding: 0.5rem;
+    border: 1px solid transparent;
+    background-color: var(--background);
+    color: var(--font-colour);
+    cursor: text;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    height: 35px;
+}
+
+.pagination .page-btn {
+    padding: 0.5rem;
+    border: 1px solid var(--tertiary);
+    background-color: var(--secondary);
+    color: var(--font-colour);
+    cursor: pointer;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    height: 35px;
+}
+
+.pagination .page-btn:hover {
+    text-decoration: underline;
+}
+
+.pagination .page-btn.active {
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-weight: bold;
+}
