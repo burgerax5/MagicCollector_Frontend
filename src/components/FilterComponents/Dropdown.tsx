@@ -7,9 +7,10 @@ interface Props<T> {
     name: string,
     options: T[],
     setFilters: React.Dispatch<React.SetStateAction<Filters>>,
+    selectedValue?: string;
 }
 
-const Dropdown = ({ label, name, options, setFilters }: Props<{
+const Dropdown = ({ label, name, options, setFilters, selectedValue }: Props<{
     name: string,
     value: number | string
 }>) => {
@@ -43,7 +44,7 @@ const Dropdown = ({ label, name, options, setFilters }: Props<{
             <label htmlFor={`${name}-dropdown`}>{label}</label>
             <div className="dropdown-container" ref={dropdownRef} onClick={toggleDropdown}>
                 <span>{isOpen ? <FiChevronUp /> : <FiChevronDown />}</span>
-                <select id={`${name}-dropdown`} name={name} className="custom-dropdown" onChange={handleChange}>
+                <select id={`${name}-dropdown`} name={name} className="custom-dropdown" onChange={handleChange} value={selectedValue}>
                     {options.map((option, index) => (
                         <option key={index} value={option.value} className="custom-option">
                             {option.name}

@@ -38,7 +38,7 @@ const FilterBar = () => {
     const [mobileShow, setMobileShow] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const location = useLocation();
-    const [searchParams, setSearchParams] = useSearchParams();
+    const [_, setSearchParams] = useSearchParams();
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -58,7 +58,7 @@ const FilterBar = () => {
             }
         })
         setFilters(newFilters);
-    }, [location.search]);
+    }, []);
 
     // Update the URL query parameters whenever filters change
     useEffect(() => {
@@ -70,7 +70,7 @@ const FilterBar = () => {
         });
         setSearchParams(params);
 
-    }, [filters, history]);
+    }, [filters]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
@@ -79,9 +79,9 @@ const FilterBar = () => {
                 <ToggleShowFiltersButton mobileShow={mobileShow} setMobileShow={setMobileShow} />
             </div>
             <div className={mobileShow ? "filter-bar-secondary show" : "filter-bar-secondary"}>
-                <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} />
-                <Dropdown label="Sort By" name="sortBy" options={sortOptions} setFilters={setFilters} />
-                <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} />
+                <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} selectedValue={filters.editionId} />
+                <Dropdown label="Sort By" name="sortBy" options={sortOptions} setFilters={setFilters} selectedValue={filters.sortBy} />
+                <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} selectedValue={filters.foilFilter} />
             </div>
         </form>
     )
