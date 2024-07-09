@@ -5,7 +5,7 @@ import { Filters } from "../../models/Filters/IFilter"
 import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
 import { SortBy } from "../../models/Filters/ISortBy"
 import { FoilFilter } from "../../models/Filters/IFoilFilter"
-import { useLocation, useSearchParams } from "react-router-dom"
+import { SetURLSearchParams, useLocation } from "react-router-dom"
 
 const initialState: Filters = {
     search: "",
@@ -33,12 +33,16 @@ const foilOptions = [
     { name: "Foils Only", value: "foils_only" },
     { name: "Hide Foils", value: "hide_foils" }];
 
-const FilterBar = () => {
+interface Props {
+    setSearchParams: SetURLSearchParams
+}
+
+
+const FilterBar = ({ setSearchParams }: Props) => {
     const [filters, setFilters] = useState<Filters>(initialState);
     const [mobileShow, setMobileShow] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const location = useLocation();
-    const [_, setSearchParams] = useSearchParams();
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

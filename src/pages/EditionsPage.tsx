@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import getEditionsGrouped from '../api/editions/editionsGrouped';
 import EditionGroupComponent from '../components/EditionGroupComponent';
 import EditionAZ from '../components/FilterComponents/EditionAZ';
-import { EditionGroup } from '../models/EditionGroup';
+import { EditionGroup } from '../models/Editions/EditionGroup';
 import '../styles/editions.css'
 
 const EditionsPage = () => {
