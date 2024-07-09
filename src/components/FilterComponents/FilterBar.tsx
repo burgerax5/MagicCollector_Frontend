@@ -43,7 +43,7 @@ interface Props {
 
 const FilterBar = ({ setSearchParams }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
-    const { filters, pagination } = useSelector((state: RootState) => state.queries);
+    const { pagination } = useSelector((state: RootState) => state.queries);
     const dispatch = useDispatch();
 
     const [mobileShow, setMobileShow] = useState(false);
@@ -52,7 +52,19 @@ const FilterBar = ({ setSearchParams }: Props) => {
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(filters);
+        updateURL();
+    }
+
+    const updateURL = () => {
+        const params = new URLSearchParams();
+        Object.keys(localFilters).forEach(key => {
+            const value = localFilters[key as keyof Filters];
+            if (value)
+                params.set(key, value.toString());
+        });
+        params.set("page", pagination.currentPage.toString());
+
+        setSearchParams(params);
     }
 
     useEffect(() => {
@@ -78,17 +90,8 @@ const FilterBar = ({ setSearchParams }: Props) => {
 
     // Update the URL query parameters whenever filters change
     useEffect(() => {
-        const params = new URLSearchParams();
-        Object.keys(localFilters).forEach(key => {
-            const value = localFilters[key as keyof Filters];
-            if (value)
-                params.set(key, value.toString());
-        });
-        params.set("page", pagination.currentPage.toString());
-
-        setSearchParams(params);
-
-    }, [localFilters, pagination]);
+        updateURL();
+    }, [pagination]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
