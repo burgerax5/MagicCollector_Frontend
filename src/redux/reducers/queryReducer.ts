@@ -1,7 +1,8 @@
-import { FilterActionType } from "../actions/actions";
+import { Queries } from "../../models/Filters/IFilter";
+import { QueryActionType } from "../actions/actions";
 import { SET_FILTERS, SET_PAGINATION } from "../actions/actionTypes";
 
-const initialState = {
+const initialState: Queries = {
     filters: {
         search: "",
         sortBy: "name_asc",
@@ -13,7 +14,7 @@ const initialState = {
     }
 };
 
-const filtersReducer = (state = initialState, action: FilterActionType) => {
+const queryReducer = (state = initialState, action: QueryActionType) => {
     switch (action.type) {
         case SET_FILTERS:
             return {
@@ -35,3 +36,5 @@ const filtersReducer = (state = initialState, action: FilterActionType) => {
             return state;
     }
 };
+
+export default queryReducer

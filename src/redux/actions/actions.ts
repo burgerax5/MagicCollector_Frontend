@@ -33,4 +33,4 @@ export const SetPaginationAction = (pagination: Pagination) => ({
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
-export type FilterActionType = ReturnType<typeof SetFilterAction | typeof SetPaginationAction>;
+export type QueryActionType = ReturnType<typeof SetFilterAction | typeof SetPaginationAction>;

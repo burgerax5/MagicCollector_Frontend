@@ -7,3 +7,13 @@ export interface Filters {
     sortBy: SortBy,
     foilFilter: FoilFilter
 }
+
+export interface Pagination {
+    currentPage: number,
+    totalPages: number,
+}
+
+export interface Queries {
+    filters: Filters,
+    pagination: Pagination
+}

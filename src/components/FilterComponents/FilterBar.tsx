@@ -6,6 +6,9 @@ import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
 import { SortBy } from "../../models/Filters/ISortBy"
 import { FoilFilter } from "../../models/Filters/IFoilFilter"
 import { SetURLSearchParams, useLocation } from "react-router-dom"
+import { useSelector, useDispatch } from "react-redux"
+import { RootState } from "../../redux/reducers/rootReducer"
+import { SetFilterAction } from "../../redux/actions/actions"
 
 const initialState: Filters = {
     search: "",
@@ -39,7 +42,9 @@ interface Props {
 
 
 const FilterBar = ({ setSearchParams }: Props) => {
-    const [filters, setFilters] = useState<Filters>(initialState);
+    const { filters } = useSelector((state: RootState) => state.queries);
+    const dispatch = useDispatch();
+
     const [mobileShow, setMobileShow] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const location = useLocation();
@@ -61,7 +66,8 @@ const FilterBar = ({ setSearchParams }: Props) => {
                 case "foilFilter": newFilters[key] = value as FoilFilter; break;
             }
         })
-        setFilters(newFilters);
+
+        dispatch(SetFilterAction(newFilters));
     }, []);
 
     // Update the URL query parameters whenever filters change
