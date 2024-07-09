@@ -45,7 +45,7 @@ const Pagination = () => {
             </li>
 
             {generatePageNumbers().map((page, index) => (
-                <li>
+                <li key={`li-${index}`}>
                     {page === "..." ?
                         <button
                             key={index}

@@ -11,6 +11,33 @@
     gap: 1rem;
 }
 
+.card {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    height: 350px;
+}
+
+.card-image {
+    border-radius: 5px;
+    border: 5px solid black;
+}
+
+.card-edition {
+    color: var(--secondary-font-colour);
+}
+
+.card-edition,
+.card-name {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    text-wrap: nowrap;
+}
+
+.card-price {
+    color: var(--green);
+}
+
 @media screen and (min-width: 1520px) {
     .card-grid {
         grid-template-columns: repeat(7, 1fr);
