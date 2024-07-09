@@ -43,7 +43,7 @@ interface Props {
 
 const FilterBar = ({ setSearchParams }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
-    const { filters } = useSelector((state: RootState) => state.queries);
+    const { filters, pagination } = useSelector((state: RootState) => state.queries);
     const dispatch = useDispatch();
 
     const [mobileShow, setMobileShow] = useState(false);
@@ -84,9 +84,11 @@ const FilterBar = ({ setSearchParams }: Props) => {
             if (value)
                 params.set(key, value.toString());
         });
+        params.set("page", pagination.currentPage.toString());
+
         setSearchParams(params);
 
-    }, [localFilters]);
+    }, [localFilters, pagination]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>

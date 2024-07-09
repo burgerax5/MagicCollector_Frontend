@@ -1,4 +1,4 @@
-import { Queries } from "../../models/Filters/IFilter";
+import { Queries, Filters } from "../../models/Filters/IFilter";
 import { QueryActionType } from "../actions/actions";
 import { SET_FILTERS, SET_CURR_PAGE, SET_TOTAL_PAGES } from "../actions/actionTypes";
 
