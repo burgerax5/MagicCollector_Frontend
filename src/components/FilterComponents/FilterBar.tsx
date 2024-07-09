@@ -42,6 +42,7 @@ interface Props {
 
 
 const FilterBar = ({ setSearchParams }: Props) => {
+    const [localFilters, setLocalFilters] = useState<Filters>(initialState);
     const { filters } = useSelector((state: RootState) => state.queries);
     const dispatch = useDispatch();
 
@@ -53,6 +54,10 @@ const FilterBar = ({ setSearchParams }: Props) => {
         e.preventDefault();
         console.log(filters);
     }
+
+    useEffect(() => {
+        dispatch(SetFilterAction(localFilters));
+    }, [localFilters])
 
     // Parse query parameters from URL
     useEffect(() => {
@@ -73,25 +78,47 @@ const FilterBar = ({ setSearchParams }: Props) => {
     // Update the URL query parameters whenever filters change
     useEffect(() => {
         const params = new URLSearchParams();
-        Object.keys(filters).forEach(key => {
-            const value = filters[key as keyof Filters];
+        Object.keys(localFilters).forEach(key => {
+            const value = localFilters[key as keyof Filters];
             if (value)
                 params.set(key, value.toString());
         });
         setSearchParams(params);
 
-    }, [filters]);
+    }, [localFilters]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
             <div className="filter-bar-main">
-                <Search filters={filters} setFilters={setFilters} />
-                <ToggleShowFiltersButton mobileShow={mobileShow} setMobileShow={setMobileShow} />
+                <Search
+                    filters={localFilters}
+                    setFilters={setLocalFilters} />
+
+                <ToggleShowFiltersButton
+                    mobileShow={mobileShow}
+                    setMobileShow={setMobileShow} />
             </div>
             <div className={mobileShow ? "filter-bar-secondary show" : "filter-bar-secondary"}>
-                <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} selectedValue={filters.editionId?.toString()} />
-                <Dropdown label="Sort By" name="sortBy" options={sortOptions} setFilters={setFilters} selectedValue={filters.sortBy} />
-                <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} selectedValue={filters.foilFilter} />
+                <Dropdown
+                    label="Edition"
+                    name="editionId"
+                    options={editionOptions}
+                    setFilters={setLocalFilters}
+                    selectedValue={filters.editionId?.toString()} />
+
+                <Dropdown
+                    label="Sort By"
+                    name="sortBy"
+                    options={sortOptions}
+                    setFilters={setLocalFilters}
+                    selectedValue={filters.sortBy} />
+
+                <Dropdown
+                    label="Show Foil"
+                    name="foilFilter"
+                    options={foilOptions}
+                    setFilters={setLocalFilters}
+                    selectedValue={filters.foilFilter} />
             </div>
         </form>
     )
