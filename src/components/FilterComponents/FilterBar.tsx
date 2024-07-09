@@ -72,6 +72,7 @@ const FilterBar = ({ setSearchParams }: Props) => {
             }
         })
 
+        setLocalFilters(newFilters);
         dispatch(SetFilterAction(newFilters));
     }, []);
 
@@ -104,21 +105,21 @@ const FilterBar = ({ setSearchParams }: Props) => {
                     name="editionId"
                     options={editionOptions}
                     setFilters={setLocalFilters}
-                    selectedValue={filters.editionId?.toString()} />
+                    selectedValue={localFilters.editionId?.toString()} />
 
                 <Dropdown
                     label="Sort By"
                     name="sortBy"
                     options={sortOptions}
                     setFilters={setLocalFilters}
-                    selectedValue={filters.sortBy} />
+                    selectedValue={localFilters.sortBy} />
 
                 <Dropdown
                     label="Show Foil"
                     name="foilFilter"
                     options={foilOptions}
                     setFilters={setLocalFilters}
-                    selectedValue={filters.foilFilter} />
+                    selectedValue={localFilters.foilFilter} />
             </div>
         </form>
     )

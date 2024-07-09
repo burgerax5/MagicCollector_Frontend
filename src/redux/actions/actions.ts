@@ -1,5 +1,4 @@
 import { Filters } from "../../models/Filters/IFilter";
-import { Pagination } from "../../models/Pagination";
 import * as actions from "./actionTypes";
 
 export const toggleTheme = () => ({
@@ -19,18 +18,22 @@ export const LogoutAction = () => ({
 
 export const SetFilterAction = (filters: Filters) => ({
     type: actions.SET_FILTERS,
-    payload: {
-        filters
-    }
+    payload: filters
 });
 
-export const SetPaginationAction = (pagination: Pagination) => ({
-    type: actions.SET_PAGINATION,
-    payload: {
-        pagination
-    }
+export const SetCurrentPageAction = (curr_page: number) => ({
+    type: actions.SET_CURR_PAGE,
+    payload: curr_page
+});
+
+export const SetTotalPagesAction = (total_pages: number) => ({
+    type: actions.SET_TOTAL_PAGES,
+    payload: total_pages
 });
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
-export type QueryActionType = ReturnType<typeof SetFilterAction | typeof SetPaginationAction>;
+export type QueryActionType = ReturnType<
+    typeof SetFilterAction |
+    typeof SetCurrentPageAction |
+    typeof SetTotalPagesAction>;

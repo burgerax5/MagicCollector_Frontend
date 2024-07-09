@@ -5,6 +5,7 @@ import CardSkeletons from '../components/Skeletons/CardSkeletons'
 import { CardPageDTO } from '../models/Cards/CardPageDTO'
 import '../styles/cards.css'
 import { useSearchParams } from "react-router-dom"
+import Pagination from '../components/Pagination/Pagination'
 
 const AllCardsPage = () => {
     const [cardPageDTO, setCardPageDTO] = useState<CardPageDTO | null>(null);
@@ -26,6 +27,7 @@ const AllCardsPage = () => {
                     <CardSkeletons />
                 </Suspense>
             </div>
+            <Pagination />
         </div>
     )
 }

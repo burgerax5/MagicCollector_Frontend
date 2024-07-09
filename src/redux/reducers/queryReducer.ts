@@ -1,6 +1,6 @@
 import { Queries } from "../../models/Filters/IFilter";
 import { QueryActionType } from "../actions/actions";
-import { SET_FILTERS, SET_PAGINATION } from "../actions/actionTypes";
+import { SET_FILTERS, SET_CURR_PAGE, SET_TOTAL_PAGES } from "../actions/actionTypes";
 
 const initialState: Queries = {
     filters: {
@@ -10,7 +10,7 @@ const initialState: Queries = {
     },
     pagination: {
         currentPage: 1,
-        totalPages: 0,
+        totalPages: 5,
     }
 };
 
@@ -21,17 +21,25 @@ const queryReducer = (state = initialState, action: QueryActionType) => {
                 ...state,
                 filters: {
                     ...state.filters,
-                    ...action.payload,
+                    filters: action.payload as Filters,
                 }
             };
-        case SET_PAGINATION:
+        case SET_CURR_PAGE:
             return {
                 ...state,
                 pagination: {
                     ...state.pagination,
-                    ...action.payload,
+                    currentPage: action.payload as number,
                 }
             };
+        case SET_TOTAL_PAGES:
+            return {
+                ...state,
+                pagination: {
+                    ...state.pagination,
+                    totalPages: action.payload as number
+                }
+            }
         default:
             return state;
     }
