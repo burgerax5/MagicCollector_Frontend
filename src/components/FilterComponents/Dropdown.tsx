@@ -1,14 +1,12 @@
 import { useEffect, useRef, useState } from "react"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
 import { Filters } from "../../models/Filters/IFilter"
-import { FoilFilter } from "../../models/Filters/IFoilFilter"
-import { SortBy } from "../../models/Filters/ISortBy"
 
 interface Props<T> {
     label: string,
     name: string,
     options: T[],
-    setFilters: React.Dispatch<React.SetStateAction<Filters>>
+    setFilters: React.Dispatch<React.SetStateAction<Filters>>,
 }
 
 const Dropdown = ({ label, name, options, setFilters }: Props<{
@@ -20,21 +18,11 @@ const Dropdown = ({ label, name, options, setFilters }: Props<{
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // If the dropdown is for editionId convert to integer
-        if (name === "editionId") {
-            let editionId = parseInt(e.target.value); // If "All Editions" is selected, editionId is undefined
-            setFilters(prevFilters => ({ ...prevFilters, editionId: isNaN(editionId) ? undefined : editionId }));
-        }
-        else if (name === "sortBy") {
-            let sortBy = e.target.value as SortBy;
-            setFilters(prevFilters => ({ ...prevFilters, sortBy }))
-        }
-        // Otherwise, it is a dropdown for foil filter
-        else if (name === "foilFilter") {
-            let foilFilter = e.target.value as FoilFilter;
-            setFilters(prevFilters => ({ ...prevFilters, foilFilter }));
-        }
-    }
+        setFilters((prevFilters: any) => ({
+            ...prevFilters,
+            [name]: e.target.value
+        }));
+    };
 
     const toggleDropdown = () => {
         setIsOpen(!isOpen);

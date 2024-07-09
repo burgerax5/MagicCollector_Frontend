@@ -6,7 +6,7 @@ import '../styles/cards.css'
 const AllCardsPage = () => {
     return (
         <div className="content-wrapper">
-            <h1>All Cards</h1>
+            <h1>Cards</h1>
             <FilterBar />
             <div className="card-grid">
                 <Suspense fallback={<CardSkeletons />}>

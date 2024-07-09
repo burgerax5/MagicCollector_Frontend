@@ -1,8 +1,11 @@
 import Dropdown from "./Dropdown"
 import Search from "./Search"
-import { useState, useRef } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Filters } from "../../models/Filters/IFilter"
 import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
+import { SortBy } from "../../models/Filters/ISortBy"
+import { FoilFilter } from "../../models/Filters/IFoilFilter"
+import { useLocation, useSearchParams } from "react-router-dom"
 
 const initialState: Filters = {
     search: "",
@@ -10,7 +13,12 @@ const initialState: Filters = {
     foilFilter: "any"
 }
 
-const editionOptions = [{ name: "All Editions", value: "all" }, { name: "3rd Edition", value: 1 }, { name: "4th Edition", value: 2 }, { name: "5th Edition", value: 3 }]
+const editionOptions = [
+    { name: "All Editions", value: "all" },
+    { name: "3rd Edition", value: 1 },
+    { name: "4th Edition", value: 2 },
+    { name: "5th Edition", value: 3 }
+]
 
 const sortOptions = [
     { name: "Name (A-Z)", value: "name_asc" },
@@ -29,11 +37,40 @@ const FilterBar = () => {
     const [filters, setFilters] = useState<Filters>(initialState);
     const [mobileShow, setMobileShow] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
+    const location = useLocation();
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(filters)
+        console.log(filters);
     }
+
+    // Parse query parameters from URL
+    useEffect(() => {
+        const params = new URLSearchParams(location.search);
+        const newFilters = { ...initialState };
+        params.forEach((value, key) => {
+            switch (key) {
+                case "search": newFilters[key] = value; break;
+                case "editionId": newFilters[key] = parseInt(value); break;
+                case "sortBy": newFilters[key] = value as SortBy; break;
+                case "foilFilter": newFilters[key] = value as FoilFilter; break;
+            }
+        })
+        setFilters(newFilters);
+    }, [location.search]);
+
+    // Update the URL query parameters whenever filters change
+    useEffect(() => {
+        const params = new URLSearchParams();
+        Object.keys(filters).forEach(key => {
+            const value = filters[key as keyof Filters];
+            if (value)
+                params.set(key, value.toString());
+        });
+        setSearchParams(params);
+
+    }, [filters, history]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
