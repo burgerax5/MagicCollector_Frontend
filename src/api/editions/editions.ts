@@ -1,4 +1,4 @@
-import { Edition } from "../../models/Edition";
+import { Edition } from "../../models/Editions/Edition";
 
 const getEditions = async () => {
     const url = 'https://localhost:44321/api/editions';

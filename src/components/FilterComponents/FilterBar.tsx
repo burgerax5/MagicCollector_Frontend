@@ -83,7 +83,7 @@ const FilterBar = ({ setSearchParams }: Props) => {
                 <ToggleShowFiltersButton mobileShow={mobileShow} setMobileShow={setMobileShow} />
             </div>
             <div className={mobileShow ? "filter-bar-secondary show" : "filter-bar-secondary"}>
-                <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} selectedValue={filters.editionId} />
+                <Dropdown label="Edition" name="editionId" options={editionOptions} setFilters={setFilters} selectedValue={filters.editionId?.toString()} />
                 <Dropdown label="Sort By" name="sortBy" options={sortOptions} setFilters={setFilters} selectedValue={filters.sortBy} />
                 <Dropdown label="Show Foil" name="foilFilter" options={foilOptions} setFilters={setFilters} selectedValue={filters.foilFilter} />
             </div>
