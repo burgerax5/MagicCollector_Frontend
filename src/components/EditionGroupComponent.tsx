@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { EditionGroup } from '../models/EditionGroup'
+import { EditionGroup } from '../models/Editions/EditionGroup'
 
 type Props = {
     group: EditionGroup
@@ -13,7 +13,7 @@ const EditionGroupComponent = ({ group }: Props) => {
             <h2 id={group.header}>{group.header}</h2>
             {group.editions.map(edition => (
                 <li key={edition.code + "-li"}>
-                    <Link key={edition.code} to="/">
+                    <Link key={edition.code} to={`/cards?editionId=${edition.editionId}`}>
                         {edition.name}
                     </Link>
                 </li>

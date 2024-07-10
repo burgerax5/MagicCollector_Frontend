@@ -1,5 +1,5 @@
 export type Edition = {
-    id: number,
+    editionId: number,
     name: string,
     code: string
 }

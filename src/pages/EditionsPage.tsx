@@ -27,7 +27,7 @@ const EditionsPage = () => {
             <EditionAZ />
             <div className="edition-columns">
                 {editionGroups.map(column => (
-                    <div>
+                    <div key={column + "-group-container"}>
                         {column.map(editionGroup => (
                             <EditionGroupComponent key={editionGroup.header + "-group"} group={editionGroup} />
                         ))}
