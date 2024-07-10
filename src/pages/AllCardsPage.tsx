@@ -13,6 +13,7 @@ import { SetTotalPagesAction } from '../redux/actions/actions'
 const AllCardsPage = () => {
     const [cardPageDTO, setCardPageDTO] = useState<CardPageDTO | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
+    const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -30,17 +31,17 @@ const AllCardsPage = () => {
     return (
         <div className="content-wrapper">
             <h1>Cards</h1>
-            <FilterBar setSearchParams={setSearchParams} />
+            <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
             <div className="card-grid">
                 <Suspense fallback={<CardSkeletons />}>
                     {cardPageDTO ?
                         cardPageDTO.cardDTOs.map(cardDTO => (
-                            <Card card={cardDTO} />
+                            <Card key={"card-" + cardDTO.id} card={cardDTO} />
                         )) :
                         <h2>No results</h2>}
                 </Suspense>
             </div>
-            <Pagination />
+            <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
         </div>
     )
 }

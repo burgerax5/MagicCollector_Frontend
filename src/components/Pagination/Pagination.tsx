@@ -1,16 +1,19 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers/rootReducer'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
-import { SetCurrentPageAction } from '../../redux/actions/actions'
 import '../../styles/pagination.css'
 
-const Pagination = () => {
-    const { currentPage, totalPages } = useSelector((state: RootState) => state.queries.pagination);
-    const dispatch = useDispatch();
+interface Props {
+    currentPage: number,
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+}
+
+const Pagination = ({ currentPage, setCurrentPage }: Props) => {
+    const { totalPages } = useSelector((state: RootState) => state.queries.pagination);
 
     const handleChangePage = (page: number) => {
         if (isValidPage(page))
-            dispatch(SetCurrentPageAction(page));
+            setCurrentPage(page);
     }
 
     const isValidPage = (page: number) => page > 0 && page <= totalPages;

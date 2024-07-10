@@ -16,16 +16,6 @@ export const LogoutAction = () => ({
     type: actions.LOGOUT
 });
 
-export const SetFilterAction = (filters: Filters) => ({
-    type: actions.SET_FILTERS,
-    payload: filters
-});
-
-export const SetCurrentPageAction = (curr_page: number) => ({
-    type: actions.SET_CURR_PAGE,
-    payload: curr_page
-});
-
 export const SetTotalPagesAction = (total_pages: number) => ({
     type: actions.SET_TOTAL_PAGES,
     payload: total_pages
@@ -33,7 +23,4 @@ export const SetTotalPagesAction = (total_pages: number) => ({
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
-export type QueryActionType = ReturnType<
-    typeof SetFilterAction |
-    typeof SetCurrentPageAction |
-    typeof SetTotalPagesAction>;
+export type QueryActionType = ReturnType<typeof SetTotalPagesAction>;

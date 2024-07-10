@@ -6,9 +6,6 @@ import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
 import { SortBy } from "../../models/Filters/ISortBy"
 import { FoilFilter } from "../../models/Filters/IFoilFilter"
 import { SetURLSearchParams, useLocation } from "react-router-dom"
-import { useSelector, useDispatch } from "react-redux"
-import { RootState } from "../../redux/reducers/rootReducer"
-import { SetFilterAction } from "../../redux/actions/actions"
 import getEditionsDropdown from "../../api/editions/getEditionsDropdown"
 
 const initialState: Filters = {
@@ -39,20 +36,20 @@ const foilOptions = [
 
 interface Props {
     setSearchParams: SetURLSearchParams
+    currentPage: number,
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
 
 
-const FilterBar = ({ setSearchParams }: Props) => {
+const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
-    const { pagination } = useSelector((state: RootState) => state.queries);
-    const dispatch = useDispatch();
-
     const [mobileShow, setMobileShow] = useState(false);
     const formRef = useRef<HTMLFormElement>(null);
     const location = useLocation();
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+        setCurrentPage(1);
         updateURL();
     }
 
@@ -63,14 +60,10 @@ const FilterBar = ({ setSearchParams }: Props) => {
             if (value)
                 params.set(key, value.toString());
         });
-        params.set("page", pagination.currentPage.toString());
+        params.set("page", currentPage.toString());
 
         setSearchParams(params);
     }
-
-    useEffect(() => {
-        dispatch(SetFilterAction(localFilters));
-    }, [localFilters])
 
     // Parse query parameters from URL
     useEffect(() => {
@@ -91,13 +84,12 @@ const FilterBar = ({ setSearchParams }: Props) => {
         })
 
         setLocalFilters(newFilters);
-        dispatch(SetFilterAction(newFilters));
     }, []);
 
     // Update the URL query parameters whenever filters change
     useEffect(() => {
         updateURL();
-    }, [pagination]);
+    }, [currentPage]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
