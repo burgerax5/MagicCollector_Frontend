@@ -16,6 +16,12 @@ const AllCardsPage = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
 
+    const getResultsRange = (currentPage: number, resultsPerPage: number, totalResults: number) => {
+        const startRange = (currentPage - 1) * resultsPerPage + 1;
+        const endRange = Math.min(currentPage * resultsPerPage, totalResults);
+        return { startRange, endRange };
+    };
+
     useEffect(() => {
         (async () => {
             let page = await getCardsInPage(searchParams.toString());
@@ -28,13 +34,16 @@ const AllCardsPage = () => {
         dispatch(SetTotalPagesAction(totalPages ?? 0));
     }, [cardPageDTO])
 
+    const { startRange, endRange } = getResultsRange(currentPage, 50, cardPageDTO!.results);
+
     return (
         <div className="content-wrapper">
             <h1>Cards</h1>
             <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
+            <div>Results: {startRange} - {endRange} of {cardPageDTO?.results}</div>
             <div className="card-grid">
                 <Suspense fallback={<CardSkeletons />}>
-                    {cardPageDTO ?
+                    {cardPageDTO?.results ?
                         cardPageDTO.cardDTOs.map(cardDTO => (
                             <Card key={"card-" + cardDTO.id} card={cardDTO} />
                         )) :

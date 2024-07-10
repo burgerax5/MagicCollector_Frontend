@@ -1,6 +1,6 @@
 import Dropdown from "./Dropdown"
 import Search from "./Search"
-import { useState, useRef, useEffect } from "react"
+import { useState, useEffect } from "react"
 import { Filters } from "../../models/Filters/IFilter"
 import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
 import { SortBy } from "../../models/Filters/ISortBy"
@@ -44,7 +44,6 @@ interface Props {
 const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
     const [mobileShow, setMobileShow] = useState(false);
-    const formRef = useRef<HTMLFormElement>(null);
     const location = useLocation();
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
@@ -92,7 +91,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
     }, [currentPage]);
 
     return (
-        <form className="filter-bar" onSubmit={submitSearch} ref={formRef}>
+        <form className="filter-bar" onSubmit={submitSearch}>
             <div className="filter-bar-main">
                 <Search
                     filters={localFilters}
