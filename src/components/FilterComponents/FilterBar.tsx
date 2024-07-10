@@ -81,6 +81,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
                 case "editionId": newFilters[key] = parseInt(value); break;
                 case "sortBy": newFilters[key] = value as SortBy; break;
                 case "foilFilter": newFilters[key] = value as FoilFilter; break;
+                case "page": setCurrentPage(!isNaN(parseInt(value)) ? parseInt(value) : 1);
             }
         })
 
