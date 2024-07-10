@@ -7,10 +7,11 @@ interface Props<T> {
     name: string,
     options: T[],
     setFilters: React.Dispatch<React.SetStateAction<Filters>>,
-    selectedValue?: string;
+    selectedValue?: string,
+    updateURL: () => void;
 }
 
-const Dropdown = ({ label, name, options, setFilters, selectedValue }: Props<{
+const Dropdown = ({ label, name, options, setFilters, selectedValue, updateURL }: Props<{
     name: string,
     value: number | string
 }>) => {

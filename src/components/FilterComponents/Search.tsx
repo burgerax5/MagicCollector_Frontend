@@ -1,23 +1,22 @@
 import { IoIosSearch } from "react-icons/io";
 import '../../styles/filters.css'
-import { Filters } from '../../models/Filters/IFilter';
 
 interface Props {
-    filters: Filters,
-    setFilters: React.Dispatch<React.SetStateAction<Filters>>
+    search: string,
+    setSearch: React.Dispatch<React.SetStateAction<string>>
 }
 
-const Search = ({ filters, setFilters }: Props) => {
+const Search = ({ search, setSearch }: Props) => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setFilters(prevFilters => ({ ...prevFilters, search: e.target.value }));
+        setSearch(e.target.value);
     }
 
     return (
         <div className="search-wrapper">
             <label htmlFor="search">Card Name</label>
             <div className="search-bar">
-                <input id="search" value={filters.search} onChange={handleChange} placeholder={`Search for a card...`} />
+                <input id="search" value={search} onChange={handleChange} placeholder={`Search for a card...`} />
                 <button>
                     <IoIosSearch />
                 </button>

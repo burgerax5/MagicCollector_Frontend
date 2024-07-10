@@ -43,12 +43,14 @@ interface Props {
 
 const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
+    const [tempSearch, setTempSearch] = useState(""); // Search bar uses this, but on submit sets localFilters.search equal to this
     const [mobileShow, setMobileShow] = useState(false);
     const location = useLocation();
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         setCurrentPage(1);
+        setLocalFilters(prevFilters => ({ ...prevFilters, search: tempSearch }));
         updateURL();
     }
 
@@ -88,14 +90,14 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
     // Update the URL query parameters whenever filters change
     useEffect(() => {
         updateURL();
-    }, [currentPage]);
+    }, [currentPage, localFilters]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch}>
             <div className="filter-bar-main">
                 <Search
-                    filters={localFilters}
-                    setFilters={setLocalFilters} />
+                    search={tempSearch}
+                    setSearch={setTempSearch} />
 
                 <ToggleShowFiltersButton
                     mobileShow={mobileShow}
@@ -103,6 +105,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
             </div>
             <div className={mobileShow ? "filter-bar-secondary show" : "filter-bar-secondary"}>
                 <Dropdown
+                    updateURL={updateURL}
                     label="Edition"
                     name="editionId"
                     options={editionOptions}
@@ -110,6 +113,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
                     selectedValue={localFilters.editionId?.toString()} />
 
                 <Dropdown
+                    updateURL={updateURL}
                     label="Sort By"
                     name="sortBy"
                     options={sortOptions}
@@ -117,6 +121,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
                     selectedValue={localFilters.sortBy} />
 
                 <Dropdown
+                    updateURL={updateURL}
                     label="Show Foil"
                     name="foilFilter"
                     options={foilOptions}
