@@ -19,9 +19,11 @@ const Dropdown = ({ label, name, options, setFilters, selectedValue }: Props<{
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        const isValidEditionId = !isNaN(parseInt(e.target.value));
+
         setFilters((prevFilters: any) => ({
             ...prevFilters,
-            [name]: e.target.value
+            [name]: name === "editionId" && !isValidEditionId ? undefined : e.target.value
         }));
     };
 

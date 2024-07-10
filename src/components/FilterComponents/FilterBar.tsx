@@ -76,7 +76,6 @@ const FilterBar = ({ setSearchParams }: Props) => {
     useEffect(() => {
         (async () => {
             const editionsDropdown = await getEditionsDropdown();
-            console.log(editionsDropdown)
             editionOptions = editionOptions.concat(editionsDropdown);
         })();
 
