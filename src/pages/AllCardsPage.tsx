@@ -7,9 +7,8 @@ import '../styles/cards.css'
 import { useSearchParams } from "react-router-dom"
 import Pagination from '../components/Pagination/Pagination'
 import Card from '../components/Cards/Card'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../redux/reducers/rootReducer'
-import { SetCurrentPageAction, SetTotalPagesAction } from '../redux/actions/actions'
+import { useDispatch } from 'react-redux'
+import { SetTotalPagesAction } from '../redux/actions/actions'
 
 const AllCardsPage = () => {
     const [cardPageDTO, setCardPageDTO] = useState<CardPageDTO | null>(null);

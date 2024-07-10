@@ -1,4 +1,4 @@
-import { EditionGroup } from "../../models/EditionGroup";
+import { EditionGroup } from "../../models/Editions/EditionGroup";
 
 const getEditionsGrouped = async () => {
     const url = 'https://localhost:44321/api/editions/grouped';

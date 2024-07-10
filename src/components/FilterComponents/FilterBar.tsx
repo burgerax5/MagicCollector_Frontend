@@ -9,6 +9,7 @@ import { SetURLSearchParams, useLocation } from "react-router-dom"
 import { useSelector, useDispatch } from "react-redux"
 import { RootState } from "../../redux/reducers/rootReducer"
 import { SetFilterAction } from "../../redux/actions/actions"
+import getEditionsDropdown from "../../api/editions/getEditionsDropdown"
 
 const initialState: Filters = {
     search: "",
@@ -16,7 +17,7 @@ const initialState: Filters = {
     foilFilter: "any"
 }
 
-const editionOptions = [
+let editionOptions = [
     { name: "All Editions", value: "all" },
     { name: "3rd Edition", value: 1 },
     { name: "4th Edition", value: 2 },
@@ -73,6 +74,12 @@ const FilterBar = ({ setSearchParams }: Props) => {
 
     // Parse query parameters from URL
     useEffect(() => {
+        (async () => {
+            const editionsDropdown = await getEditionsDropdown();
+            console.log(editionsDropdown)
+            editionOptions = editionOptions.concat(editionsDropdown);
+        })();
+
         const params = new URLSearchParams(location.search);
         const newFilters = { ...initialState };
         params.forEach((value, key) => {
