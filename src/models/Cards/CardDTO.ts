@@ -1,7 +1,7 @@
 export interface CardDTO {
     id: number,
     editionName: string,
-    editionCode: string,
+    editionId: number,
     rarity: number,
     name: string,
     imageURL: string,
