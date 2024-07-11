@@ -20,18 +20,21 @@ const CardPopup = ({ card }: Props) => {
 
     return (
         <div className="popup-content">
-            <img src={"https://" + card.imageURL} alt={card.name} />
+            <img className="card-image-large" src={"https://" + card.imageURL} alt={card.name} />
             <div className="card-details-wrapper">
                 <div className="card-basic-details">
                     <h2>{card.name}</h2>
                     <div className="card-edition"><b>Edition: </b>{card.editionName}</div>
                     <div className="card-rarity"><b>Rarity: </b>{rarities[card.rarity]}</div>
                 </div>
+                <div className="card-disclaimer">All data sourced from CardKingdom</div>
                 <ul className="card-price-details">
                     {cardDetailedDTO &&
                         cardDetailedDTO.cardConditions.map(condition => (
                             <li className="card-condition" key={condition.condition}>
-                                {condition.condition}: {condition.quantity} @ {condition.price}
+                                {condition.condition}:
+                                <span className="card-quantity"> {condition.quantity} @</span>
+                                <span className="card-price"> ${condition.price}</span>
                             </li>
                         ))}
                 </ul>
