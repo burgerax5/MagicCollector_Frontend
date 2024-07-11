@@ -43,7 +43,7 @@ const LoginPage = () => {
                 <h1>Log In</h1>
                 <form className="auth-form" onSubmit={submitLogin}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
-                    <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
+                    <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} isRegisterForm={false} />
 
                     <button
                         className={form.username && form.password ? "submit-btn" : "submit-btn disabled"}

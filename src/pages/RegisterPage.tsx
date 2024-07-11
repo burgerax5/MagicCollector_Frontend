@@ -38,7 +38,7 @@ const RegisterPage = () => {
                 <h1>Sign Up</h1>
                 <form className="auth-form" onSubmit={submitRegister}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
-                    <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} />
+                    <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} isRegisterForm={true} />
                     <ConfirmPasswordField
                         password={form.password}
                         confirmPassword={form.confirmPassword}
