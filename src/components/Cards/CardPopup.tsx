@@ -9,6 +9,7 @@ interface Props {
 
 const CardPopup = ({ card }: Props) => {
     const [cardDetailedDTO, setCardDetailedDTO] = useState<CardDetailedDTO | null>(null);
+    const rarities = ["Common", "Uncommon", "Rare", "Mythic Rare"]
 
     useEffect(() => {
         (async () => {
@@ -19,17 +20,22 @@ const CardPopup = ({ card }: Props) => {
 
     return (
         <div className="popup-content">
-            <h2>{card.name}</h2>
             <img src={"https://" + card.imageURL} alt={card.name} />
-            <p>Edition: {card.editionName}</p>
-            <ul>
-                {cardDetailedDTO &&
-                    cardDetailedDTO.cardConditions.map(condition => (
-                        <li key={condition.condition}>
-                            {condition.condition}: {condition.quantity} @ {condition.price}
-                        </li>
-                    ))}
-            </ul>
+            <div className="card-details-wrapper">
+                <div className="card-basic-details">
+                    <h2>{card.name}</h2>
+                    <div className="card-edition"><b>Edition: </b>{card.editionName}</div>
+                    <div className="card-rarity"><b>Rarity: </b>{rarities[card.rarity]}</div>
+                </div>
+                <ul className="card-price-details">
+                    {cardDetailedDTO &&
+                        cardDetailedDTO.cardConditions.map(condition => (
+                            <li className="card-condition" key={condition.condition}>
+                                {condition.condition}: {condition.quantity} @ {condition.price}
+                            </li>
+                        ))}
+                </ul>
+            </div>
         </div>
     )
 }

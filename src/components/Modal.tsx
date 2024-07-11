@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/modal.css'
+import { FiX } from 'react-icons/fi'
 
 interface ModalProps {
     show: boolean;
@@ -15,7 +16,9 @@ const Modal = ({ show, onClose, children }: ModalProps) => {
     return (
         <div className="modal-overlay" onClick={onClose}>
             <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <button className="close-button" onClick={onClose}>Close</button>
+                <button className="close-button" type="button" onClick={onClose}>
+                    <FiX />
+                </button>
                 {children}
             </div>
         </div>

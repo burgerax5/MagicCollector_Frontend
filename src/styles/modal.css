@@ -17,7 +17,8 @@
     padding: 20px;
     border-radius: 5px;
     position: relative;
-    max-width: 500px;
+    max-height: 500px;
+    max-width: 800px;
     width: 100%;
 }
 
@@ -28,10 +29,16 @@
     right: 10px;
     background: none;
     border: none;
-    font-size: 1.2rem;
+    font-size: 2rem;
     cursor: pointer;
 }
 
-.popup-content img {
-    max-width: 100%;
+.close-button:hover {
+    color: var(--tertiary);
+}
+
+@media screen and (max-width: 888px) {
+    .modal-content {
+        overflow-y: scroll;
+    }
 }
