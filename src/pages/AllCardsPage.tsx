@@ -47,7 +47,7 @@ const AllCardsPage = () => {
         <div className="content-wrapper">
             <h1>Cards</h1>
             <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            {cardPageDTO && <div>Results: {startRange} - {endRange} of {cardPageDTO?.results}</div>}
+            {cardPageDTO && <div className="card-results">Results: {startRange} - {endRange} of {cardPageDTO?.results}</div>}
             <div className="card-grid">
                 <Suspense fallback={<CardSkeletons />}>
                     {cardPageDTO?.results ?

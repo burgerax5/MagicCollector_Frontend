@@ -10,7 +10,7 @@ const initialState: Queries = {
     },
     pagination: {
         currentPage: 1,
-        totalPages: 2000,
+        totalPages: 0,
     }
 };
 

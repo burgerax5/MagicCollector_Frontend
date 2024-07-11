@@ -4,10 +4,12 @@
     gap: 1rem;
     max-width: 1520px;
     margin-inline: auto;
+    padding: 1rem;
 }
 
 .card-grid {
     display: grid;
+    padding: 1rem;
     gap: 1rem;
 }
 
@@ -44,25 +46,25 @@
 
 @media screen and (min-width: 1520px) {
     .card-grid {
-        grid-template-columns: repeat(7, 1fr);
+        grid-template-columns: repeat(5, 1fr);
     }
 }
 
 @media screen and (max-width: 1520px) {
     .card-grid {
-        grid-template-columns: repeat(5, 1fr);
-    }
-}
-
-@media screen and (max-width: 1095px) {
-    .card-grid {
         grid-template-columns: repeat(4, 1fr);
     }
 }
 
-@media screen and (max-width: 894px) {
+@media screen and (max-width: 920px) {
     .card-grid {
         grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media screen and (max-width: 888px) {
+    .card-results {
+        text-align: center;
     }
 }
 
@@ -75,7 +77,6 @@
 @media screen and (max-width: 480px) {
     .card-grid {
         grid-template-columns: 1fr;
-        align-items: center;
-        justify-content: center;
+        place-items: center;
     }
 }
