@@ -1,6 +1,7 @@
 import { CardDTO } from '../../models/Cards/CardDTO'
 import { useState } from 'react'
 import Modal from '../Modal';
+import CardPopup from './CardPopup';
 
 interface Props {
     card: CardDTO
@@ -31,12 +32,7 @@ const Card = ({ card }: Props) => {
             </div>
 
             <Modal show={showPopup} onClose={handleClosePopup}>
-                <div className="popup-content">
-                    <h2>{card.name}</h2>
-                    <img src={"https://" + card.imageURL} alt={card.name} />
-                    <p>Edition: {card.editionName}</p>
-                    <p>Price: ${card.nmPrice}</p>
-                </div>
+                <CardPopup card={card} />
             </Modal>
         </div>
     )
