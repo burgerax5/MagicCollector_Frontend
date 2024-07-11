@@ -4,7 +4,7 @@ import FilterBar from '../components/FilterComponents/FilterBar'
 import CardSkeletons from '../components/Skeletons/CardSkeletons'
 import { CardPageDTO } from '../models/Cards/CardPageDTO'
 import '../styles/cards.css'
-import { useSearchParams, useNavigate } from "react-router-dom"
+import { useSearchParams } from "react-router-dom"
 import Pagination from '../components/Pagination/Pagination'
 import Card from '../components/Cards/Card'
 import { useDispatch } from 'react-redux'
@@ -15,7 +15,6 @@ const AllCardsPage = () => {
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const getResultsRange = (currentPage: number, resultsPerPage: number, totalResults: number | undefined) => {
         if (!totalResults) return {}
@@ -29,13 +28,17 @@ const AllCardsPage = () => {
         (async () => {
             let page = await getCardsInPage(searchParams.toString());
             setCardPageDTO(page);
-            // navigate("");
         })();
     }, [searchParams]);
 
     useEffect(() => {
-        const totalPages = cardPageDTO?.total_pages;
-        dispatch(SetTotalPagesAction(totalPages ?? 0));
+        if (cardPageDTO) {
+            const totalPages = cardPageDTO.total_pages;
+            dispatch(SetTotalPagesAction(totalPages));
+
+            const samePage = currentPage === cardPageDTO?.curr_page;
+            if (!samePage && !isNaN(cardPageDTO.curr_page)) setCurrentPage(cardPageDTO.curr_page);
+        }
     }, [cardPageDTO])
 
     const { startRange, endRange } = getResultsRange(currentPage, 50, cardPageDTO?.results);

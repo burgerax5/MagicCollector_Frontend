@@ -21,9 +21,13 @@
 .card-image {
     border-radius: 5px;
     border: 5px solid black;
+    width: 200px;
+    height: 275px;
+    background: url('../assets/back_of_card.webp');
 }
 
 .card-edition {
+    text-decoration: none;
     color: var(--secondary-font-colour);
 }
 
