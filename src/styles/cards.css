@@ -13,11 +13,16 @@
     gap: 1rem;
 }
 
+.card-wrapper {
+    position: relative;
+}
+
 .card {
     display: flex;
     flex-direction: column;
     width: 200px;
     height: 350px;
+    cursor: pointer;
 }
 
 .card-image {
