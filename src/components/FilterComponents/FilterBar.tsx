@@ -66,6 +66,10 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
         setSearchParams(params);
     }
 
+    const resetPage = () => {
+        setCurrentPage(1);
+    }
+
     // Parse query parameters from URL
     useEffect(() => {
         (async () => {
@@ -106,7 +110,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
             </div>
             <div className={mobileShow ? "filter-bar-secondary show" : "filter-bar-secondary"}>
                 <Dropdown
-                    updateURL={updateURL}
+                    resetPage={resetPage}
                     label="Edition"
                     name="editionId"
                     options={editionOptions}
@@ -114,7 +118,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
                     selectedValue={localFilters.editionId?.toString()} />
 
                 <Dropdown
-                    updateURL={updateURL}
+                    resetPage={resetPage}
                     label="Sort By"
                     name="sortBy"
                     options={sortOptions}
@@ -122,7 +126,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
                     selectedValue={localFilters.sortBy} />
 
                 <Dropdown
-                    updateURL={updateURL}
+                    resetPage={resetPage}
                     label="Show Foil"
                     name="foilFilter"
                     options={foilOptions}
