@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers/rootReducer'
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 import '../../styles/pagination.css'
+import { useState } from 'react'
 
 interface Props {
     currentPage: number,
@@ -10,6 +11,7 @@ interface Props {
 
 const Pagination = ({ currentPage, setCurrentPage }: Props) => {
     const { totalPages } = useSelector((state: RootState) => state.queries.pagination);
+    const [pageInput, setPageInput] = useState<number>(currentPage);
 
     const handleChangePage = (page: number) => {
         if (isValidPage(page))
@@ -35,50 +37,65 @@ const Pagination = ({ currentPage, setCurrentPage }: Props) => {
         return pages;
     }
 
+    const handlePageInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPageInput(e.target.value ? parseInt(e.target.value) : 1);
+    }
+
+    const handlePageInputButton = () => {
+        handleChangePage(pageInput);
+    }
+
     return (
-        <ul className="pagination">
-            <li>
-                <button
-                    className="page-btn"
-                    type="button"
-                    disabled={!isValidPage(currentPage - 1)}
-                    onClick={() => handleChangePage(currentPage - 1)}>
-                    <FaChevronLeft />
-                </button>
-            </li>
-
-            {generatePageNumbers().map((page, index) => (
-                <li key={`li-${index}`}>
-                    {page === "..." ?
-                        <button
-                            key={index}
-                            type="button"
-                            disabled
-                            className="page-ellipsis">
-                            {page}
-                        </button> :
-                        <button
-                            key={index}
-                            type="button"
-                            className={page === currentPage ? "page-btn active" : "page-btn"}
-                            onClick={() => {
-                                typeof page === 'number' && handleChangePage(page)
-                            }}>
-                            {page}
-                        </button>}
+        <div className="pagination">
+            <ul className="pagination-buttons">
+                <li>
+                    <button
+                        className="page-btn"
+                        type="button"
+                        disabled={!isValidPage(currentPage - 1)}
+                        onClick={() => handleChangePage(currentPage - 1)}>
+                        <FaChevronLeft />
+                    </button>
                 </li>
-            ))}
 
-            <li>
-                <button
-                    className="page-btn"
-                    type="button"
-                    disabled={!isValidPage(currentPage + 1)}
-                    onClick={() => handleChangePage(currentPage + 1)}>
-                    <FaChevronRight />
-                </button>
-            </li>
-        </ul>
+                {generatePageNumbers().map((page, index) => (
+                    <li key={`li-${index}`}>
+                        {page === "..." ?
+                            <button
+                                key={index}
+                                type="button"
+                                disabled
+                                className="page-ellipsis">
+                                {page}
+                            </button> :
+                            <button
+                                key={index}
+                                type="button"
+                                className={page === currentPage ? "page-btn active" : "page-btn"}
+                                onClick={() => {
+                                    typeof page === 'number' && handleChangePage(page)
+                                }}>
+                                {page}
+                            </button>}
+                    </li>
+                ))}
+
+                <li>
+                    <button
+                        className="page-btn"
+                        type="button"
+                        disabled={!isValidPage(currentPage + 1)}
+                        onClick={() => handleChangePage(currentPage + 1)}>
+                        <FaChevronRight />
+                    </button>
+                </li>
+            </ul>
+            <div className="page-input-section">
+                <label htmlFor="page-input">Page</label>
+                <input id="page-input" type="number" onChange={handlePageInputChange} value={pageInput} />
+                <button onClick={handlePageInputButton}>Go</button>
+            </div>
+        </div>
     )
 }
 

@@ -1,4 +1,9 @@
 .pagination {
+    display: grid;
+    place-items: center;
+}
+
+.pagination-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -6,11 +11,11 @@
     gap: 0.25rem;
 }
 
-.pagination>li {
+.pagination-buttons>li {
     list-style: none;
 }
 
-.pagination .page-ellipsis {
+.pagination-buttons .page-ellipsis {
     padding: 0.5rem;
     border: 1px solid transparent;
     background-color: var(--background);
@@ -21,7 +26,7 @@
     height: 35px;
 }
 
-.pagination .page-btn {
+.pagination-buttons .page-btn {
     padding: 0.5rem;
     border: 1px solid var(--secondary);
     background-color: var(--secondary);
@@ -32,23 +37,54 @@
     height: 35px;
 }
 
-.pagination .page-btn:hover {
+.pagination-buttons .page-btn:hover {
     text-decoration: underline;
     border: 1px solid var(--tertiary);
 }
 
-.pagination .page-btn:disabled {
+.pagination-buttons .page-btn:disabled {
     cursor: default;
     color: var(--tertiary);
     opacity: 0.5;
 }
 
-.pagination .page-btn:disabled:hover {
+.pagination-buttons .page-btn:disabled:hover {
     border-color: transparent;
 }
 
-.pagination .page-btn.active {
+.pagination-buttons .page-btn.active {
     background-color: var(--primary);
     color: var(--secondary);
     font-weight: bold;
+}
+
+.page-input-section {
+    display: flex;
+    align-items: center;
+}
+
+.page-input-section label {
+    margin-right: 1rem;
+}
+
+.page-input-section input {
+    width: 50px;
+    padding: 0.5rem;
+    border-top-left-radius: 0.5rem;
+    border-bottom-left-radius: 0.5rem;
+    border: 1px solid var(--tertiary);
+    background-color: var(--background);
+    color: var(--font-colour);
+    border-right: none;
+}
+
+.page-input-section button {
+    cursor: pointer;
+    padding: 0.5rem;
+    border-top-right-radius: 0.5rem;
+    border-bottom-right-radius: 0.5rem;
+    border: 1px solid var(--tertiary);
+    background-color: var(--primary);
+    color: var(--secondary);
+    font-weight: bolder;
 }
