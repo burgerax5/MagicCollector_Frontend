@@ -30,14 +30,20 @@ const CardPopup = ({ card }: Props) => {
                 </div>
                 <div className="card-disclaimer">All data sourced from CardKingdom</div>
                 <div className="card-price-details">
+                    <div className="card-detail-labels">
+                        <div className="card-detail-label">Condition</div>
+                        <div className="card-detail-label">Stock</div>
+                        <div className="card-detail-label">Price</div>
+                        <div className="card-detail-label">Qty Owned</div>
+                    </div>
                     {cardDetailedDTO &&
                         cardDetailedDTO.cardConditions.map(condition => (
-                            <li className="card-condition" key={condition.condition}>
-                                {condition.condition}:
-                                <span className="card-quantity"> {condition.quantity} @</span>
-                                <span className="card-price"> ${condition.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                            <div className="card-condition-row" key={condition.condition}>
+                                <div className="card-condition">{condition.condition}</div>
+                                <div className="card-quantity"> {condition.quantity}</div>
+                                <div className="card-price">${condition.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
                                 <ButtonGroup />
-                            </li>
+                            </div>
                         ))}
                 </div>
             </div>

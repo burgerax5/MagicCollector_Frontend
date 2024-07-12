@@ -36,7 +36,7 @@
 
 .card-edition {
     text-decoration: none;
-    color: var(--secondary-font-colour);
+    color: var(--tertiary);
 }
 
 .card-edition,
@@ -58,6 +58,9 @@
 .popup-content .card-image-large {
     max-width: 300px;
     aspect-ratio: 264 / 378;
+    border-radius: 1.6rem;
+    border: 0.5rem solid black;
+    background-image: url('../assets/back_of_card.webp');
 }
 
 .card-details-wrapper {
@@ -70,36 +73,43 @@
 
 .card-price-details {
     display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    text-align: center;
     gap: 1rem;
     margin: 0;
     padding: 0;
+}
+
+.card-detail-labels {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    grid-column: 1 / 5;
+}
+
+.card-detail-label {
+    color: var(--tertiary);
+}
+
+.card-detail-label:last-of-type {
+    margin-left: auto;
+    margin-right: 2.5rem;
 }
 
 .card-basic-details h2 {
     margin: 0 0 1rem 0;
 }
 
-.card-quantity,
 .card-disclaimer {
     color: var(--tertiary);
 }
 
-.card-condition {
-    display: flex;
-    align-items: center;
-    padding: 1rem;
-    list-style: none;
-    background-color: var(--secondary);
-    border-radius: 0.25rem;
-}
-
-.card-condition .cards-owned {
+.card-price-details .cards-owned {
     display: flex;
     margin-left: auto;
     gap: 0.25rem;
 }
 
-.card-condition button {
+.card-price-details button {
     border: none;
     border-radius: 0.5rem;
     width: 40px;
@@ -109,18 +119,28 @@
     font-size: 1.25rem;
 }
 
-.card-condition button:disabled {
+.card-condition-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 2fr;
+    place-items: center;
+    grid-column: 1 / 5;
+    background-color: var(--secondary);
+    padding: 0.35rem;
+    border-radius: 0.75rem;
+}
+
+.card-price-details button:disabled {
     cursor: not-allowed;
     background-color: var(--tertiary);
 }
 
-.card-condition input::-webkit-outer-spin-button,
-.card-condition input::-webkit-inner-spin-button {
+.card-price-details input::-webkit-outer-spin-button,
+.card-price-details input::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-.card-condition input[type=number] {
+.card-price-details input[type=number] {
     -moz-appearance: textfield;
     text-align: center;
     border: 1px solid var(--tertiary);
@@ -130,19 +150,19 @@
     font-weight: bold;
 }
 
-.card-condition:nth-of-type(1) {
+.card-condition-row:nth-of-type(2) {
     border-left: 5px solid var(--green);
 }
 
-.card-condition:nth-of-type(2) {
+.card-condition-row:nth-of-type(3) {
     border-left: 5px solid var(--yellow);
 }
 
-.card-condition:nth-of-type(3) {
+.card-condition-row:nth-of-type(4) {
     border-left: 5px solid var(--orange);
 }
 
-.card-condition:nth-of-type(4) {
+.card-condition-row:nth-of-type(5) {
     border-left: 5px solid var(--red);
 }
 
@@ -192,5 +212,21 @@
     .card-grid {
         grid-template-columns: 1fr;
         place-items: center;
+    }
+
+    .card-price-details,
+    .card-detail-labels,
+    .card-condition-row {
+        grid-template-columns: 1fr 1fr 2fr;
+        grid-column: 1 / 4;
+    }
+
+    .card-detail-label:nth-of-type(2),
+    .card-quantity {
+        display: none;
+    }
+
+    .card-condition-row .card-price {
+        font-size: 0.75rem;
     }
 }
