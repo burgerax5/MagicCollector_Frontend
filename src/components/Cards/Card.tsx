@@ -26,7 +26,7 @@ const Card = ({ card }: Props) => {
                 <div>
                     <div className="card-name">{card.name}</div>
                     <div className="card-price">
-                        ${card.nmPrice}
+                        ${card.nmPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
                     </div>
                 </div>
             </div>

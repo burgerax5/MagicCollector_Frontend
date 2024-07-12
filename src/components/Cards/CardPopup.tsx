@@ -2,6 +2,7 @@ import { CardDTO } from '../../models/Cards/CardDTO'
 import { useState, useEffect } from 'react'
 import { CardDetailedDTO } from '../../models/Cards/CardDetailedDTO'
 import getCardDetailedDTO from '../../api/cards/getCardDetailedDTO'
+import ButtonGroup from './ButtonGroup'
 
 interface Props {
     card: CardDTO
@@ -28,16 +29,17 @@ const CardPopup = ({ card }: Props) => {
                     <div className="card-rarity"><b>Rarity: </b>{rarities[card.rarity]}</div>
                 </div>
                 <div className="card-disclaimer">All data sourced from CardKingdom</div>
-                <ul className="card-price-details">
+                <div className="card-price-details">
                     {cardDetailedDTO &&
                         cardDetailedDTO.cardConditions.map(condition => (
                             <li className="card-condition" key={condition.condition}>
                                 {condition.condition}:
                                 <span className="card-quantity"> {condition.quantity} @</span>
-                                <span className="card-price"> ${condition.price}</span>
+                                <span className="card-price"> ${condition.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</span>
+                                <ButtonGroup />
                             </li>
                         ))}
-                </ul>
+                </div>
             </div>
         </div>
     )

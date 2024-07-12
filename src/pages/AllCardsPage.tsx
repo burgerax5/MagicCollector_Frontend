@@ -47,7 +47,8 @@ const AllCardsPage = () => {
         <div className="content-wrapper">
             <h1>Cards</h1>
             <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-            {cardPageDTO && <div className="card-results">Results: {startRange} - {endRange} of {cardPageDTO?.results}</div>}
+            {cardPageDTO && <div className="card-results">
+                Results: {startRange?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}-{endRange?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} of {cardPageDTO?.results?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>}
             <div className="card-grid">
                 <Suspense fallback={<CardSkeletons />}>
                     {cardPageDTO?.results ?
