@@ -47,8 +47,8 @@
     background: linear-gradient(160deg,
             rgba(131, 58, 180, 0.35) 0%,
             rgba(181, 200, 12, 0.35) 25%,
-            rgba(253, 29, 29, 0.35) 50%,
-            rgba(252, 133, 51, 0.35) 78%,
+            rgba(253, 29, 29, 0.2) 50%,
+            rgba(252, 133, 51, 0.3) 78%,
             rgba(252, 176, 69, 0.35) 100%) 0;
 }
 
@@ -89,6 +89,7 @@
 .card-image-large {
     max-width: 300px;
     height: 100%;
+    width: 100%;
     aspect-ratio: 264 / 378;
 }
 
