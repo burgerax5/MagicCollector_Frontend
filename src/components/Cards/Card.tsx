@@ -22,7 +22,10 @@ const Card = ({ card }: Props) => {
         <div className="card-wrapper">
             <div className="card" onClick={handleCardClick}>
                 <div className="card-edition">{card.editionName}</div>
-                <img loading='lazy' className="card-image" src={"https://" + card.imageURL} alt={card.name} />
+                <div className="card-image-wrapper">
+                    {card.isFoil && <div className="foil-cover"></div>}
+                    <img loading='lazy' src={"https://" + card.imageURL} alt={card.name} />
+                </div>
                 <div>
                     <div className="card-name">{card.name}</div>
                     <div className="card-price">

@@ -21,7 +21,10 @@ const CardPopup = ({ card }: Props) => {
 
     return (
         <div className="popup-content">
-            <img className="card-image-large" src={"https://" + card.imageURL} alt={card.name} />
+            <div className="card-image-large-wrapper">
+                {card.isFoil && <div className="foil-cover"></div>}
+                <img className="card-image-large" src={"https://" + card.imageURL} alt={card.name} />
+            </div>
             <div className="card-details-wrapper">
                 <div className="card-basic-details">
                     <h2>{card.name}</h2>

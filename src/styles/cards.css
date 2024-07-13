@@ -25,13 +25,44 @@
     cursor: pointer;
 }
 
-.card-image {
+.card-image-wrapper {
     border-radius: 5px;
     border: 5px solid black;
     width: 190px;
     height: 275px;
     aspect-ratio: 44 / 63;
     background: url('../assets/back_of_card.webp');
+    position: relative;
+}
+
+.card-image-wrapper img {
+    width: 190px;
+    height: 275px;
+}
+
+.foil-cover {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(160deg,
+            rgba(131, 58, 180, 0.35) 0%,
+            rgba(181, 200, 12, 0.35) 25%,
+            rgba(253, 29, 29, 0.35) 50%,
+            rgba(252, 133, 51, 0.35) 78%,
+            rgba(252, 176, 69, 0.35) 100%) 0;
+}
+
+.foil-cover::after {
+    text-align: center;
+    content: "FOIL";
+    position: absolute;
+    right: 0;
+    top: 1.5rem;
+    width: 50px;
+    height: 20px;
+    background-color: black;
+    color: white;
+    opacity: 1;
 }
 
 .card-edition {
@@ -55,13 +86,21 @@
     gap: 1rem;
 }
 
-.popup-content .card-image-large {
+.card-image-large {
+    max-width: 300px;
+    height: 100%;
+    aspect-ratio: 264 / 378;
+}
+
+.card-image-large-wrapper {
+    border: 10px solid black;
     max-width: 300px;
     aspect-ratio: 264 / 378;
-    border-radius: 1.6rem;
-    border: 0.5rem solid black;
-    background-image: url('../assets/back_of_card.webp');
+    background: url('../assets/back_of_card.webp');
+    position: relative;
+    border-radius: 10px;
 }
+
 
 .card-details-wrapper {
     padding: 1rem;
