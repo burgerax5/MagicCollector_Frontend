@@ -10,6 +10,7 @@ import { FiLogOut } from "react-icons/fi";
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { LogoutAction } from '../../redux/actions/actions';
+import { getUsername } from '../../utils/checkAuthenticated';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -47,7 +48,7 @@ const Header = () => {
                         <Link to="/editions" onClick={toggleMenu}>All Editions</Link>
                     </li>
                     <li>
-                        <Link to="/mycards" onClick={toggleMenu}>My Cards</Link>
+                        <Link to={"/mycards?user=" + getUsername()} onClick={toggleMenu}>My Cards</Link>
                     </li>
                     {!isAuthenticated ?
                         <>
