@@ -1,4 +1,6 @@
+import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedDTO";
 import { CardOwnedResponseDTO } from "../../models/MyCards/CardOwnedResponseDTO";
+import Cookies from "js-cookie";
 
 const getCardsOwned = async (username: string) => {
     try {
@@ -17,4 +19,27 @@ const getCardsOwned = async (username: string) => {
     }
 }
 
-export { getCardsOwned };
+const getConditionsOwned = async (cardId: number) => {
+    try {
+        const url = "https://localhost:44321/api/user/cards/conditions/" + cardId;
+        const token = Cookies.get("auth");
+
+        const response = await fetch(url, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error. Status: ${response.status}`);
+        }
+
+        const conditions = await response.json() as CardConditionOwnedDTO[];
+        return conditions;
+    } catch (error) {
+        console.error('Error fetching conditions', error);
+        throw error;
+    }
+}
+
+export { getCardsOwned, getConditionsOwned };

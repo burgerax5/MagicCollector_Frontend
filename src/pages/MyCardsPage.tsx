@@ -10,12 +10,13 @@ import '../styles/mycards.css'
 import getResultsRange from '../utils/getResultsRange';
 import { useDispatch, UseDispatch } from 'react-redux';
 import { SetTotalPagesAction } from '../redux/actions/actions';
+import { getUsername } from '../utils/checkAuthenticated';
 
 
 const MyCardsPage = () => {
     const [cardsOwned, setCardsOwned] = useState<CardOwnedResponseDTO | undefined>();
     const [searchParams, setSearchParams] = useSearchParams();
-    const [user, setUser] = useState<string | null>(null);
+    const [user, setUser] = useState<string | null>(getUsername());
     const [currentPage, setCurrentPage] = useState(1);
     const params = new URLSearchParams(location.search);
     const dispatch = useDispatch();
@@ -32,9 +33,11 @@ const MyCardsPage = () => {
             let username: string | undefined;
 
             params.forEach((value, key) => {
-                if (key === "user") {
+                if (key === "user" && value.length > 0) {
                     username = value
                     setUser(username);
+                } else if (key === "user") {
+                    setUser(getUsername());
                 }
             })
 

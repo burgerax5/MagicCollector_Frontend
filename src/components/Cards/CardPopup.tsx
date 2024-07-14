@@ -3,6 +3,8 @@ import { useState, useEffect } from 'react'
 import { CardDetailedDTO } from '../../models/Cards/CardDetailedDTO'
 import getCardDetailedDTO from '../../api/cards/getCardDetailedDTO'
 import ButtonGroup from './ButtonGroup'
+import { getConditionsOwned } from '../../api/mycards/myCards'
+import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO'
 
 interface Props {
     card: CardDTO
@@ -10,14 +12,20 @@ interface Props {
 
 const CardPopup = ({ card }: Props) => {
     const [cardDetailedDTO, setCardDetailedDTO] = useState<CardDetailedDTO | null>(null);
+    const [conditionsOwned, setConditionsOwned] = useState<CardConditionOwnedDTO[]>([]);
     const rarities = ["Common", "Uncommon", "Rare", "Mythic Rare"]
 
     useEffect(() => {
         (async () => {
-            const dto = await getCardDetailedDTO(card.id);
-            setCardDetailedDTO(dto);
+            const cardDTO = await getCardDetailedDTO(card.id);
+            setCardDetailedDTO(cardDTO);
+
+            const conditionDTOs = await getConditionsOwned(card.id);
+            setConditionsOwned(conditionDTOs);
         })();
     }, []);
+
+    console.log(conditionsOwned)
 
     return (
         <div className="popup-content">
