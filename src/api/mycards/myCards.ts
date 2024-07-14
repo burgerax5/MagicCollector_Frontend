@@ -42,28 +42,72 @@ const getConditionsOwned = async (cardId: number) => {
     }
 }
 
-// const updateConditionsOwned = async (conditionsOwned: CardConditionOwnedDTO[]) => {
-//     try {
-//         const url = "https://localhost:44321/api/user/cards/conditions/" + cardId;
-//         const token = Cookies.get("auth");
+const addCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
+    try {
+        const url = "https://localhost:44321/api/user/cards/";
+        const token = Cookies.get("auth");
 
-//         const response = await fetch(url, {
-//             method: "POST",
-//             headers: {
-//                 'Authorization': `Bearer ${token}`
-//             }
-//         });
+        const response = await fetch(url, {
+            method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(cardOwned)
+        });
 
-//         if (!response.ok) {
-//             throw new Error(`HTTP Error. Status: ${response.status}`);
-//         }
+        if (!response.ok) {
+            throw new Error(`HTTP Error. Status: ${response.status}`);
+        }
 
-//         const conditions = await response.json() as CardConditionOwnedDTO[];
-//         return conditions;
-//     } catch (error) {
-//         console.error('Error fetching conditions', error);
-//         throw error;
-//     }
-// }
+    } catch (error) {
+        console.error('Error adding card owned:', error);
+        throw error;
+    }
+}
+
+const updateCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
+    try {
+        const url = "https://localhost:44321/api/user/cards/";
+        const token = Cookies.get("auth");
+
+        const response = await fetch(url, {
+            method: "PUT",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+            body: JSON.stringify(cardOwned)
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error. Status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('Error updating card owned:', error);
+        throw error;
+    }
+}
+
+const deleteCardOwned = async (id: number) => {
+    try {
+        const url = "https://localhost:44321/api/user/cards/" + id;
+        const token = Cookies.get("auth");
+
+        const response = await fetch(url, {
+            method: "DELETE",
+            headers: {
+                'Authorization': `Bearer ${token}`
+            },
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP Error. Status: ${response.status}`);
+        }
+
+    } catch (error) {
+        console.error('Error deleting card owned:', error);
+        throw error;
+    }
+}
 
 export { getCardsOwned, getConditionsOwned };
