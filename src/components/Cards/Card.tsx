@@ -5,6 +5,8 @@ import CardPopup from './CardPopup';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/reducers/rootReducer';
 import { ResetCardsOwnedAction } from '../../redux/actions/actions';
+import { isAdded, isDeleted, isUpdated } from '../../utils/updateCardsOwned';
+import { addCardOwned, deleteCardOwned, updateCardOwned } from '../../api/mycards/myCards';
 
 interface Props {
     card: CardDTO
@@ -21,7 +23,16 @@ const Card = ({ card }: Props) => {
     };
 
     const handleClosePopup = () => {
-        console.log(cardsOwned)
+        // Get conditions that were added/updated/deleted
+        const addedConditions = isAdded(cardsOwned.old, cardsOwned.new);
+        const updatedConditions = isUpdated(cardsOwned.old, cardsOwned.new);
+        const deletedConditions = isDeleted(cardsOwned.old, cardsOwned.new);
+
+        // Make API calls
+        addedConditions.map(async (co) => await addCardOwned(co));
+        updatedConditions.map(async (co) => await updateCardOwned(co));
+        deletedConditions.map(async (co) => await deleteCardOwned(co.id ?? 0));
+
         setShowPopup(false);
         dispatch(ResetCardsOwnedAction());
     };

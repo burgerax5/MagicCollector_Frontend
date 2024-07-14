@@ -50,7 +50,8 @@ const addCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
         const response = await fetch(url, {
             method: "POST",
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                "Content-type": "application/json; charset=UTF-8",
             },
             body: JSON.stringify(cardOwned)
         });
@@ -67,13 +68,14 @@ const addCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
 
 const updateCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
     try {
-        const url = "https://localhost:44321/api/user/cards/";
+        const url = "https://localhost:44321/api/user/cards/" + cardOwned.id;
         const token = Cookies.get("auth");
 
         const response = await fetch(url, {
             method: "PUT",
             headers: {
-                'Authorization': `Bearer ${token}`
+                'Authorization': `Bearer ${token}`,
+                "Content-type": "application/json; charset=UTF-8",
             },
             body: JSON.stringify(cardOwned)
         });
@@ -110,4 +112,4 @@ const deleteCardOwned = async (id: number) => {
     }
 }
 
-export { getCardsOwned, getConditionsOwned };
+export { getCardsOwned, getConditionsOwned, addCardOwned, updateCardOwned, deleteCardOwned };
