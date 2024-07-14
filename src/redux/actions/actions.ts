@@ -25,22 +25,38 @@ export const SetTotalPagesAction = (total_pages: number) => ({
 });
 
 // Cards Owned
-export const AddCardOwnedAction = (cardOwned: CardConditionOwnedDTO) => ({
+type Mode = "old" | "new";
+
+export const AddCardOwnedAction = (mode: Mode, cardOwned: CardConditionOwnedDTO) => ({
     type: actions.ADD_CARD_OWNED,
-    payload: cardOwned
+    payload: {
+        mode,
+        cardOwned
+    }
 });
 
-export const UpdateCardOwnedAction = (cardOwned: CardConditionOwnedDTO) => ({
+export const UpdateCardOwnedAction = (mode: Mode, cardOwned: CardConditionOwnedDTO) => ({
     type: actions.UPDATE_CARD_OWNED,
-    payload: cardOwned
+    payload: {
+        mode,
+        cardOwned
+    }
 });
 
-export const DeleteCardOwnedAction = (condition: string) => ({
+export const DeleteCardOwnedAction = (mode: Mode, condition: string) => ({
     type: actions.DELETE_CARD_OWNED,
-    payload: condition
+    payload: {
+        mode,
+        condition
+    }
+});
+
+export const ResetCardsOwnedAction = () => ({
+    type: actions.RESET_CARDS_OWNED
 });
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
 export type QueryActionType = ReturnType<typeof SetTotalPagesAction>;
 export type CardOwnedAction = ReturnType<typeof AddCardOwnedAction | typeof UpdateCardOwnedAction | typeof DeleteCardOwnedAction>
+export type ResetCardOwnedAction = ReturnType<typeof ResetCardsOwnedAction>

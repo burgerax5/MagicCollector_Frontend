@@ -2,6 +2,9 @@ import { CardDTO } from '../../models/Cards/CardDTO'
 import { useState } from 'react'
 import Modal from '../Modal';
 import CardPopup from './CardPopup';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../../redux/reducers/rootReducer';
+import { ResetCardsOwnedAction } from '../../redux/actions/actions';
 
 interface Props {
     card: CardDTO
@@ -10,12 +13,17 @@ interface Props {
 const Card = ({ card }: Props) => {
     const [showPopup, setShowPopup] = useState(false);
 
+    const dispatch = useDispatch();
+    const cardsOwned = useSelector((state: RootState) => state.cardsOwned);
+
     const handleCardClick = () => {
         setShowPopup(true);
     };
 
     const handleClosePopup = () => {
+        console.log(cardsOwned)
         setShowPopup(false);
+        dispatch(ResetCardsOwnedAction());
     };
 
     return (

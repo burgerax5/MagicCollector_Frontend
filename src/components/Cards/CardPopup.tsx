@@ -33,29 +33,33 @@ const CardPopup = ({ card }: Props) => {
 
     useEffect(() => {
         initConditionsOwned.forEach(conditionOwned => {
-            let index = conditionsOwned.findIndex(co => co.condition === conditionOwned.condition)
-            console.log(index)
+            let index = conditionsOwned.old.findIndex(co => co.condition === conditionOwned.condition)
             if (index === -1) {
-                dispatch(AddCardOwnedAction(conditionOwned))
+                dispatch(AddCardOwnedAction("old", conditionOwned))
+            }
+
+            index = conditionsOwned.new.findIndex(co => co.condition === conditionOwned.condition)
+            if (index === -1) {
+                dispatch(AddCardOwnedAction("new", conditionOwned))
             }
         });
     }, [initConditionsOwned]);
 
     const updateConditionOwned = (newConditionOwned: CardConditionOwnedDTO) => {
-        let index = conditionsOwned.findIndex(co => co.condition === newConditionOwned.condition);
+        let index = conditionsOwned.new.findIndex(co => co.condition === newConditionOwned.condition);
 
         // Add condition owned
         if (index === -1 && newConditionOwned.quantity > 0) {
-            dispatch(AddCardOwnedAction(newConditionOwned));
+            dispatch(AddCardOwnedAction("new", newConditionOwned));
         }
         // Delete condition owned
         else if (index >= 0 && newConditionOwned.quantity === 0) {
             const condition = newConditionOwned.condition;
-            dispatch(DeleteCardOwnedAction(condition));
+            dispatch(DeleteCardOwnedAction("new", condition));
         }
         // Update condition owned
         else if (index >= 0) {
-            dispatch(UpdateCardOwnedAction(newConditionOwned));
+            dispatch(UpdateCardOwnedAction("new", newConditionOwned));
         }
     }
 
@@ -82,7 +86,7 @@ const CardPopup = ({ card }: Props) => {
                     {cardDetailedDTO &&
                         <QtyOwned
                             cardDetailedDTO={cardDetailedDTO}
-                            conditionsOwned={conditionsOwned}
+                            conditionsOwned={conditionsOwned.new}
                             updateConditionOwned={updateConditionOwned} />}
                 </div>
             </div>

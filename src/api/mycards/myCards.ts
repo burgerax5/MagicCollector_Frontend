@@ -42,4 +42,28 @@ const getConditionsOwned = async (cardId: number) => {
     }
 }
 
+// const updateConditionsOwned = async (conditionsOwned: CardConditionOwnedDTO[]) => {
+//     try {
+//         const url = "https://localhost:44321/api/user/cards/conditions/" + cardId;
+//         const token = Cookies.get("auth");
+
+//         const response = await fetch(url, {
+//             method: "POST",
+//             headers: {
+//                 'Authorization': `Bearer ${token}`
+//             }
+//         });
+
+//         if (!response.ok) {
+//             throw new Error(`HTTP Error. Status: ${response.status}`);
+//         }
+
+//         const conditions = await response.json() as CardConditionOwnedDTO[];
+//         return conditions;
+//     } catch (error) {
+//         console.error('Error fetching conditions', error);
+//         throw error;
+//     }
+// }
+
 export { getCardsOwned, getConditionsOwned };
