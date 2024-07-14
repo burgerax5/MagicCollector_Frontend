@@ -7,6 +7,7 @@ import { SortBy } from "../../models/Filters/ISortBy"
 import { FoilFilter } from "../../models/Filters/IFoilFilter"
 import { SetURLSearchParams, useLocation } from "react-router-dom"
 import getEditionsDropdown from "../../api/editions/getEditionsDropdown"
+import { getUsername, isValidToken } from "../../utils/checkAuthenticated"
 
 const initialState: Filters = {
     search: "",
@@ -37,12 +38,11 @@ const foilOptions = [
 interface Props {
     setSearchParams: SetURLSearchParams
     currentPage: number,
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
-    username?: string
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
 }
 
 
-const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: Props) => {
+const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
     const [tempSearch, setTempSearch] = useState(""); // Search bar uses this, but on submit sets localFilters.search equal to this
     const [mobileShow, setMobileShow] = useState(false);

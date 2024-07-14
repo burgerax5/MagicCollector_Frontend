@@ -22,6 +22,13 @@ const MyCardsPage = () => {
 
     useEffect(() => {
         (async () => {
+            let data = await getCardsOwned(user + "?" + searchParams.toString());
+            setCardsOwned(data);
+        })();
+    }, [searchParams]);
+
+    useEffect(() => {
+        (async () => {
             let username: string | undefined;
 
             params.forEach((value, key) => {
@@ -63,7 +70,7 @@ const MyCardsPage = () => {
                             <div className="price">${cardsOwned?.estimatedValue}</div>
                         </div>
                     </div>
-                    {/* <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} /> */}
+                    <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
                     {cardsOwned?.cardPageDTO && <div className="card-results">
                         Results: {startRange?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}-{endRange?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} of {cardsOwned?.cardPageDTO?.results.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>}
                     <div className="card-grid">
