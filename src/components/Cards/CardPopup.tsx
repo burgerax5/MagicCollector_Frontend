@@ -12,6 +12,7 @@ interface Props {
 
 const CardPopup = ({ card }: Props) => {
     const [cardDetailedDTO, setCardDetailedDTO] = useState<CardDetailedDTO | null>(null);
+    const [initConditionsOwned, setInitConditionsOwned] = useState<CardConditionOwnedDTO[]>([]); // Won't be altered
     const [conditionsOwned, setConditionsOwned] = useState<CardConditionOwnedDTO[]>([]);
     const rarities = ["Common", "Uncommon", "Rare", "Mythic Rare"]
 
@@ -21,9 +22,34 @@ const CardPopup = ({ card }: Props) => {
             setCardDetailedDTO(cardDTO);
 
             const conditionDTOs = await getConditionsOwned(card.id);
-            setConditionsOwned(conditionDTOs);
+            setInitConditionsOwned(conditionDTOs);
         })();
-    }, []);
+    }, [card.id]);
+
+    useEffect(() => {
+        setConditionsOwned(initConditionsOwned);
+    }, [initConditionsOwned]);
+
+    const updateConditionOwned = (newConditionOwned: CardConditionOwnedDTO) => {
+        let newConditionsOwned = [...conditionsOwned];
+        let index = conditionsOwned.findIndex(co => co.condition === newConditionOwned.condition);
+        let init = initConditionsOwned[index];
+
+        // Add condition owned
+        if (index === -1 && newConditionOwned.quantity > 0) {
+            newConditionsOwned = [...newConditionsOwned, newConditionOwned];
+        }
+        // Update/delete condition owned
+        else if (init && index >= 0 && init.quantity !== newConditionOwned.quantity) {
+            newConditionsOwned = [
+                ...newConditionsOwned.slice(0, index),
+                newConditionOwned,
+                ...newConditionsOwned.slice(index + 1)
+            ];
+        }
+
+        setConditionsOwned(newConditionsOwned);
+    }
 
     return (
         <div className="popup-content">
@@ -45,7 +71,11 @@ const CardPopup = ({ card }: Props) => {
                         <div className="card-detail-label">Price</div>
                         <div className="card-detail-label">Qty Owned</div>
                     </div>
-                    {cardDetailedDTO && <QtyOwned cardDetailedDTO={cardDetailedDTO} conditionsOwned={conditionsOwned} />}
+                    {cardDetailedDTO &&
+                        <QtyOwned
+                            cardDetailedDTO={cardDetailedDTO}
+                            conditionsOwned={conditionsOwned}
+                            updateConditionOwned={updateConditionOwned} />}
                 </div>
             </div>
         </div>

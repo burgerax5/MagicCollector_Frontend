@@ -1,15 +1,17 @@
 import { useState, useEffect } from 'react'
+import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO';
 
 interface Props {
-    initQty: number
+    conditionOwned: CardConditionOwnedDTO,
+    updateConditionOwned: (newConditionOwned: CardConditionOwnedDTO) => void
 }
 
-const ButtonGroup = ({ initQty }: Props) => {
-    const [count, setCount] = useState(initQty);
+const ButtonGroup = ({ conditionOwned, updateConditionOwned }: Props) => {
+    const [count, setCount] = useState(conditionOwned.quantity);
 
     useEffect(() => {
-        setCount(initQty);
-    }, [initQty])
+        setCount(conditionOwned.quantity);
+    }, [conditionOwned.quantity]);
 
     const decrement = () => setCount(count - 1 > 0 ? count - 1 : 0);
     const increment = () => setCount(count + 1 <= 1000 ? count + 1 : count);
@@ -37,6 +39,11 @@ const ButtonGroup = ({ initQty }: Props) => {
             e.target.value = '0';
         }
     };
+
+    useEffect(() => {
+        let newConditionOwned = { ...conditionOwned, quantity: count };
+        updateConditionOwned(newConditionOwned);
+    }, [count]);
 
     return (
         <div className="cards-owned">

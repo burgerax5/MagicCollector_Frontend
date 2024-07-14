@@ -1,5 +1,5 @@
 export interface CardConditionOwnedDTO {
     cardId: number,
-    condition: "NM" | "EX" | "VG" | "G",
+    condition: string,
     quantity: number
 }
