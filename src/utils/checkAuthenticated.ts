@@ -31,13 +31,17 @@ const isValidToken = () => {
 }
 
 const getUsername = () => {
-    const authCookie = Cookies.get("auth");
-    const isAuthenticated = isValidToken();
+    try {
+        const authCookie = Cookies.get("auth");
+        const isAuthenticated = isValidToken();
 
-    if (!isAuthenticated && authCookie !== undefined)
+        if (!isAuthenticated && authCookie !== undefined)
+            return null;
+
+        return jwtDecode<Payload>(authCookie as string).unique_name
+    } catch (error) {
         return null;
-
-    return jwtDecode<Payload>(authCookie as string).unique_name
+    }
 }
 
 export { isValidToken, getUsername }

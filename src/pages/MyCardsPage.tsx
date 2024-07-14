@@ -78,7 +78,7 @@ const MyCardsPage = () => {
                     <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
                 </>
                 :
-                <h1>User: not found</h1>}
+                <h1>User: {user} not found</h1>}
         </div>
     )
 }
