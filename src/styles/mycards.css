@@ -1,0 +1,28 @@
+h1 {
+    text-align: center;
+}
+
+.collection-details {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.collection-details>div {
+    background-color: var(--secondary);
+    padding: 2rem;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+}
+
+.total-value .price,
+.total-cards .count {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.total-value .price {
+    color: var(--green);
+}

@@ -37,11 +37,12 @@ const foilOptions = [
 interface Props {
     setSearchParams: SetURLSearchParams
     currentPage: number,
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
+    username?: string
 }
 
 
-const FilterBar = ({ setSearchParams, currentPage, setCurrentPage }: Props) => {
+const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
     const [tempSearch, setTempSearch] = useState(""); // Search bar uses this, but on submit sets localFilters.search equal to this
     const [mobileShow, setMobileShow] = useState(false);

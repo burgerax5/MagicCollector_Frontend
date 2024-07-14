@@ -1,7 +1,7 @@
-import { CardOwnedDTO } from "./CardOwnedDTO";
+import { CardPageDTO } from "../Cards/CardPageDTO";
 
 export interface CardOwnedResponseDTO {
     totalCardsOwned: number,
     estimatedValue: number,
-    cardsOwned: CardOwnedDTO[]
+    cardPageDTO: CardPageDTO
 }
