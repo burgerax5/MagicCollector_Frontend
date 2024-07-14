@@ -1,6 +1,14 @@
+// Theme
 export const TOGGLE_THEME = "TOGGLE_THEME";
+
+// Auth
 export const LOGIN = "LOGIN";
 export const LOGOUT = "LOGOUT";
+
+// Pagination
 export const SET_TOTAL_PAGES = "SET_TOTAL_PAGES";
-export const SET_REQ_FLAG = "SET_REQ_FLAG";
-export const RESET_REQ_FLAG = "RESET_REQ_FLAG";
+
+// Cards Owned
+export const ADD_CARD_OWNED = "ADD_CARD_OWNED";
+export const UPDATE_CARD_OWNED = "UPDATE_CARD_OWNED";
+export const DELETE_CARD_OWNED = "DELETE_CARD_OWNED";

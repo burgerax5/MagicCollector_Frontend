@@ -2,13 +2,13 @@ import { combineReducers } from "@reduxjs/toolkit";
 import themeReducer from "./themeReducer";
 import authReducer from "./authReducer";
 import queryReducer from "./queryReducer";
-import reqFlagReducer from "./reqFlagReducer";
+import cardsOwnedReducer from "./cardsOwnedReducer";
 
 const rootReducer = combineReducers({
     theme: themeReducer,
     auth: authReducer,
     queries: queryReducer,
-    flag: reqFlagReducer
+    cardsOwned: cardsOwnedReducer
 });
 
 export default rootReducer;

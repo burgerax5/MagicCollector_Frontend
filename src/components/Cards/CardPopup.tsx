@@ -5,6 +5,9 @@ import getCardDetailedDTO from '../../api/cards/getCardDetailedDTO'
 import { getConditionsOwned } from '../../api/mycards/myCards'
 import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO'
 import QtyOwned from './QtyOwned'
+import { useDispatch, useSelector } from 'react-redux'
+import { AddCardOwnedAction, DeleteCardOwnedAction, UpdateCardOwnedAction } from '../../redux/actions/actions'
+import { RootState } from '../../redux/reducers/rootReducer'
 
 interface Props {
     card: CardDTO
@@ -13,8 +16,10 @@ interface Props {
 const CardPopup = ({ card }: Props) => {
     const [cardDetailedDTO, setCardDetailedDTO] = useState<CardDetailedDTO | null>(null);
     const [initConditionsOwned, setInitConditionsOwned] = useState<CardConditionOwnedDTO[]>([]); // Won't be altered
-    const [conditionsOwned, setConditionsOwned] = useState<CardConditionOwnedDTO[]>([]);
-    const rarities = ["Common", "Uncommon", "Rare", "Mythic Rare"]
+    const rarities = ["Common", "Uncommon", "Rare", "Mythic Rare"];
+
+    const conditionsOwned = useSelector((state: RootState) => state.cardsOwned);
+    const dispatch = useDispatch();
 
     useEffect(() => {
         (async () => {
@@ -27,28 +32,31 @@ const CardPopup = ({ card }: Props) => {
     }, [card.id]);
 
     useEffect(() => {
-        setConditionsOwned(initConditionsOwned);
+        initConditionsOwned.forEach(conditionOwned => {
+            let index = conditionsOwned.findIndex(co => co.condition === conditionOwned.condition)
+            console.log(index)
+            if (index === -1) {
+                dispatch(AddCardOwnedAction(conditionOwned))
+            }
+        });
     }, [initConditionsOwned]);
 
     const updateConditionOwned = (newConditionOwned: CardConditionOwnedDTO) => {
-        let newConditionsOwned = [...conditionsOwned];
         let index = conditionsOwned.findIndex(co => co.condition === newConditionOwned.condition);
-        let init = initConditionsOwned[index];
 
         // Add condition owned
         if (index === -1 && newConditionOwned.quantity > 0) {
-            newConditionsOwned = [...newConditionsOwned, newConditionOwned];
+            dispatch(AddCardOwnedAction(newConditionOwned));
         }
-        // Update/delete condition owned
-        else if (init && index >= 0 && init.quantity !== newConditionOwned.quantity) {
-            newConditionsOwned = [
-                ...newConditionsOwned.slice(0, index),
-                newConditionOwned,
-                ...newConditionsOwned.slice(index + 1)
-            ];
+        // Delete condition owned
+        else if (index >= 0 && newConditionOwned.quantity === 0) {
+            const condition = newConditionOwned.condition;
+            dispatch(DeleteCardOwnedAction(condition));
         }
-
-        setConditionsOwned(newConditionsOwned);
+        // Update condition owned
+        else if (index >= 0) {
+            dispatch(UpdateCardOwnedAction(newConditionOwned));
+        }
     }
 
     return (

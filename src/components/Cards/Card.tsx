@@ -1,5 +1,5 @@
 import { CardDTO } from '../../models/Cards/CardDTO'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Modal from '../Modal';
 import CardPopup from './CardPopup';
 
@@ -17,7 +17,6 @@ const Card = ({ card }: Props) => {
     const handleClosePopup = () => {
         setShowPopup(false);
     };
-
 
     return (
         <div className="card-wrapper">
