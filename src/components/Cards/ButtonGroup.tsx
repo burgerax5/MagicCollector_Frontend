@@ -1,7 +1,15 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
-const ButtonGroup = () => {
-    const [count, setCount] = useState(0);
+interface Props {
+    initQty: number
+}
+
+const ButtonGroup = ({ initQty }: Props) => {
+    const [count, setCount] = useState(initQty);
+
+    useEffect(() => {
+        setCount(initQty);
+    }, [initQty])
 
     const decrement = () => setCount(count - 1 > 0 ? count - 1 : 0);
     const increment = () => setCount(count + 1 <= 1000 ? count + 1 : count);

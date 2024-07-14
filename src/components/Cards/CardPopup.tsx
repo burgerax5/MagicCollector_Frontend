@@ -2,9 +2,9 @@ import { CardDTO } from '../../models/Cards/CardDTO'
 import { useState, useEffect } from 'react'
 import { CardDetailedDTO } from '../../models/Cards/CardDetailedDTO'
 import getCardDetailedDTO from '../../api/cards/getCardDetailedDTO'
-import ButtonGroup from './ButtonGroup'
 import { getConditionsOwned } from '../../api/mycards/myCards'
 import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO'
+import QtyOwned from './QtyOwned'
 
 interface Props {
     card: CardDTO
@@ -24,8 +24,6 @@ const CardPopup = ({ card }: Props) => {
             setConditionsOwned(conditionDTOs);
         })();
     }, []);
-
-    console.log(conditionsOwned)
 
     return (
         <div className="popup-content">
@@ -47,15 +45,7 @@ const CardPopup = ({ card }: Props) => {
                         <div className="card-detail-label">Price</div>
                         <div className="card-detail-label">Qty Owned</div>
                     </div>
-                    {cardDetailedDTO &&
-                        cardDetailedDTO.cardConditions.map(condition => (
-                            <div className="card-condition-row" key={condition.condition}>
-                                <div className="card-condition">{condition.condition}</div>
-                                <div className="card-quantity"> {condition.quantity}</div>
-                                <div className="card-price">${condition.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
-                                <ButtonGroup />
-                            </div>
-                        ))}
+                    {cardDetailedDTO && <QtyOwned cardDetailedDTO={cardDetailedDTO} conditionsOwned={conditionsOwned} />}
                 </div>
             </div>
         </div>
