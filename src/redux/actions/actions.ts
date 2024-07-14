@@ -21,6 +21,17 @@ export const SetTotalPagesAction = (total_pages: number) => ({
     payload: total_pages
 });
 
+export const SetReqFlagAction = () => ({
+    type: actions.SET_REQ_FLAG,
+    payload: 1
+});
+
+export const ResetReqFlagAction = () => ({
+    type: actions.RESET_REQ_FLAG,
+    payload: 0
+});
+
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
 export type QueryActionType = ReturnType<typeof SetTotalPagesAction>;
+export type ReqFlagActionType = ReturnType<typeof SetReqFlagAction>;
