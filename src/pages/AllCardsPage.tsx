@@ -9,20 +9,13 @@ import Pagination from '../components/Pagination/Pagination'
 import Card from '../components/Cards/Card'
 import { useDispatch } from 'react-redux'
 import { SetTotalPagesAction } from '../redux/actions/actions'
+import getResultsRange from '../utils/getResultsRange'
 
 const AllCardsPage = () => {
     const [cardPageDTO, setCardPageDTO] = useState<CardPageDTO | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const [currentPage, setCurrentPage] = useState(1);
     const dispatch = useDispatch();
-
-    const getResultsRange = (currentPage: number, resultsPerPage: number, totalResults: number | undefined) => {
-        if (!totalResults) return {}
-
-        const startRange = (currentPage - 1) * resultsPerPage + 1;
-        const endRange = Math.min(currentPage * resultsPerPage, totalResults);
-        return { startRange, endRange };
-    };
 
     useEffect(() => {
         (async () => {

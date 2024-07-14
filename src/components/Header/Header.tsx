@@ -28,7 +28,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <Link to="/" className="logo">
+            <Link to={`/mycards?user=${getUsername()}`} className="logo">
                 <Logo />
             </Link>
 
