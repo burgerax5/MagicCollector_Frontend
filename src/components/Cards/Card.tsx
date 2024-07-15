@@ -7,6 +7,7 @@ import { RootState } from '../../redux/reducers/rootReducer';
 import { ResetCardsOwnedAction } from '../../redux/actions/actions';
 import { isAdded, isDeleted, isUpdated } from '../../utils/updateCardsOwned';
 import { addCardOwned, deleteCardOwned, updateCardOwned } from '../../api/mycards/myCards';
+import addCommasToNumber from '../../utils/addCommasToNumber';
 
 interface Props {
     card: CardDTO
@@ -48,7 +49,7 @@ const Card = ({ card }: Props) => {
                 <div>
                     <div className="card-name">{card.name}</div>
                     <div className="card-price">
-                        ${card.nmPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                        ${addCommasToNumber(card.nmPrice)}
                     </div>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 import { CardDetailedDTO } from '../../models/Cards/CardDetailedDTO';
 import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO';
+import addCommasToNumber from '../../utils/addCommasToNumber';
 import ButtonGroup from './ButtonGroup'
 
 interface Props {
@@ -20,7 +21,7 @@ const QtyOwned = ({ cardDetailedDTO, conditionsOwned, updateConditionOwned }: Pr
                     <div className="card-condition-row" key={condition.condition}>
                         <div className="card-condition">{condition.condition}</div>
                         <div className="card-quantity"> {condition.quantity}</div>
-                        <div className="card-price">${condition.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>
+                        <div className="card-price">${addCommasToNumber(condition.price)}</div>
                         <ButtonGroup
                             conditionOwned={conditionOwned ?? {
                                 cardId: cardId,
