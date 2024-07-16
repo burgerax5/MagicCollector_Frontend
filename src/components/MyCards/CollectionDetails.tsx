@@ -14,7 +14,7 @@ const CollectionDetails = () => {
             </div>
             <div className="total-value">
                 <div>Estimated Value</div>
-                <div className="price">${addCommasToNumber(totalValue)}</div>
+                <div className="price">${addCommasToNumber(totalValue, true)}</div>
             </div>
         </div>
     )

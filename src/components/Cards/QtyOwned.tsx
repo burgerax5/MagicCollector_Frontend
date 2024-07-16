@@ -20,8 +20,8 @@ const QtyOwned = ({ cardDetailedDTO, conditionsOwned, updateConditionOwned }: Pr
                 return (
                     <div className="card-condition-row" key={condition.condition}>
                         <div className="card-condition">{condition.condition}</div>
-                        <div className="card-quantity"> {condition.quantity}</div>
-                        <div className="card-price">${addCommasToNumber(condition.price)}</div>
+                        <div className="card-quantity"> {addCommasToNumber(condition.quantity)}</div>
+                        <div className="card-price">${addCommasToNumber(condition.price, true)}</div>
                         <ButtonGroup
                             conditionOwned={conditionOwned ?? {
                                 cardId: cardId,
