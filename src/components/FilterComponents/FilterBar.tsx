@@ -8,19 +8,16 @@ import { FoilFilter } from "../../models/Filters/IFoilFilter"
 import { SetURLSearchParams, useLocation } from "react-router-dom"
 import getEditionsDropdown from "../../api/editions/getEditionsDropdown"
 import { getUsername, isValidToken } from "../../utils/checkAuthenticated"
+import { EditionDropdown } from "../../models/Editions/EditionDropdown"
+import { useDispatch, useSelector } from "react-redux"
+import { RootState } from "../../redux/reducers/rootReducer"
+import { SetEditionsDropdownAction } from "../../redux/actions/actions"
 
 const initialState: Filters = {
     search: "",
     sortBy: "name_asc",
     foilFilter: "any"
 }
-
-let editionOptions = [
-    { name: "All Editions", value: "all" },
-    { name: "3rd Edition", value: 1 },
-    { name: "4th Edition", value: 2 },
-    { name: "5th Edition", value: 3 }
-]
 
 const sortOptions = [
     { name: "Name (A-Z)", value: "name_asc" },
@@ -48,6 +45,9 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
     const [tempSearch, setTempSearch] = useState(""); // Search bar uses this, but on submit sets localFilters.search equal to this
     const [mobileShow, setMobileShow] = useState(false);
     const location = useLocation();
+    const dispatch = useDispatch();
+
+    const editionOptions = useSelector((root: RootState) => root.editions);
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -80,7 +80,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
     useEffect(() => {
         (async () => {
             const editionsDropdown = await getEditionsDropdown();
-            editionOptions = editionOptions.concat(editionsDropdown);
+            dispatch(SetEditionsDropdownAction([{ name: "All Editions", value: 0 }, ...editionsDropdown]));
         })();
 
         const params = new URLSearchParams(location.search);
@@ -88,7 +88,10 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
         params.forEach((value, key) => {
             switch (key) {
                 case "search": newFilters[key] = value; break;
-                case "editionId": newFilters[key] = parseInt(value); break;
+                case "editionId":
+                    if (!isNaN(parseInt(value)) && parseInt(value))
+                        newFilters[key] = parseInt(value);
+                    break;
                 case "sortBy": newFilters[key] = value as SortBy; break;
                 case "foilFilter": newFilters[key] = value as FoilFilter; break;
                 case "page": setCurrentPage(!isNaN(parseInt(value)) ? parseInt(value) : 1);

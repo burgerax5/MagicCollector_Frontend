@@ -4,13 +4,15 @@ import authReducer from "./authReducer";
 import queryReducer from "./queryReducer";
 import cardsOwnedReducer from "./cardsOwnedReducer";
 import collectionDetailsReducer from "./collectionDetailsReducer";
+import editionDropdownReducer from "./editionDropdownReducer";
 
 const rootReducer = combineReducers({
     theme: themeReducer,
     auth: authReducer,
     queries: queryReducer,
     cardsOwned: cardsOwnedReducer,
-    collectionDetails: collectionDetailsReducer
+    collectionDetails: collectionDetailsReducer,
+    editions: editionDropdownReducer
 });
 
 export default rootReducer;

@@ -59,7 +59,6 @@ const Card = ({ card, hideDeleted = false }: Props) => {
         if (username && isChanged) {
             (async () => {
                 const details = await getCollectionDetails(username);
-                console.log(details)
                 dispatch(SetTotalCardsAction(details.totalCards));
                 dispatch(SetTotalValueAction(details.totalValue));
                 setIsChanged(false);

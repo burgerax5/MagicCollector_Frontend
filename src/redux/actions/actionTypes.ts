@@ -17,3 +17,6 @@ export const RESET_CARDS_OWNED = "RESET_CARDS_OWNED";
 // Collection Details
 export const SET_TOTAL_CARDS = "SET_TOTAL_CARDS";
 export const SET_TOTAL_VALUE = "SET_TOTAL_VALUE";
+
+// Editions Dropdown
+export const SET_EDITIONS_DROPDOWN = "SET_EDITIONS_DROPDOWN";

@@ -1,3 +1,4 @@
+import { EditionDropdown } from "../../models/Editions/EditionDropdown";
 import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedDTO";
 import * as actions from "./actionTypes";
 
@@ -66,9 +67,16 @@ export const SetTotalValueAction = (totalValue: number) => ({
     payload: totalValue
 });
 
+// Editions Dropdown
+export const SetEditionsDropdownAction = (editionDropdown: EditionDropdown[]) => ({
+    type: actions.SET_EDITIONS_DROPDOWN,
+    payload: editionDropdown
+});
+
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
 export type QueryActionType = ReturnType<typeof SetTotalPagesAction>;
 export type CardOwnedAction = ReturnType<typeof AddCardOwnedAction | typeof UpdateCardOwnedAction | typeof DeleteCardOwnedAction>;
 export type ResetCardOwnedAction = ReturnType<typeof ResetCardsOwnedAction>;
 export type CollectionDetailsAction = ReturnType<typeof SetTotalCardsAction | typeof SetTotalValueAction>;
+export type SetEditionsDropdownAction = ReturnType<typeof SetEditionsDropdownAction>;

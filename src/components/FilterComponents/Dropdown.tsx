@@ -20,7 +20,7 @@ const Dropdown = ({ label, name, options, setFilters, selectedValue, resetPage }
     const dropdownRef = useRef<HTMLDivElement>(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const isValidEditionId = !isNaN(parseInt(e.target.value));
+        const isValidEditionId = !isNaN(parseInt(e.target.value)) && parseInt(e.target.value);
 
         setFilters((prevFilters: any) => ({
             ...prevFilters,
