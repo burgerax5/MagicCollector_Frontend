@@ -4,6 +4,10 @@
     background-color: var(--secondary);
     border-bottom: 2px solid #6B6B6B;
     justify-content: space-between;
+    position: fixed;
+    width: 100%;
+    z-index: 9999;
+    top: 0;
 }
 
 .navbar {
@@ -89,7 +93,7 @@
         display: none;
         flex-direction: column;
         position: fixed;
-        top: 60px;
+        top: 58px;
         right: 0;
         width: clamp(200px, 80%, 400px);
         height: 100%;

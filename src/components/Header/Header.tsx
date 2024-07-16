@@ -10,7 +10,7 @@ import { FiLogOut } from "react-icons/fi";
 import Cookies from 'js-cookie';
 import { useDispatch } from 'react-redux';
 import { LogoutAction } from '../../redux/actions/actions';
-import { getUsername } from '../../utils/checkAuthenticated';
+import { getUsername, isValidToken } from '../../utils/checkAuthenticated';
 
 const Header = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +28,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <Link to={`/mycards?user=${getUsername()}`} className="logo">
+            <Link to={isValidToken() ? `/mycards?user=${getUsername()}` : "/"} className="logo">
                 <Logo />
             </Link>
 

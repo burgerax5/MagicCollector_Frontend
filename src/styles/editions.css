@@ -1,4 +1,5 @@
 .editions-container {
+    margin-top: 92px;
     display: flex;
     flex-direction: column;
     align-items: center;

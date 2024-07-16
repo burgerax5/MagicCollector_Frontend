@@ -28,7 +28,7 @@ body.dark-theme {
 
 body {
     width: 100%;
-    min-height: 100vh;
+    /* min-height: 100vh; */
 }
 
 body {
@@ -43,6 +43,7 @@ body {
 #root {
     color: var(--font-colour);
     height: 100%;
+    position: relative;
 }
 
 .not-found {
