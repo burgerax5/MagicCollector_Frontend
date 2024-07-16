@@ -1,13 +1,14 @@
 import { CardDTO } from '../../models/Cards/CardDTO'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Modal from '../Modal';
 import CardPopup from './CardPopup';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../../redux/reducers/rootReducer';
-import { ResetCardsOwnedAction } from '../../redux/actions/actions';
+import { ResetCardsOwnedAction, SetTotalCardsAction, SetTotalValueAction } from '../../redux/actions/actions';
 import { isAdded, isDeleted, isUpdated } from '../../utils/updateCardsOwned';
-import { addCardOwned, deleteCardOwned, updateCardOwned } from '../../api/mycards/myCards';
+import { addCardOwned, deleteCardOwned, getCollectionDetails, updateCardOwned } from '../../api/mycards/myCards';
 import addCommasToNumber from '../../utils/addCommasToNumber';
+import { getUsername } from '../../utils/checkAuthenticated';
 
 interface Props {
     card: CardDTO
@@ -15,6 +16,7 @@ interface Props {
 
 const Card = ({ card }: Props) => {
     const [showPopup, setShowPopup] = useState(false);
+    const [isChanged, setIsChanged] = useState(false);
 
     const dispatch = useDispatch();
     const cardsOwned = useSelector((state: RootState) => state.cardsOwned);
@@ -30,13 +32,37 @@ const Card = ({ card }: Props) => {
         const deletedConditions = isDeleted(cardsOwned.old, cardsOwned.new);
 
         // Make API calls
-        addedConditions.map(async (co) => await addCardOwned(co));
-        updatedConditions.map(async (co) => await updateCardOwned(co));
-        deletedConditions.map(async (co) => await deleteCardOwned(co.id ?? 0));
+        addedConditions.map(async (co) => {
+            await addCardOwned(co);
+            setIsChanged(true);
+        });
+        updatedConditions.map(async (co) => {
+            await updateCardOwned(co);
+            setIsChanged(true);
+        });
+        deletedConditions.map(async (co) => {
+            await deleteCardOwned(co.id ?? 0);
+            setIsChanged(true);
+        });
 
         setShowPopup(false);
         dispatch(ResetCardsOwnedAction());
     };
+
+    useEffect(() => {
+        const userParam = new URLSearchParams(location.search).get("user");
+        const username = userParam !== null && userParam !== "" ? userParam : getUsername();
+
+        if (username && isChanged) {
+            (async () => {
+                const details = await getCollectionDetails(username);
+                console.log(details)
+                dispatch(SetTotalCardsAction(details.totalCards));
+                dispatch(SetTotalValueAction(details.totalValue));
+                setIsChanged(false);
+            })();
+        }
+    }, [isChanged])
 
     return (
         <div className="card-wrapper">

@@ -1,15 +1,15 @@
 import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedDTO";
 import { CardOwnedResponseDTO } from "../../models/MyCards/CardOwnedResponseDTO";
 import Cookies from "js-cookie";
+import { CollectionDetailsDTO } from "../../models/MyCards/CollectionDetailsDTO";
 
 const getCardsOwned = async (username: string) => {
     try {
         const url = "https://localhost:44321/api/user/cards/" + username;
         const response = await fetch(url);
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error(`HTTP Error. Status: ${response.status}`);
-        }
 
         const pageData = await response.json() as CardOwnedResponseDTO;
         return pageData;
@@ -30,9 +30,8 @@ const getConditionsOwned = async (cardId: number) => {
             }
         });
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error(`HTTP Error. Status: ${response.status}`);
-        }
 
         const conditions = await response.json() as CardConditionOwnedDTO[];
         return conditions;
@@ -56,10 +55,10 @@ const addCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
             body: JSON.stringify(cardOwned)
         });
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error(`HTTP Error. Status: ${response.status}`);
-        }
 
+        return true;
     } catch (error) {
         console.error('Error adding card owned:', error);
         throw error;
@@ -80,10 +79,10 @@ const updateCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
             body: JSON.stringify(cardOwned)
         });
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error(`HTTP Error. Status: ${response.status}`);
-        }
 
+        return true;
     } catch (error) {
         console.error('Error updating card owned:', error);
         throw error;
@@ -102,14 +101,30 @@ const deleteCardOwned = async (id: number) => {
             },
         });
 
-        if (!response.ok) {
+        if (!response.ok)
             throw new Error(`HTTP Error. Status: ${response.status}`);
-        }
 
+        return true;
     } catch (error) {
         console.error('Error deleting card owned:', error);
         throw error;
     }
 }
 
-export { getCardsOwned, getConditionsOwned, addCardOwned, updateCardOwned, deleteCardOwned };
+const getCollectionDetails = async (username: string) => {
+    try {
+        const url = `https://localhost:44321/api/user/cards/${username}/details `;
+        const response = await fetch(url);
+
+        if (!response.ok)
+            throw new Error(`HTTP Error. Status: ${response.status}`);
+
+        const details = await response.json() as CollectionDetailsDTO;
+        return details;
+    } catch (error) {
+        console.error(`Error getting ${username}'s collection details: `, error);
+        throw error;
+    }
+}
+
+export { getCardsOwned, getConditionsOwned, addCardOwned, updateCardOwned, deleteCardOwned, getCollectionDetails };

@@ -1,9 +1,10 @@
-import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/reducers/rootReducer'
 import addCommasToNumber from '../../utils/addCommasToNumber';
+import { useSelector } from 'react-redux';
 
 const CollectionDetails = () => {
-    const { totalCards, totalValue } = useSelector((state: RootState) => state.collectionDetails);
+    const collectionDetails = useSelector((state: RootState) => state.collectionDetails);
+    const { totalCards, totalValue } = collectionDetails;
 
     return (
         <div className="collection-details">

@@ -8,7 +8,7 @@ import CardSkeletons from '../components/Skeletons/CardSkeletons';
 import { CardOwnedResponseDTO } from '../models/MyCards/CardOwnedResponseDTO';
 import '../styles/mycards.css'
 import getResultsRange from '../utils/getResultsRange';
-import { useDispatch, UseDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SetTotalCardsAction, SetTotalPagesAction, SetTotalValueAction } from '../redux/actions/actions';
 import { getUsername } from '../utils/checkAuthenticated';
 import CollectionDetails from '../components/MyCards/CollectionDetails';
@@ -16,17 +16,18 @@ import addCommasToNumber from '../utils/addCommasToNumber';
 
 
 const MyCardsPage = () => {
-    const [cardsOwned, setCardsOwned] = useState<CardOwnedResponseDTO | undefined>();
+    const [cardsOwnedPage, setCardsOwnedPage] = useState<CardOwnedResponseDTO | undefined>();
     const [searchParams, setSearchParams] = useSearchParams();
     const [user, setUser] = useState<string | null>(getUsername());
     const [currentPage, setCurrentPage] = useState(1);
     const params = new URLSearchParams(location.search);
+
     const dispatch = useDispatch();
 
     useEffect(() => {
         (async () => {
             let data = await getCardsOwned(user + "?" + searchParams.toString());
-            setCardsOwned(data);
+            setCardsOwnedPage(data);
         })();
     }, [searchParams]);
 
@@ -45,7 +46,7 @@ const MyCardsPage = () => {
 
             try {
                 const data = await getCardsOwned(username ?? "");
-                setCardsOwned(data);
+                setCardsOwnedPage(data);
                 dispatch(SetTotalPagesAction(data.cardPageDTO.total_pages));
             } catch (error) {
                 console.error(error);
@@ -55,13 +56,13 @@ const MyCardsPage = () => {
     }, []);
 
     useEffect(() => {
-        if (cardsOwned) {
-            dispatch(SetTotalCardsAction(cardsOwned.totalCardsOwned));
-            dispatch(SetTotalValueAction(cardsOwned.estimatedValue));
+        if (cardsOwnedPage) {
+            dispatch(SetTotalCardsAction(cardsOwnedPage.totalCardsOwned));
+            dispatch(SetTotalValueAction(cardsOwnedPage.estimatedValue));
         }
-    }, [cardsOwned]);
+    }, [cardsOwnedPage]);
 
-    const { startRange, endRange } = getResultsRange(currentPage, 50, cardsOwned?.cardPageDTO?.results);
+    const { startRange, endRange } = getResultsRange(currentPage, 50, cardsOwnedPage?.cardPageDTO?.results);
 
     return (
         <div className="content-wrapper">
@@ -70,15 +71,15 @@ const MyCardsPage = () => {
                     <h1>{user}'s Collection</h1>
                     <CollectionDetails />
                     <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-                    {cardsOwned?.cardPageDTO &&
+                    {cardsOwnedPage?.cardPageDTO &&
                         <div className="card-results">
-                            Results: {addCommasToNumber(startRange ?? 0)}-{addCommasToNumber(endRange ?? 0)} of {addCommasToNumber(cardsOwned.cardPageDTO.results)}
+                            Results: {addCommasToNumber(startRange ?? 0)}-{addCommasToNumber(endRange ?? 0)} of {addCommasToNumber(cardsOwnedPage.cardPageDTO.results)}
                         </div>}
 
                     <div className="card-grid">
                         <Suspense fallback={<CardSkeletons />}>
-                            {cardsOwned ?
-                                cardsOwned.cardPageDTO.cardDTOs.map(cardDTO => (
+                            {cardsOwnedPage ?
+                                cardsOwnedPage.cardPageDTO.cardDTOs.map(cardDTO => (
                                     <Card key={"card-" + cardDTO.id} card={cardDTO} />
                                 )) :
                                 <h2>No results</h2>}
