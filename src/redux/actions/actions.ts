@@ -55,8 +55,20 @@ export const ResetCardsOwnedAction = () => ({
     type: actions.RESET_CARDS_OWNED
 });
 
+// Collection Details
+export const SetTotalCardsAction = (totalCards: number) => ({
+    type: actions.SET_TOTAL_CARDS,
+    payload: totalCards
+});
+
+export const SetTotalValueAction = (totalValue: number) => ({
+    type: actions.SET_TOTAL_VALUE,
+    payload: totalValue
+});
+
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
 export type QueryActionType = ReturnType<typeof SetTotalPagesAction>;
-export type CardOwnedAction = ReturnType<typeof AddCardOwnedAction | typeof UpdateCardOwnedAction | typeof DeleteCardOwnedAction>
-export type ResetCardOwnedAction = ReturnType<typeof ResetCardsOwnedAction>
+export type CardOwnedAction = ReturnType<typeof AddCardOwnedAction | typeof UpdateCardOwnedAction | typeof DeleteCardOwnedAction>;
+export type ResetCardOwnedAction = ReturnType<typeof ResetCardsOwnedAction>;
+export type CollectionDetailsAction = ReturnType<typeof SetTotalCardsAction | typeof SetTotalValueAction>;

@@ -9,8 +9,10 @@ import { CardOwnedResponseDTO } from '../models/MyCards/CardOwnedResponseDTO';
 import '../styles/mycards.css'
 import getResultsRange from '../utils/getResultsRange';
 import { useDispatch, UseDispatch } from 'react-redux';
-import { SetTotalPagesAction } from '../redux/actions/actions';
+import { SetTotalCardsAction, SetTotalPagesAction, SetTotalValueAction } from '../redux/actions/actions';
 import { getUsername } from '../utils/checkAuthenticated';
+import CollectionDetails from '../components/MyCards/CollectionDetails';
+import addCommasToNumber from '../utils/addCommasToNumber';
 
 
 const MyCardsPage = () => {
@@ -53,7 +55,10 @@ const MyCardsPage = () => {
     }, []);
 
     useEffect(() => {
-        console.log(cardsOwned)
+        if (cardsOwned) {
+            dispatch(SetTotalCardsAction(cardsOwned.totalCardsOwned));
+            dispatch(SetTotalValueAction(cardsOwned.estimatedValue));
+        }
     }, [cardsOwned]);
 
     const { startRange, endRange } = getResultsRange(currentPage, 50, cardsOwned?.cardPageDTO?.results);
@@ -63,19 +68,13 @@ const MyCardsPage = () => {
             {user !== null ?
                 <>
                     <h1>{user}'s Collection</h1>
-                    <div className="collection-details">
-                        <div className="total-cards">
-                            <div>Total Cards</div>
-                            <div className="count">{cardsOwned?.totalCardsOwned}</div>
-                        </div>
-                        <div className="total-value">
-                            <div>Estimated Value</div>
-                            <div className="price">${cardsOwned?.estimatedValue}</div>
-                        </div>
-                    </div>
+                    <CollectionDetails />
                     <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} />
-                    {cardsOwned?.cardPageDTO && <div className="card-results">
-                        Results: {startRange?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}-{endRange?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} of {cardsOwned?.cardPageDTO?.results.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</div>}
+                    {cardsOwned?.cardPageDTO &&
+                        <div className="card-results">
+                            Results: {addCommasToNumber(startRange ?? 0)}-{addCommasToNumber(endRange ?? 0)} of {addCommasToNumber(cardsOwned.cardPageDTO.results)}
+                        </div>}
+
                     <div className="card-grid">
                         <Suspense fallback={<CardSkeletons />}>
                             {cardsOwned ?
@@ -85,6 +84,7 @@ const MyCardsPage = () => {
                                 <h2>No results</h2>}
                         </Suspense>
                     </div>
+
                     <Pagination currentPage={currentPage} setCurrentPage={setCurrentPage} />
                 </>
                 :

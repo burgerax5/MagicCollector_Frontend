@@ -3,12 +3,14 @@ import themeReducer from "./themeReducer";
 import authReducer from "./authReducer";
 import queryReducer from "./queryReducer";
 import cardsOwnedReducer from "./cardsOwnedReducer";
+import collectionDetailsReducer from "./collectionDetailsReducer";
 
 const rootReducer = combineReducers({
     theme: themeReducer,
     auth: authReducer,
     queries: queryReducer,
-    cardsOwned: cardsOwnedReducer
+    cardsOwned: cardsOwnedReducer,
+    collectionDetails: collectionDetailsReducer
 });
 
 export default rootReducer;
