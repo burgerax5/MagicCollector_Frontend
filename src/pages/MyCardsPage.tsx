@@ -80,7 +80,7 @@ const MyCardsPage = () => {
                         <Suspense fallback={<CardSkeletons />}>
                             {cardsOwnedPage ?
                                 cardsOwnedPage.cardPageDTO.cardDTOs.map(cardDTO => (
-                                    <Card key={"card-" + cardDTO.id} card={cardDTO} />
+                                    <Card key={"card-" + cardDTO.id} card={cardDTO} hideDeleted={true} />
                                 )) :
                                 <h2>No results</h2>}
                         </Suspense>

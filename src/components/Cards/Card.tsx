@@ -11,12 +11,14 @@ import addCommasToNumber from '../../utils/addCommasToNumber';
 import { getUsername } from '../../utils/checkAuthenticated';
 
 interface Props {
-    card: CardDTO
+    card: CardDTO,
+    hideDeleted?: boolean
 }
 
-const Card = ({ card }: Props) => {
+const Card = ({ card, hideDeleted = false }: Props) => {
     const [showPopup, setShowPopup] = useState(false);
     const [isChanged, setIsChanged] = useState(false);
+    const [hideCard, setHideCard] = useState(false);
 
     const dispatch = useDispatch();
     const cardsOwned = useSelector((state: RootState) => state.cardsOwned);
@@ -43,6 +45,7 @@ const Card = ({ card }: Props) => {
         deletedConditions.map(async (co) => {
             await deleteCardOwned(co.id ?? 0);
             setIsChanged(true);
+            setHideCard(true);
         });
 
         setShowPopup(false);
@@ -63,6 +66,8 @@ const Card = ({ card }: Props) => {
             })();
         }
     }, [isChanged])
+
+    if (hideDeleted && hideCard) return <></>
 
     return (
         <div className="card-wrapper">
