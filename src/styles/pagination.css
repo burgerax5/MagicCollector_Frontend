@@ -1,6 +1,7 @@
 .pagination {
     display: grid;
     place-items: center;
+    margin-bottom: 2rem;
 }
 
 .pagination-buttons {
