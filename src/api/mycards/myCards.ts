@@ -2,10 +2,11 @@ import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedD
 import { CardOwnedResponseDTO } from "../../models/MyCards/CardOwnedResponseDTO";
 import Cookies from "js-cookie";
 import { CollectionDetailsDTO } from "../../models/MyCards/CollectionDetailsDTO";
+import apiURL from "../config";
 
 const getCardsOwned = async (username: string) => {
     try {
-        const url = "https://localhost:44321/api/user/cards/" + username;
+        const url = apiURL + "/api/user/cards/" + username;
         const response = await fetch(url);
 
         if (!response.ok)
@@ -21,7 +22,7 @@ const getCardsOwned = async (username: string) => {
 
 const getConditionsOwned = async (cardId: number) => {
     try {
-        const url = "https://localhost:44321/api/user/cards/conditions/" + cardId;
+        const url = apiURL + "/api/user/cards/conditions/" + cardId;
         const token = Cookies.get("auth");
 
         const response = await fetch(url, {
@@ -43,7 +44,7 @@ const getConditionsOwned = async (cardId: number) => {
 
 const addCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
     try {
-        const url = "https://localhost:44321/api/user/cards/";
+        const url = apiURL + "/api/user/cards/";
         const token = Cookies.get("auth");
 
         const response = await fetch(url, {
@@ -67,7 +68,7 @@ const addCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
 
 const updateCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
     try {
-        const url = "https://localhost:44321/api/user/cards/" + cardOwned.id;
+        const url = apiURL + "/api/user/cards/" + cardOwned.id;
         const token = Cookies.get("auth");
 
         const response = await fetch(url, {
@@ -91,7 +92,7 @@ const updateCardOwned = async (cardOwned: CardConditionOwnedDTO) => {
 
 const deleteCardOwned = async (id: number) => {
     try {
-        const url = "https://localhost:44321/api/user/cards/" + id;
+        const url = apiURL + "/api/user/cards/" + id;
         const token = Cookies.get("auth");
 
         const response = await fetch(url, {
@@ -113,7 +114,7 @@ const deleteCardOwned = async (id: number) => {
 
 const getCollectionDetails = async (username: string) => {
     try {
-        const url = `https://localhost:44321/api/user/cards/${username}/details `;
+        const url = apiURL + `/api/user/cards/${username}/details `;
         const response = await fetch(url);
 
         if (!response.ok)

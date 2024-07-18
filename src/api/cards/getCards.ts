@@ -1,7 +1,8 @@
 import { CardPageDTO } from "../../models/Cards/CardPageDTO";
+import apiURL from "../config";
 
 const getCardsInPage = async (params: string) => {
-    const url = 'https://localhost:44321/api/cards?' + params;
+    const url = apiURL + '/api/cards?' + params;
     try {
         const response = await fetch(url)
         if (!response.ok) {

@@ -1,7 +1,8 @@
 import { Edition } from "../../models/Editions/Edition";
+import apiURL from "../config";
 
 const getEditions = async () => {
-    const url = 'https://localhost:44321/api/editions';
+    const url = apiURL + '/api/editions';
     const editions = await fetch(url)
         .then(response => response.json()) as Edition[];
     return editions;
