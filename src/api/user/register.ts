@@ -1,7 +1,8 @@
 import { UserLogin } from '../../models/UserLogin'
+import apiURL from '../config';
 
 const requestRegister = async (form: UserLogin) => {
-    const url = 'https://localhost:44321/api/user/register';
+    const url = apiURL + '/api/user/register';
     const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
