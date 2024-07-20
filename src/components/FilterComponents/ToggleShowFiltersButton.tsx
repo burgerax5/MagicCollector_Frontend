@@ -12,7 +12,7 @@ const ToggleShowFiltersButton = ({ mobileShow, setMobileShow }: Props) => {
     }
 
     return (
-        <button className={mobileShow ? "toggle-filters-btn show" : "toggle-filters-btn"} type="button" onClick={handleClick}>
+        <button className={mobileShow ? "toggle-filters-btn show" : "toggle-filters-btn"} type="submit" onClick={handleClick}>
             <FiFilter />
         </button>
     )

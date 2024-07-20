@@ -158,16 +158,6 @@ select option:hover {
     gap: 1rem;
 }
 
-.apply-btn {
-    padding-inline: 1rem;
-    height: 51px;
-    margin-top: auto;
-    border-radius: 1rem;
-    border: none;
-    background-color: var(--primary);
-    color: var(--secondary);
-}
-
 @media screen and (max-width: 888px) {
     .search-wrapper {
         flex: 1;

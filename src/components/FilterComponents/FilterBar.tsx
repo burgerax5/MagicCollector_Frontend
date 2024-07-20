@@ -14,13 +14,13 @@ import { SetEditionsDropdownAction } from "../../redux/actions/actions"
 
 const initialState: Filters = {
     search: "",
+    editionId: 0,
     sortBy: "name_asc",
     foilFilter: "any"
 }
 
 const sortOptions = [
-    { name: "Name (A-Z)", value: "name_asc" },
-    { name: "Name (Z-A)", value: "name_desc" },
+    { name: "Default", value: "" },
     { name: "Price (Low to High)", value: "price_asc" },
     { name: "Price (High to Low)", value: "price_desc" },
     { name: "Rarity (Low to High)", value: "rarity_asc" },
@@ -35,14 +35,18 @@ interface Props {
     setSearchParams: SetURLSearchParams
     currentPage: number,
     setCurrentPage: React.Dispatch<React.SetStateAction<number>>,
-    username?: string
+    username?: string,
+    searchParams: URLSearchParams
 }
 
 
-const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: Props) => {
+const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username, searchParams }: Props) => {
     const [localFilters, setLocalFilters] = useState<Filters>(initialState);
     const [tempSearch, setTempSearch] = useState(""); // Search bar uses this, but on submit sets localFilters.search equal to this
     const [mobileShow, setMobileShow] = useState(false);
+
+    const [flag, setFlag] = useState(true); // Flag to indicate whether or not to update local filters
+
     const location = useLocation();
     const dispatch = useDispatch();
 
@@ -75,13 +79,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
         setCurrentPage(1);
     }
 
-    // Parse query parameters from URL
-    useEffect(() => {
-        (async () => {
-            const editionsDropdown = await getEditionsDropdown();
-            dispatch(SetEditionsDropdownAction([{ name: "All Editions", value: 0 }, ...editionsDropdown]));
-        })();
-
+    const updateFiltersFromURL = () => {
         const params = new URLSearchParams(location.search);
         const newFilters = { ...initialState };
         params.forEach((value, key) => {
@@ -97,13 +95,38 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
             }
         })
 
+        console.log(params.get("editionId"))
+        if (!params.get("editionId")) newFilters.editionId = 0;
+
+        console.log(newFilters)
+
         setLocalFilters(newFilters);
+    }
+
+    // Parse query parameters from URL
+    useEffect(() => {
+        (async () => {
+            const editionsDropdown = await getEditionsDropdown();
+            dispatch(SetEditionsDropdownAction([{ name: "All Editions", value: 0 }, ...editionsDropdown]));
+        })();
+
+        updateFiltersFromURL();
     }, []);
+
+    useEffect(() => {
+        if (!searchParams.size) {
+            console.log("PP!")
+            setFlag(false)
+            updateFiltersFromURL();
+            setFlag(true)
+        }
+    }, [searchParams])
 
     // Update the URL query parameters whenever filters change
     useEffect(() => {
-        updateURL();
-    }, [currentPage, localFilters.editionId]);
+        console.log(flag)
+        if (flag) updateURL();
+    }, [currentPage, localFilters]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch}>
@@ -123,7 +146,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
                     name="editionId"
                     options={editionOptions}
                     setFilters={setLocalFilters}
-                    selectedValue={localFilters.editionId?.toString()} />
+                    selectedValue={localFilters.editionId.toString()} />
 
                 <Dropdown
                     resetPage={resetPage}
@@ -141,7 +164,6 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
                     setFilters={setLocalFilters}
                     selectedValue={localFilters.foilFilter} />
             </div>
-            <button className="apply-btn" type="submit">Apply Filters</button>
         </form>
     )
 }

@@ -3,7 +3,7 @@ import { SortBy } from "./ISortBy";
 
 export interface Filters {
     search: string,
-    editionId?: number,
+    editionId: number,
     sortBy: SortBy,
     foilFilter: FoilFilter
 }
