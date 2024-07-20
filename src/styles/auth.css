@@ -107,13 +107,13 @@
     padding: 1rem;
     border-radius: 1rem;
     color: var(--background);
-    background-color: var(--tertiary);
+    background-color: var(--primary);
     border: none;
     cursor: pointer;
 }
 
 .submit-btn:hover {
-    background-color: var(--primary);
+    filter: brightness(1.1);
 }
 
 .submit-btn.submit-btn.disabled:hover {

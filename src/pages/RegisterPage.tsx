@@ -31,6 +31,8 @@ const RegisterPage = () => {
         }
     }
 
+    console.log(!(form.username && form.password && form.confirmPassword), form.password !== form.confirmPassword)
+
     return (
         <div className="container">
             <div className="auth-form-container">
@@ -46,8 +48,8 @@ const RegisterPage = () => {
                         onChange={updateConfirmPassword} />
 
                     <button
-                        className={form.username && form.password ? "submit-btn" : "submit-btn disabled"}
-                        disabled={!(form.username && form.password) || form.password !== form.confirmPassword}>
+                        className={(form.username && form.password && form.confirmPassword) ? "submit-btn" : "submit-btn disabled"}
+                        disabled={!(form.username && form.password && form.confirmPassword) || form.password !== form.confirmPassword}>
                         Register
                     </button>
                     <span className="link-msg">Already a member? <Link className="link" to="/login">Sign In</Link></span>

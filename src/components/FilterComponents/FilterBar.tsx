@@ -103,7 +103,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
     // Update the URL query parameters whenever filters change
     useEffect(() => {
         updateURL();
-    }, [currentPage]);
+    }, [currentPage, localFilters.editionId]);
 
     return (
         <form className="filter-bar" onSubmit={submitSearch}>
@@ -141,6 +141,7 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username }: P
                     setFilters={setLocalFilters}
                     selectedValue={localFilters.foilFilter} />
             </div>
+            <button className="apply-btn" type="submit">Apply Filters</button>
         </form>
     )
 }
