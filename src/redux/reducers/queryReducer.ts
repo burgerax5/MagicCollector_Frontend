@@ -5,6 +5,7 @@ import { SET_TOTAL_PAGES } from "../actions/actionTypes";
 const initialState: Queries = {
     filters: {
         search: "",
+        editionId: 0,
         sortBy: "name_asc",
         foilFilter: "any",
     },
