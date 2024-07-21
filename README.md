@@ -10,7 +10,7 @@ First go to: `src/api/config.ts` and set the value of `apiURL` to the name of th
 
 Now install all the packages from the command line:
 ```
-npm i install
+npm i
 ```
 
 After all the packages are installed you should be able to run it using:
