@@ -5,13 +5,13 @@ import Card from '../components/Cards/Card';
 import FilterBar from '../components/FilterComponents/FilterBar';
 import Pagination from '../components/Pagination/Pagination';
 import CardSkeletons from '../components/Skeletons/CardSkeletons';
-import { CardOwnedResponseDTO } from '../models/MyCards/CardOwnedResponseDTO';
-import '../styles/mycards.css'
+import { CardOwnedResponseDTO } from '../models/UserCards/CardOwnedResponseDTO';
+import '../styles/usercards.css'
 import getResultsRange from '../utils/getResultsRange';
 import { useDispatch } from 'react-redux';
 import { SetTotalCardsAction, SetTotalPagesAction, SetTotalValueAction } from '../redux/actions/actions';
 import { getUsername } from '../utils/checkAuthenticated';
-import CollectionDetails from '../components/MyCards/CollectionDetails';
+import CollectionDetails from '../components/UserCards/CollectionDetails';
 import addCommasToNumber from '../utils/addCommasToNumber';
 
 

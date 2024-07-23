@@ -1,7 +1,7 @@
-import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedDTO";
-import { CardOwnedResponseDTO } from "../../models/MyCards/CardOwnedResponseDTO";
+import { CardConditionOwnedDTO } from "../../models/UserCards/CardConditionsOwnedDTO";
+import { CardOwnedResponseDTO } from "../../models/UserCards/CardOwnedResponseDTO";
 import Cookies from "js-cookie";
-import { CollectionDetailsDTO } from "../../models/MyCards/CollectionDetailsDTO";
+import { CollectionDetailsDTO } from "../../models/UserCards/CollectionDetailsDTO";
 import apiURL from "../config";
 
 const getCardsOwned = async (username: string) => {

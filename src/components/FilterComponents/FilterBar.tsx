@@ -95,36 +95,24 @@ const FilterBar = ({ setSearchParams, currentPage, setCurrentPage, username, sea
             }
         })
 
-        console.log(params.get("editionId"))
         if (!params.get("editionId")) newFilters.editionId = 0;
-
-        console.log(newFilters)
 
         setLocalFilters(newFilters);
     }
 
     // Parse query parameters from URL
     useEffect(() => {
-        (async () => {
+        const fetchEditions = async () => {
             const editionsDropdown = await getEditionsDropdown();
             dispatch(SetEditionsDropdownAction([{ name: "All Editions", value: 0 }, ...editionsDropdown]));
-        })();
+        };
 
+        fetchEditions();
         updateFiltersFromURL();
     }, []);
 
-    useEffect(() => {
-        if (!searchParams.size) {
-            console.log("PP!")
-            setFlag(false)
-            updateFiltersFromURL();
-            setFlag(true)
-        }
-    }, [searchParams])
-
     // Update the URL query parameters whenever filters change
     useEffect(() => {
-        console.log(flag)
         if (flag) updateURL();
     }, [currentPage, localFilters]);
 

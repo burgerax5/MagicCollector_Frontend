@@ -18,15 +18,18 @@ const AllCardsPage = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        (async () => {
+        const fetchCards = async () => {
             try {
                 let page = await getCardsInPage(searchParams.toString());
                 setCardPageDTO(page);
             } catch (error) {
                 console.error("Error occurred while retrieving cards: ", error);
             }
-        })();
-    }, [searchParams]);
+        };
+
+        fetchCards();
+        console.log("we innit")
+    }, []);
 
     useEffect(() => {
         if (cardPageDTO) {

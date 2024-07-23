@@ -1,4 +1,4 @@
-import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedDTO";
+import { CardConditionOwnedDTO } from "../../models/UserCards/CardConditionsOwnedDTO";
 import { CardOwnedAction } from "../actions/actions";
 import { ADD_CARD_OWNED, DELETE_CARD_OWNED, RESET_CARDS_OWNED, UPDATE_CARD_OWNED } from "../actions/actionTypes";
 

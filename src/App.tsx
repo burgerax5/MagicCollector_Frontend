@@ -48,7 +48,7 @@ const router = createBrowserRouter([
         </ProtectRoute>
       },
       {
-        path: "mycards",
+        path: "user/:username",
         element: <ProtectRoute mode={USERS_ONLY}>
           <MyCardsPage />
         </ProtectRoute>

@@ -1,5 +1,5 @@
 import { CardDetailedDTO } from '../../models/Cards/CardDetailedDTO';
-import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO';
+import { CardConditionOwnedDTO } from '../../models/UserCards/CardConditionsOwnedDTO';
 import addCommasToNumber from '../../utils/addCommasToNumber';
 import ButtonGroup from './ButtonGroup'
 
