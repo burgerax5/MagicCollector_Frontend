@@ -70,7 +70,7 @@ const MyCardsPage = () => {
                 <>
                     <h1>{user}'s Collection</h1>
                     <CollectionDetails />
-                    <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} searchParams={searchParams} />
+                    <FilterBar setSearchParams={setSearchParams} searchParams={searchParams} />
                     {cardsOwnedPage?.cardPageDTO &&
                         <div className="card-results">
                             Results: {addCommasToNumber(startRange ?? 0)}-{addCommasToNumber(endRange ?? 0)} of {addCommasToNumber(cardsOwnedPage.cardPageDTO.results)}

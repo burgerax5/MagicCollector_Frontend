@@ -1,5 +1,6 @@
 import { EditionDropdown } from "../../models/Editions/EditionDropdown";
-import { CardConditionOwnedDTO } from "../../models/MyCards/CardConditionsOwnedDTO";
+import { Filters } from "../../models/Filters/IFilter";
+import { CardConditionOwnedDTO } from "../../models/UserCards/CardConditionsOwnedDTO";
 import * as actions from "./actionTypes";
 
 // Theme
@@ -71,6 +72,16 @@ export const SetTotalValueAction = (totalValue: number) => ({
 export const SetEditionsDropdownAction = (editionDropdown: EditionDropdown[]) => ({
     type: actions.SET_EDITIONS_DROPDOWN,
     payload: editionDropdown
+});
+
+// Filters
+export const SetFilter = (type: string, payload: string | number) => ({
+    type,
+    payload
+});
+
+export const ResetFilter = () => ({
+    type: actions.RESET_FILTERS
 });
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;

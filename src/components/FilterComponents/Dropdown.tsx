@@ -8,10 +8,9 @@ interface Props<T> {
     options: T[],
     setFilters: React.Dispatch<React.SetStateAction<Filters>>,
     selectedValue?: string,
-    resetPage: () => void;
 }
 
-const Dropdown = ({ label, name, options, setFilters, selectedValue, resetPage }: Props<{
+const Dropdown = ({ label, name, options, setFilters, selectedValue }: Props<{
     name: string,
     value: number | string
 }>) => {
@@ -26,8 +25,6 @@ const Dropdown = ({ label, name, options, setFilters, selectedValue, resetPage }
             ...prevFilters,
             [name]: name === "editionId" && !isValidEditionId ? undefined : e.target.value
         }));
-
-        resetPage();
     };
 
     const toggleDropdown = () => {

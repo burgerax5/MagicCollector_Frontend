@@ -6,11 +6,11 @@ import { useState } from 'react'
 
 interface Props {
     currentPage: number,
-    setCurrentPage: React.Dispatch<React.SetStateAction<number>>
+    setCurrentPage: (page: number) => void
 }
 
 const Pagination = ({ currentPage, setCurrentPage }: Props) => {
-    const { totalPages } = useSelector((state: RootState) => state.queries.pagination);
+    const { totalPages } = useSelector((state: RootState) => state.queries);
     const [pageInput, setPageInput] = useState<number>(currentPage);
 
     const handleChangePage = (page: number) => {
