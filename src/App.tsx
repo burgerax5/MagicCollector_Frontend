@@ -11,7 +11,7 @@ import {
 } from "react-router-dom";
 import ProtectRoute from './components/ProtectRoute'
 import { GUESTS_ONLY, USERS_ONLY } from "./models/ProtectMode";
-import MyCardsPage from "./pages/MyCardsPage";
+import UserCardsPage from "./pages/UserCardsPage";
 import EditionsPage from "./pages/EditionsPage";
 import AllCardsPage from "./pages/AllCardsPage";
 
@@ -50,7 +50,7 @@ const router = createBrowserRouter([
       {
         path: "user/:username",
         element: <ProtectRoute mode={USERS_ONLY}>
-          <MyCardsPage />
+          <UserCardsPage />
         </ProtectRoute>
       }
     ]

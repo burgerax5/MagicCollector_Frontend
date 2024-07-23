@@ -24,35 +24,41 @@ const MyCardsPage = () => {
 
     const dispatch = useDispatch();
 
+    const fetchCards = async () => {
+        let data = await getCardsOwned(user + "?" + searchParams.toString());
+        setCardsOwnedPage(data);
+    }
+
     useEffect(() => {
-        (async () => {
-            let data = await getCardsOwned(user + "?" + searchParams.toString());
-            setCardsOwnedPage(data);
-        })();
+        fetchCards();
     }, [searchParams]);
 
-    useEffect(() => {
-        (async () => {
-            let username: string | undefined;
+    const getUserCards = async () => {
+        let username: string | undefined;
 
-            params.forEach((value, key) => {
-                if (key === "user" && value.length > 0) {
-                    username = value
-                    setUser(username);
-                } else if (key === "user") {
-                    setUser(getUsername());
-                }
-            })
-
-            try {
-                const data = await getCardsOwned(username ?? "");
-                setCardsOwnedPage(data);
-                dispatch(SetTotalPagesAction(data.cardPageDTO.total_pages));
-            } catch (error) {
-                console.error(error);
-                dispatch(SetTotalPagesAction(0));
+        // Obtain the username from the URL
+        params.forEach((value, key) => {
+            if (key === "user" && value.length > 0) {
+                username = value
+                setUser(username);
+            } else if (key === "user") {
+                setUser(getUsername());
             }
-        })();
+        })
+
+        // Try get the user's cards
+        try {
+            const data = await getCardsOwned(username ?? "");
+            setCardsOwnedPage(data);
+            dispatch(SetTotalPagesAction(data.cardPageDTO.total_pages));
+        } catch (error) {
+            console.error(error);
+            dispatch(SetTotalPagesAction(0));
+        }
+    }
+
+    useEffect(() => {
+        getUserCards();
     }, []);
 
     useEffect(() => {

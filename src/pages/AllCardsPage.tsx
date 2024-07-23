@@ -17,21 +17,20 @@ const AllCardsPage = () => {
     const [cardPageDTO, setCardPageDTO] = useState<CardPageDTO | null>(null);
     const [searchParams, setSearchParams] = useSearchParams();
     const dispatch = useDispatch();
-    const { currentPage, totalPages } = useSelector((state: RootState) => state.queries);
+    const { currentPage } = useSelector((state: RootState) => state.queries);
+
+    const fetchCards = async () => {
+        try {
+            let page = await getCardsInPage(searchParams.toString());
+            setCardPageDTO(page);
+        } catch (error) {
+            console.error("Error occurred while retrieving cards: ", error);
+        }
+    };
 
     useEffect(() => {
-        const fetchCards = async () => {
-            try {
-                let page = await getCardsInPage(searchParams.toString());
-                setCardPageDTO(page);
-            } catch (error) {
-                console.error("Error occurred while retrieving cards: ", error);
-            }
-        };
-
         fetchCards();
-        console.log("we innit")
-    }, []);
+    }, [searchParams]);
 
     useEffect(() => {
         if (cardPageDTO) {
