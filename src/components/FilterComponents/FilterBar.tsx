@@ -39,7 +39,7 @@ const FilterBar = ({ setSearchParams, searchParams }: Props) => {
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const queryParams = getQueryFromFilters({ ...filters, search: tempSearch });
+        const queryParams = getQueryFromFilters({ ...filters, search: tempSearch, currentPage: 1 });
         setSearchParams(queryParams);
     }
 
@@ -57,11 +57,11 @@ const FilterBar = ({ setSearchParams, searchParams }: Props) => {
         dispatch(ReplaceFilter(newFilters));
     }, [searchParams])
 
+    // Prevent sending same request twice
     useEffect(() => {
         if (lastSeenPage !== filters.currentPage) {
             const queryParams = getQueryFromFilters({ ...filters, search: tempSearch });
             setSearchParams(queryParams);
-            console.log(queryParams.get('page'));
             setLastSeenPage(filters.currentPage);
         }
     }, [filters.currentPage])
