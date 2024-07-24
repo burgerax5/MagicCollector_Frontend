@@ -45,12 +45,13 @@
 
 .home-content {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
     gap: 3rem;
     align-items: center;
     justify-content: center;
     color: var(--secondary-font-colour);
     margin-inline: 20%;
+    margin-bottom: 3rem;
     min-height: 575px;
 }
 

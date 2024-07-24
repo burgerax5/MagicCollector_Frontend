@@ -3,8 +3,8 @@ import { RootState } from '../redux/reducers/rootReducer'
 import { Link } from 'react-router-dom';
 import '../styles/home.css'
 
-import TempImg from '../assets/tmp_img.webp';
-import TempImg2 from '../assets/tmp_img2.webp'
+import ShowcaseLight from '../assets/ShowcaseLight.webp';
+import ShowcaseDark from '../assets/ShowcaseDark.webp'
 import Logo from '../components/Logo';
 
 const HomePage = () => {
@@ -22,7 +22,7 @@ const HomePage = () => {
             </section>
             <section className="home-content">
                 <article>
-                    <h2>Track the Prices of <br></br>Your Collection</h2>
+                    <h2>Track Your Collection</h2>
                     <p>
                         MagicGatherer will scrape data from CardKingdom every 24 hours so you can easily keep track of the prices of your cards
                     </p>
@@ -32,7 +32,7 @@ const HomePage = () => {
                         <li>Filters to make it easier to search for a particular card</li>
                     </ul>
                 </article>
-                <img src={isDarkMode ? TempImg : TempImg2} alt="Snippet of card collection" loading='lazy' />
+                <img src={isDarkMode ? ShowcaseDark : ShowcaseLight} alt="Snippet of card collection" loading='lazy' />
             </section>
         </div>
     )
