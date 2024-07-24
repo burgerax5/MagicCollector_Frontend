@@ -96,7 +96,9 @@ const FilterBar = ({ setSearchParams, searchParams }: Props) => {
                     options={foilOptions}
                     selectedValue={filters.foilFilter} />
             </div>
-            <button type="submit">Apply Filters</button>
+            <button type="submit" className="apply-filters-btn">
+                Apply Filters
+            </button>
         </form>
     )
 }

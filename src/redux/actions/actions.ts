@@ -1,5 +1,4 @@
 import { EditionDropdown } from "../../models/Editions/EditionDropdown";
-import { Filters } from "../../models/Filters/IFilter";
 import { CardConditionOwnedDTO } from "../../models/UserCards/CardConditionsOwnedDTO";
 import * as actions from "./actionTypes";
 

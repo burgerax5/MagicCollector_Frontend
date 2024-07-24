@@ -20,6 +20,7 @@
 
 .filter-bar {
     display: flex;
+    align-items: center;
     justify-content: center;
     width: 100%;
     gap: 1rem;
@@ -158,6 +159,21 @@ select option:hover {
     gap: 1rem;
 }
 
+.apply-filters-btn {
+    height: 51px;
+    margin-top: auto;
+    border-radius: 1rem;
+    border: none;
+    cursor: pointer;
+    padding-inline: 1rem;
+    background-color: var(--primary);
+    color: var(--secondary);
+}
+
+.apply-filters-btn:hover {
+    filter: brightness(1.2);
+}
+
 @media screen and (max-width: 888px) {
     .search-wrapper {
         flex: 1;
@@ -202,5 +218,12 @@ select option:hover {
     .filter-bar>div.filter-bar-secondary {
         display: flex;
         flex-direction: row;
+    }
+}
+
+@media screen and (max-width: 888px) {
+    .apply-filters-btn {
+        width: 100%;
+        max-width: 500px;
     }
 }
