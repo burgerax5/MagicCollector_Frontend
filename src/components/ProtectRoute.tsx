@@ -15,7 +15,7 @@ const PrivateRoute = ({ children, mode }: Props) => {
     if (!isAuthenticated && mode === USERS_ONLY)
         return <Navigate to="/login" replace />
     else if (isAuthenticated && mode === GUESTS_ONLY)
-        return <Navigate to={`/mycards?user=${getUsername()}`} replace />
+        return <Navigate to={`/user/${getUsername()}`} replace />
 
     return children;
 }
