@@ -45,7 +45,11 @@ const Card = ({ card, hideDeleted = false }: Props) => {
         deletedConditions.map(async (co) => {
             await deleteCardOwned(co.id ?? 0);
             setIsChanged(true);
-            setHideCard(true);
+
+            // Check if there are any more of this card in collection
+            const qty = cardsOwned.new.filter(co => co.quantity > 0);
+            if (qty.length === 0)
+                setHideCard(true);
         });
 
         setShowPopup(false);
