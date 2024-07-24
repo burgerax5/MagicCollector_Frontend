@@ -1,16 +1,17 @@
 import { useEffect, useRef, useState } from "react"
 import { FiChevronDown, FiChevronUp } from "react-icons/fi"
-import { Filters } from "../../models/Filters/IFilter"
+import { useDispatch } from "react-redux"
+import { SetFilter } from "../../redux/actions/actions"
+import { SET_EDITION_FILTER, SET_FOIL_FILTER, SET_SORTING_FILTER } from "../../redux/actions/actionTypes"
 
 interface Props<T> {
     label: string,
     name: string,
     options: T[],
-    setFilters: React.Dispatch<React.SetStateAction<Filters>>,
     selectedValue?: string,
 }
 
-const Dropdown = ({ label, name, options, setFilters, selectedValue }: Props<{
+const Dropdown = ({ label, name, options, selectedValue }: Props<{
     name: string,
     value: number | string
 }>) => {
@@ -18,13 +19,25 @@ const Dropdown = ({ label, name, options, setFilters, selectedValue }: Props<{
     const [isOpen, setIsOpen] = useState(false);
     const dropdownRef = useRef<HTMLDivElement>(null);
 
+    const dispatch = useDispatch();
+
     const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const isValidEditionId = !isNaN(parseInt(e.target.value)) && parseInt(e.target.value);
 
-        setFilters((prevFilters: any) => ({
-            ...prevFilters,
-            [name]: name === "editionId" && !isValidEditionId ? undefined : e.target.value
-        }));
+        switch (name) {
+            case "editionId":
+                const editionId = !isValidEditionId ? 0 : e.target.value;
+                dispatch(SetFilter(SET_EDITION_FILTER, editionId));
+                break;
+            case "sortBy":
+                dispatch(SetFilter(SET_SORTING_FILTER, e.target.value));
+                break;
+            case "foilFilter":
+                dispatch(SetFilter(SET_FOIL_FILTER, e.target.value));
+                break;
+            default:
+                break;
+        }
     };
 
     const toggleDropdown = () => {

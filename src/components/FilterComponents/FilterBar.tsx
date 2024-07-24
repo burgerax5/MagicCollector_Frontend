@@ -1,23 +1,14 @@
 import Dropdown from "./Dropdown"
 import Search from "./Search"
 import { useState, useEffect } from "react"
-import { Filters } from "../../models/Filters/IFilter"
 import ToggleShowFiltersButton from "./ToggleShowFiltersButton"
-import { SortBy } from "../../models/Filters/ISortBy"
-import { FoilFilter } from "../../models/Filters/IFoilFilter"
-import { SetURLSearchParams, useLocation } from "react-router-dom"
+import { SetURLSearchParams } from "react-router-dom"
 import getEditionsDropdown from "../../api/editions/getEditionsDropdown"
-import { isValidToken } from "../../utils/checkAuthenticated"
 import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../redux/reducers/rootReducer"
-import { SetEditionsDropdownAction } from "../../redux/actions/actions"
-
-const initialState: Filters = {
-    search: "",
-    editionId: 0,
-    sortBy: "name_asc",
-    foilFilter: "any"
-}
+import { ReplaceFilter, SetEditionsDropdownAction } from "../../redux/actions/actions"
+import getQueryFromFilters from "../../utils/getQueryFromFilters"
+import getFiltersFromQuery from "../../utils/getFiltersFromQuery"
 
 const sortOptions = [
     { name: "Default", value: "" },
@@ -33,26 +24,47 @@ const foilOptions = [
 
 interface Props {
     setSearchParams: SetURLSearchParams
-    searchParams: URLSearchParams
+    searchParams: URLSearchParams,
 }
 
 
 const FilterBar = ({ setSearchParams, searchParams }: Props) => {
-    const [localFilters, setLocalFilters] = useState<Filters>(initialState);
     const [tempSearch, setTempSearch] = useState(""); // Search bar uses this, but on submit sets filters.search equal to this
     const [mobileShow, setMobileShow] = useState(false);
 
+    const dispatch = useDispatch();
     const editionOptions = useSelector((root: RootState) => root.editions);
     const filters = useSelector((root: RootState) => root.queries);
+    const [lastSeenPage, setLastSeenPage] = useState(filters.currentPage);
 
     const submitSearch = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(filters)
+        const queryParams = getQueryFromFilters({ ...filters, search: tempSearch });
+        setSearchParams(queryParams);
     }
 
     useEffect(() => {
-        console.log(searchParams)
-    }, [searchParams, setSearchParams])
+        const fetchEditionDropdown = async () => {
+            const editionsDropdown = await getEditionsDropdown();
+            dispatch(SetEditionsDropdownAction([{ name: "All Editions", value: 0 }, ...editionsDropdown]));
+        };
+
+        fetchEditionDropdown();
+    }, [])
+
+    useEffect(() => {
+        const newFilters = getFiltersFromQuery();
+        dispatch(ReplaceFilter(newFilters));
+    }, [searchParams])
+
+    useEffect(() => {
+        if (lastSeenPage !== filters.currentPage) {
+            const queryParams = getQueryFromFilters({ ...filters, search: tempSearch });
+            setSearchParams(queryParams);
+            console.log(queryParams.get('page'));
+            setLastSeenPage(filters.currentPage);
+        }
+    }, [filters.currentPage])
 
     return (
         <form className="filter-bar" onSubmit={submitSearch}>
@@ -70,23 +82,21 @@ const FilterBar = ({ setSearchParams, searchParams }: Props) => {
                     label="Edition"
                     name="editionId"
                     options={editionOptions}
-                    setFilters={setLocalFilters}
-                    selectedValue={localFilters.editionId.toString()} />
+                    selectedValue={filters.editionId.toString()} />
 
                 <Dropdown
                     label="Sort By"
                     name="sortBy"
                     options={sortOptions}
-                    setFilters={setLocalFilters}
-                    selectedValue={localFilters.sortBy} />
+                    selectedValue={filters.sortBy} />
 
                 <Dropdown
                     label="Show Foil"
                     name="foilFilter"
                     options={foilOptions}
-                    setFilters={setLocalFilters}
-                    selectedValue={localFilters.foilFilter} />
+                    selectedValue={filters.foilFilter} />
             </div>
+            <button type="submit">Apply Filters</button>
         </form>
     )
 }
