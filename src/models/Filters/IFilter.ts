@@ -12,8 +12,3 @@ export interface Pagination {
     currentPage: number,
     totalPages: number,
 }
-
-export interface Queries {
-    filters: Filters,
-    pagination: Pagination
-}

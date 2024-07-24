@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { CardConditionOwnedDTO } from '../../models/MyCards/CardConditionsOwnedDTO';
+import { CardConditionOwnedDTO } from '../../models/UserCards/CardConditionsOwnedDTO';
 
 interface Props {
     conditionOwned: CardConditionOwnedDTO,

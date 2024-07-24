@@ -28,7 +28,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <Link to={isValidToken() ? `/mycards?user=${getUsername()}` : "/"} className="logo">
+            <Link to={isValidToken() ? `/user/${getUsername()}` : "/"} className="logo">
                 <Logo />
             </Link>
 
@@ -48,7 +48,7 @@ const Header = () => {
                         <Link to="/editions" onClick={toggleMenu}>All Editions</Link>
                     </li>
                     <li>
-                        <Link to={"/mycards?user=" + getUsername()} onClick={toggleMenu}>My Cards</Link>
+                        <Link to={"/user/" + getUsername()} onClick={toggleMenu}>My Cards</Link>
                     </li>
                     {!isAuthenticated ?
                         <>

@@ -1,4 +1,4 @@
-import { CardConditionOwnedDTO } from "../models/MyCards/CardConditionsOwnedDTO";
+import { CardConditionOwnedDTO } from "../models/UserCards/CardConditionsOwnedDTO";
 
 const isAdded = (old: CardConditionOwnedDTO[], _new: CardConditionOwnedDTO[]) => {
     return _new.filter(newItem => !findByIdOrCondition(old, newItem));

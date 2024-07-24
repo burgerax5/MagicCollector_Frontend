@@ -5,13 +5,13 @@ import Card from '../components/Cards/Card';
 import FilterBar from '../components/FilterComponents/FilterBar';
 import Pagination from '../components/Pagination/Pagination';
 import CardSkeletons from '../components/Skeletons/CardSkeletons';
-import { CardOwnedResponseDTO } from '../models/MyCards/CardOwnedResponseDTO';
-import '../styles/mycards.css'
+import { CardOwnedResponseDTO } from '../models/UserCards/CardOwnedResponseDTO';
+import '../styles/usercards.css'
 import getResultsRange from '../utils/getResultsRange';
 import { useDispatch } from 'react-redux';
 import { SetTotalCardsAction, SetTotalPagesAction, SetTotalValueAction } from '../redux/actions/actions';
 import { getUsername } from '../utils/checkAuthenticated';
-import CollectionDetails from '../components/MyCards/CollectionDetails';
+import CollectionDetails from '../components/UserCards/CollectionDetails';
 import addCommasToNumber from '../utils/addCommasToNumber';
 
 
@@ -24,35 +24,41 @@ const MyCardsPage = () => {
 
     const dispatch = useDispatch();
 
+    const fetchCards = async () => {
+        let data = await getCardsOwned(user + "?" + searchParams.toString());
+        setCardsOwnedPage(data);
+    }
+
     useEffect(() => {
-        (async () => {
-            let data = await getCardsOwned(user + "?" + searchParams.toString());
-            setCardsOwnedPage(data);
-        })();
+        fetchCards();
     }, [searchParams]);
 
-    useEffect(() => {
-        (async () => {
-            let username: string | undefined;
+    const getUserCards = async () => {
+        let username: string | undefined;
 
-            params.forEach((value, key) => {
-                if (key === "user" && value.length > 0) {
-                    username = value
-                    setUser(username);
-                } else if (key === "user") {
-                    setUser(getUsername());
-                }
-            })
-
-            try {
-                const data = await getCardsOwned(username ?? "");
-                setCardsOwnedPage(data);
-                dispatch(SetTotalPagesAction(data.cardPageDTO.total_pages));
-            } catch (error) {
-                console.error(error);
-                dispatch(SetTotalPagesAction(0));
+        // Obtain the username from the URL
+        params.forEach((value, key) => {
+            if (key === "user" && value.length > 0) {
+                username = value
+                setUser(username);
+            } else if (key === "user") {
+                setUser(getUsername());
             }
-        })();
+        })
+
+        // Try get the user's cards
+        try {
+            const data = await getCardsOwned(username ?? "");
+            setCardsOwnedPage(data);
+            dispatch(SetTotalPagesAction(data.cardPageDTO.total_pages));
+        } catch (error) {
+            console.error(error);
+            dispatch(SetTotalPagesAction(0));
+        }
+    }
+
+    useEffect(() => {
+        getUserCards();
     }, []);
 
     useEffect(() => {
@@ -70,7 +76,7 @@ const MyCardsPage = () => {
                 <>
                     <h1>{user}'s Collection</h1>
                     <CollectionDetails />
-                    <FilterBar setSearchParams={setSearchParams} currentPage={currentPage} setCurrentPage={setCurrentPage} searchParams={searchParams} />
+                    <FilterBar setSearchParams={setSearchParams} searchParams={searchParams} />
                     {cardsOwnedPage?.cardPageDTO &&
                         <div className="card-results">
                             Results: {addCommasToNumber(startRange ?? 0)}-{addCommasToNumber(endRange ?? 0)} of {addCommasToNumber(cardsOwnedPage.cardPageDTO.results)}
