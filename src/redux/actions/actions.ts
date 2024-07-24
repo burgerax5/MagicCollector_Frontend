@@ -80,13 +80,24 @@ export const SetFilter = (type: string, payload: string | number) => ({
     payload
 });
 
+export const ReplaceFilter = (newFilters: {
+    search: string;
+    editionId: number;
+    sortBy: string;
+    foilFilter: string;
+    currentPage: number;
+}) => ({
+    type: actions.REPLACE_FILTERS,
+    payload: newFilters
+});
+
 export const ResetFilter = () => ({
     type: actions.RESET_FILTERS
 });
 
 export type ThemeActionType = ReturnType<typeof toggleTheme>;
 export type LoginActionType = ReturnType<typeof LoginAction>;
-export type QueryActionType = ReturnType<typeof SetTotalPagesAction>;
+export type QueryActionType = ReturnType<typeof SetTotalPagesAction | typeof SetFilter | typeof ReplaceFilter | typeof ResetFilter>;
 export type CardOwnedAction = ReturnType<typeof AddCardOwnedAction | typeof UpdateCardOwnedAction | typeof DeleteCardOwnedAction>;
 export type ResetCardOwnedAction = ReturnType<typeof ResetCardsOwnedAction>;
 export type CollectionDetailsAction = ReturnType<typeof SetTotalCardsAction | typeof SetTotalValueAction>;
