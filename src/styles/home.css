@@ -41,6 +41,11 @@
     text-decoration: none;
     border-radius: 1.25rem;
     font-weight: bold;
+    transition: 0.15s ease-in-out;
+}
+
+.call-to-action:hover {
+    filter: brightness(1.1);
 }
 
 .home-content {
