@@ -28,7 +28,7 @@ const Header = () => {
 
     return (
         <header className="header">
-            <Link to={isValidToken() ? `/user/${getUsername()}` : "/"} className="logo">
+            <Link to={isValidToken() ? "/cards" : "/"} className="logo">
                 <Logo />
             </Link>
 
