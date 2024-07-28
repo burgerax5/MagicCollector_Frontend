@@ -15,6 +15,7 @@ import UserCardsPage from "./pages/UserCardsPage";
 import EditionsPage from "./pages/EditionsPage";
 import AllCardsPage from "./pages/AllCardsPage";
 import ForgotPassword from "./pages/ForgotPassword";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,12 @@ const router = createBrowserRouter([
         path: "forgot-password",
         element: <ProtectRoute mode={GUESTS_ONLY}>
           <ForgotPassword />
+        </ProtectRoute>
+      },
+      {
+        path: "reset-password",
+        element: <ProtectRoute mode={GUESTS_ONLY}>
+          <ResetPasswordPage />
         </ProtectRoute>
       },
       {

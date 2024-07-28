@@ -16,8 +16,8 @@ const ForgotPassword = () => {
 
     const sendResetRequest = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        await requestPasswordReset(email);
         setEmailSent(true);
+        await requestPasswordReset(email);
     }
 
     const validateEmail = (email: string) => {
