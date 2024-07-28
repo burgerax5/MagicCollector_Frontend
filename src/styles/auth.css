@@ -20,7 +20,8 @@
     gap: 1.5rem;
 }
 
-.auth-form-container h1 {
+.auth-form-container h1,
+.auth-form-container h2 {
     color: var(--font-colour);
     text-align: center;
     margin: 0;
