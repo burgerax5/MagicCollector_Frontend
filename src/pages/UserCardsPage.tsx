@@ -8,21 +8,24 @@ import CardSkeletons from '../components/Skeletons/CardSkeletons';
 import { CardOwnedResponseDTO } from '../models/UserCards/CardOwnedResponseDTO';
 import '../styles/usercards.css'
 import getResultsRange from '../utils/getResultsRange';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { SetTotalCardsAction, SetTotalPagesAction, SetTotalValueAction } from '../redux/actions/actions';
 import { getUsername } from '../utils/checkAuthenticated';
 import CollectionDetails from '../components/UserCards/CollectionDetails';
 import addCommasToNumber from '../utils/addCommasToNumber';
-
+import { RootState } from '../redux/reducers/rootReducer';
+import { SetFilter } from '../redux/actions/actions';
+import { SET_CURRENT_PAGE } from '../redux/actions/actionTypes';
 
 const MyCardsPage = () => {
     const [cardsOwnedPage, setCardsOwnedPage] = useState<CardOwnedResponseDTO | undefined>();
     const [searchParams, setSearchParams] = useSearchParams();
     const [user, setUser] = useState<string | null>(getUsername());
-    const [currentPage, setCurrentPage] = useState(1);
+
     const params = new URLSearchParams(location.search);
 
     const dispatch = useDispatch();
+    const { currentPage } = useSelector((state: RootState) => state.queries);
 
     const fetchCards = async () => {
         let data = await getCardsOwned(user + "?" + searchParams.toString());
@@ -67,6 +70,22 @@ const MyCardsPage = () => {
             dispatch(SetTotalValueAction(cardsOwnedPage.estimatedValue));
         }
     }, [cardsOwnedPage]);
+
+    useEffect(() => {
+        let pageDTO = cardsOwnedPage?.cardPageDTO;
+        if (pageDTO) {
+            const totalPages = pageDTO.total_pages;
+            dispatch(SetTotalPagesAction(totalPages));
+
+            const samePage = currentPage === pageDTO?.curr_page;
+            if (!samePage && !isNaN(pageDTO.curr_page))
+                SetFilter(SET_CURRENT_PAGE, pageDTO?.curr_page);
+        }
+    }, [cardsOwnedPage?.cardPageDTO])
+
+    const setCurrentPage = (page: number) => {
+        dispatch(SetFilter(SET_CURRENT_PAGE, page));
+    }
 
     const { startRange, endRange } = getResultsRange(currentPage, 50, cardsOwnedPage?.cardPageDTO?.results);
 
