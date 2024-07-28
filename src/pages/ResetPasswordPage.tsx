@@ -3,7 +3,7 @@ import Logo from '../components/Logo'
 import { LoginField } from '../models/UserLogin'
 import PasswordField from '../components/LoginFields/PasswordField'
 import ConfirmPasswordField from '../components/LoginFields/ConfirmPasswordField'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import resetPassword from '../api/user/resetPassword'
 
 const initialState = {
