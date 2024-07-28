@@ -6,7 +6,7 @@ import { LoginField } from '../../models/UserLogin';
 type Props = {
     password: string,
     resetField: (field: LoginField) => void,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void,
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, name: LoginField) => void,
     isRegisterForm: boolean
 }
 
@@ -31,7 +31,7 @@ const PasswordField = ({ password, resetField, onChange, isRegisterForm }: Props
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e);
+        onChange(e, "password");
         if (e.target.value.length > 0) setError("");
     }
 

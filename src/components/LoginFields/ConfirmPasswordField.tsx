@@ -7,7 +7,7 @@ type Props = {
     password: string,
     confirmPassword: string,
     resetField: (field: LoginField) => void,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, name: LoginField) => void
 }
 
 const ConfirmPasswordField = (props: Props) => {
@@ -31,7 +31,7 @@ const ConfirmPasswordField = (props: Props) => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        props.onChange(e);
+        props.onChange(e, "confirmPassword");
         const samePassword = props.password === e.target.value;
         if (e.target.value.length > 0 && samePassword) setError("");
         else if (e.target.value.length > 0 && !samePassword) setError("Passwords do not match");

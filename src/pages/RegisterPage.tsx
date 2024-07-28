@@ -7,8 +7,10 @@ import { Link, useNavigate } from 'react-router-dom';
 import ConfirmPasswordField from '../components/LoginFields/ConfirmPasswordField';
 import requestRegister from '../api/user/register';
 import { LoginField } from '../models/UserLogin';
+import EmailField from '../components/LoginFields/EmailField';
 
 const initialFormState = {
+    email: "",
     username: "",
     password: "",
     confirmPassword: ""
@@ -17,9 +19,7 @@ const RegisterPage = () => {
     const [form, setForm] = useState(initialFormState);
     const navigate = useNavigate();
 
-    const updateUsername = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, username: e.target.value })
-    const updatePassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, password: e.target.value })
-    const updateConfirmPassword = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, confirmPassword: e.target.value })
+    const updateField = (e: React.ChangeEvent<HTMLInputElement>, name: LoginField) => setForm({ ...form, [name]: e.target.value })
     const resetField = (field: LoginField) => setForm({ ...form, [field]: "" })
 
     const submitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -31,7 +31,8 @@ const RegisterPage = () => {
         }
     }
 
-    console.log(!(form.username && form.password && form.confirmPassword), form.password !== form.confirmPassword)
+    const matchingPassword = form.password === form.confirmPassword;
+    const allFieldsFilled = form.email && form.username && form.password && form.confirmPassword;
 
     return (
         <div className="container">
@@ -39,17 +40,18 @@ const RegisterPage = () => {
                 <Logo />
                 <h1>Sign Up</h1>
                 <form className="auth-form" onSubmit={submitRegister}>
-                    <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
-                    <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} isRegisterForm={true} />
+                    <EmailField email={form.email} resetField={resetField} onChange={updateField} />
+                    <UsernameField username={form.username} resetField={resetField} onChange={updateField} />
+                    <PasswordField password={form.password} resetField={resetField} onChange={updateField} isRegisterForm={true} />
                     <ConfirmPasswordField
                         password={form.password}
                         confirmPassword={form.confirmPassword}
                         resetField={resetField}
-                        onChange={updateConfirmPassword} />
+                        onChange={updateField} />
 
                     <button
-                        className={(form.username && form.password && form.confirmPassword) ? "submit-btn" : "submit-btn disabled"}
-                        disabled={!(form.username && form.password && form.confirmPassword) || form.password !== form.confirmPassword}>
+                        className={allFieldsFilled && matchingPassword ? "submit-btn" : "submit-btn disabled"}
+                        disabled={!allFieldsFilled || !matchingPassword}>
                         Register
                     </button>
                     <span className="link-msg">Already a member? <Link className="link" to="/login">Sign In</Link></span>

@@ -5,7 +5,7 @@ import { LoginField } from '../../models/UserLogin';
 type Props = {
     username: string,
     resetField: (field: LoginField) => void,
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    onChange: (e: React.ChangeEvent<HTMLInputElement>, name: LoginField) => void
 }
 
 const UsernameField = ({ username, resetField, onChange }: Props) => {
@@ -28,7 +28,7 @@ const UsernameField = ({ username, resetField, onChange }: Props) => {
     }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        onChange(e);
+        onChange(e, "username");
         if (e.target.value.length > 0) setError("");
     }
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react'
 import '../styles/auth.css'
-import { LoginField } from '../models/UserLogin';
 import Logo from '../components/Logo';
 import React from 'react'
 import EmailField from '../components/LoginFields/EmailField';
@@ -17,10 +16,8 @@ const ForgotPassword = () => {
 
     const sendResetRequest = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await requestPasswordReset(email);
-
-        if (res.ok)
-            setEmailSent(true);
+        await requestPasswordReset(email);
+        setEmailSent(true);
     }
 
     const validateEmail = (email: string) => {
