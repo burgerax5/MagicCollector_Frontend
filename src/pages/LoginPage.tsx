@@ -50,7 +50,10 @@ const LoginPage = () => {
                         disabled={!(form.username && form.password)}>
                         Log In
                     </button>
-                    <Link className="link" to="/register">Register Now</Link>
+                    <div className="links">
+                        <Link className="link" to="/forgot-password">Forgot Password?</Link>
+                        <Link className="link" to="/register">Register Now</Link>
+                    </div>
                 </form>
             </div>
         </div>

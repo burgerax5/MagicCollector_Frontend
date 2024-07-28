@@ -17,11 +17,13 @@
     border-radius: 1rem;
     padding: 3rem;
     border: 1px solid var(--tertiary);
+    gap: 1.5rem;
 }
 
 .auth-form-container h1 {
     color: var(--font-colour);
     text-align: center;
+    margin: 0;
 }
 
 .container {
@@ -130,8 +132,30 @@
     color: var(--font-colour);
 }
 
+.auth-form .links {
+    display: flex;
+    justify-content: space-between;
+}
+
+.auth-form .links .link {
+    margin-left: 0;
+}
+
+.auth-form-container .message {
+    font-size: small;
+    color: var(--tertiary);
+    text-align: center;
+}
+
 @media screen and (max-width: 888px) {
     .container {
         margin-top: 2rem;
+    }
+}
+
+@media screen and (max-width: 300px) {
+    .auth-form .links {
+        flex-direction: column;
+        gap: 1rem;
     }
 }

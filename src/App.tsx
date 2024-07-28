@@ -14,6 +14,7 @@ import { GUESTS_ONLY, USERS_ONLY } from "./models/ProtectMode";
 import UserCardsPage from "./pages/UserCardsPage";
 import EditionsPage from "./pages/EditionsPage";
 import AllCardsPage from "./pages/AllCardsPage";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const router = createBrowserRouter([
   {
@@ -45,6 +46,12 @@ const router = createBrowserRouter([
         path: "register",
         element: <ProtectRoute mode={GUESTS_ONLY}>
           <RegisterPage />
+        </ProtectRoute>
+      },
+      {
+        path: "forgot-password",
+        element: <ProtectRoute mode={GUESTS_ONLY}>
+          <ForgotPassword />
         </ProtectRoute>
       },
       {
