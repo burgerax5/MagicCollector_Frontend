@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { LoginField } from '../../models/UserLogin';
 import { IoCloseCircle } from 'react-icons/io5';
+import validateEmail from '../../utils/validateEmail';
 
 type Props = {
     email: string,
@@ -41,11 +42,6 @@ const EmailField = ({ email, resetField, onChange }: Props) => {
             setError("Email cannot be empty");
         }
     }
-
-    const validateEmail = (email: string) => {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    };
 
     useEffect(() => {
         if (email.length > 0 && !isMinimised)

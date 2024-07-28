@@ -17,6 +17,7 @@ const initialFormState = {
 
 const LoginPage = () => {
     const [form, setForm] = useState(initialFormState);
+    const [error, setError] = useState<string | null>(null);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -27,12 +28,14 @@ const LoginPage = () => {
     const submitLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const res = await requestLogin(form);
+        const data = await res.json();
 
         if (res.ok) {
-            const data = await res.json();
             Cookies.set("auth", data.token);
             dispatch(LoginAction(form.username));
             navigate("/");
+        } else {
+            setError(data.message);
         }
     }
 
@@ -41,6 +44,7 @@ const LoginPage = () => {
             <div className="auth-form-container">
                 <Logo />
                 <h1>Log In</h1>
+                {error && <div className="warning">{error}</div>}
                 <form className="auth-form" onSubmit={submitLogin}>
                     <UsernameField username={form.username} resetField={resetField} onChange={updateUsername} />
                     <PasswordField password={form.password} resetField={resetField} onChange={updatePassword} isRegisterForm={false} />

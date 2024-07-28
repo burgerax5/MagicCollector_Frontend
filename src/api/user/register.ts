@@ -6,7 +6,7 @@ const requestRegister = async (form: UserLogin) => {
     const res = await fetch(url, {
         method: "POST",
         body: JSON.stringify({
-            email: form.email,
+            email: form.email as string,
             username: form.username,
             password: form.password
         }),

@@ -8,6 +8,7 @@ import ConfirmPasswordField from '../components/LoginFields/ConfirmPasswordField
 import requestRegister from '../api/user/register';
 import { LoginField } from '../models/UserLogin';
 import EmailField from '../components/LoginFields/EmailField';
+import validateEmail from '../utils/validateEmail';
 
 const initialFormState = {
     email: "",
@@ -17,6 +18,7 @@ const initialFormState = {
 }
 const RegisterPage = () => {
     const [form, setForm] = useState(initialFormState);
+    const [error, setError] = useState<string | null>(null);
     const navigate = useNavigate();
 
     const updateField = (e: React.ChangeEvent<HTMLInputElement>, name: LoginField) => setForm({ ...form, [name]: e.target.value })
@@ -24,21 +26,26 @@ const RegisterPage = () => {
 
     const submitRegister = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await requestRegister({ username: form.username, password: form.password });
+        const res = await requestRegister({ email: form.email, username: form.username, password: form.password });
 
         if (res.ok) {
             navigate("/login");
+        } else {
+            const errorData = await res.json();
+            setError(errorData.message);
         }
     }
 
     const matchingPassword = form.password === form.confirmPassword;
     const allFieldsFilled = form.email && form.username && form.password && form.confirmPassword;
+    const validEmail = validateEmail(form.email);
 
     return (
         <div className="container">
             <div className="auth-form-container">
                 <Logo />
                 <h1>Sign Up</h1>
+                {error && <div className="warning">{error}</div>}
                 <form className="auth-form" onSubmit={submitRegister}>
                     <EmailField email={form.email} resetField={resetField} onChange={updateField} />
                     <UsernameField username={form.username} resetField={resetField} onChange={updateField} />
@@ -50,8 +57,8 @@ const RegisterPage = () => {
                         onChange={updateField} />
 
                     <button
-                        className={allFieldsFilled && matchingPassword ? "submit-btn" : "submit-btn disabled"}
-                        disabled={!allFieldsFilled || !matchingPassword}>
+                        className={allFieldsFilled && matchingPassword && validEmail ? "submit-btn" : "submit-btn disabled"}
+                        disabled={!allFieldsFilled || !matchingPassword || !validEmail}>
                         Register
                     </button>
                     <span className="link-msg">Already a member? <Link className="link" to="/login">Sign In</Link></span>

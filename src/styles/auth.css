@@ -27,6 +27,10 @@
     margin: 0;
 }
 
+.auth-form-container .warning {
+    color: var(--red);
+}
+
 .container {
     width: 100%;
     height: 100%;
